@@ -11,9 +11,10 @@ import { Router } from '@angular/router';
 })
 export class Login {
 
-  public static baseUrl = "http://localhost:3000";
+  //public static baseUrl = "http://localhost:3000";
   public email = "";
   public password = "";
+  public mensaje = "";
 
   public arrayUsuarios = [
     {
@@ -39,7 +40,13 @@ export class Login {
     if(validado)
     {
       console.log("login exitoso");
+      let user = this.email.split("@")[0];
+      let name = user.charAt(0).toUpperCase() + user.slice(1);
+
+      this.mensaje = `Bienvenido ${name}`;
+      
       this.router.navigate(['/home']);
+      localStorage.setItem("user", name);
     }
     else {
       console.log("NO NO...");
@@ -70,13 +77,13 @@ export class Login {
   }
 
   completar() {
-
     let index = Math.floor(Math.random() * this.arrayUsuarios.length);
-
-    console.log(index);
-
     this.email = this.arrayUsuarios[index].user;
     this.password = this.arrayUsuarios[index].pass;
+  }
+
+  saludar() {
+    return this.mensaje;
   }
 
 }
