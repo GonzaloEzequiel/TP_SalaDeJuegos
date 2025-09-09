@@ -1,13 +1,7 @@
 <main>
+  <h1>TEST LUNES</h1>
   <nav>
-    <div id="title-container">
-        <h1 id="title">Sala de Juegos</h1>
-    </div>
-    <button id="login-btn" (click)="mostrarLogin = !mostrarLogin">Ingresar</button>
+      <app-menu id="nav"></app-menu>
   </nav>
-  <app-home></app-home>
-  <app-login *ngIf="mostrarLogin"></app-login>
-  <app-quien-soy></app-quien-soy>
+  <router-outlet id="test"/>
 </main>
-
-<router-outlet />

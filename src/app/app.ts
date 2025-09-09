@@ -1,10 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { Login } from "./componentes/login/login";
-import { QuienSoy } from "./componentes/quien-soy/quien-soy";
-import { Home } from "./componentes/home/home";
-import { NgIf } from '@angular/common';
+import { Menu } from "./componentes/menu/menu";
 
 @Component({
   selector: 'app-root',
@@ -12,10 +9,7 @@ import { NgIf } from '@angular/common';
   imports: [
     RouterOutlet,
     FormsModule,
-    Login,
-    QuienSoy,
-    Home,
-    NgIf
+    Menu
 ],
   templateUrl: './app.html',
   styleUrls: ['./app.scss']
