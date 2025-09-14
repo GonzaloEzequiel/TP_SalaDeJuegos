@@ -1,0 +1,53 @@
+[debug] [2025-09-14T21:00:37.011Z] ----------------------------------------------------------------------
+[debug] [2025-09-14T21:00:37.014Z] Command:       C:\nvm4w\nodejs\node.exe C:\nvm4w\nodejs\node_modules\firebase-tools\lib\bin\firebase.js emulators:start --only hosting
+[debug] [2025-09-14T21:00:37.014Z] CLI Version:   14.15.1
+[debug] [2025-09-14T21:00:37.014Z] Platform:      win32
+[debug] [2025-09-14T21:00:37.015Z] Node Version:  v22.16.0
+[debug] [2025-09-14T21:00:37.015Z] Time:          Sun Sep 14 2025 18:00:37 GMT-0300 (hora estándar de Argentina)
+[debug] [2025-09-14T21:00:37.015Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-09-14T21:00:37.254Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-09-14T21:00:37.255Z] > authorizing via signed-in user (gep.perez@gmail.com)
+[info] i  emulators: Starting emulators: hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: hosting"}}
+[debug] [2025-09-14T21:00:37.272Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-09-14T21:00:37.272Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2025-09-14T21:00:37.273Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2025-09-14T21:00:37.278Z] [hub] writing locator at C:\Users\geppe\AppData\Local\Temp\hub-tp-saladejuegos-e8343.json
+[debug] [2025-09-14T21:00:37.300Z] Checked if tokens are valid: true, expires at: 1757887135600
+[debug] [2025-09-14T21:00:37.301Z] Checked if tokens are valid: true, expires at: 1757887135600
+[debug] [2025-09-14T21:00:37.302Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/tp-saladejuegos-e8343/sites 
+[debug] [2025-09-14T21:00:38.430Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/tp-saladejuegos-e8343/sites 200
+[debug] [2025-09-14T21:00:38.430Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/tp-saladejuegos-e8343/sites {"sites":[{"name":"projects/tp-saladejuegos-e8343/sites/tp-saladejuegos-e8343","defaultUrl":"https://tp-saladejuegos-e8343.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2025-09-14T21:00:38.430Z] Checked if tokens are valid: true, expires at: 1757887135600
+[debug] [2025-09-14T21:00:38.430Z] Checked if tokens are valid: true, expires at: 1757887135600
+[debug] [2025-09-14T21:00:38.430Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/tp-saladejuegos-e8343/webApps/-/config [none]
+[debug] [2025-09-14T21:00:39.190Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/tp-saladejuegos-e8343/webApps/-/config 200
+[debug] [2025-09-14T21:00:39.190Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/tp-saladejuegos-e8343/webApps/-/config {"projectId":"tp-saladejuegos-e8343","storageBucket":"tp-saladejuegos-e8343.firebasestorage.app","apiKey":"AIzaSyAykURx0t55O9oxVykZQsqFOPUzBMCuTRg","authDomain":"tp-saladejuegos-e8343.firebaseapp.com","messagingSenderId":"222455099192"}
+[debug] [2025-09-14T21:00:39.194Z] Checked if tokens are valid: true, expires at: 1757887135600
+[debug] [2025-09-14T21:00:39.195Z] Checked if tokens are valid: true, expires at: 1757887135600
+[debug] [2025-09-14T21:00:39.195Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/tp-saladejuegos-e8343 [none]
+[debug] [2025-09-14T21:00:39.500Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/tp-saladejuegos-e8343 200
+[debug] [2025-09-14T21:00:39.500Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/tp-saladejuegos-e8343 {"projectId":"tp-saladejuegos-e8343","projectNumber":"222455099192","displayName":"TP-SalaDeJuegos","name":"projects/tp-saladejuegos-e8343","resources":{"hostingSite":"tp-saladejuegos-e8343"},"state":"ACTIVE","etag":"1_976679e6-8d6d-49de-9e12-b48a16cccefc"}
+[info] i  hosting[tp-saladejuegos-e8343]: Serving hosting files from: dist/TP1_SalaDeJuegos/browser {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1mdist/TP1_SalaDeJuegos/browser\u001b[22m"}}
+[info] +  hosting[tp-saladejuegos-e8343]: Local server: http://127.0.0.1:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5000\u001b[22m\u001b[24m"}}
+[warn] !  emulators: The Emulator UI is not starting, either because none of the running emulators have a UI component or the Emulator UI cannot determine the Project ID. Pass the --project flag to specify a project. {"metadata":{"emulator":{"name":"hub"},"message":"The Emulator UI is not starting, either because none of the running emulators have a UI component or the Emulator UI cannot determine the Project ID. Pass the --project flag to specify a project."}}
+[debug] [2025-09-14T21:00:39.522Z] Could not find VSCode notification endpoint: FetchError: request to http://localhost:40001/vscode/notify failed, reason: . If you are not running the Firebase Data Connect VSCode extension, this is expected and not an issue.
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────┬────────────────┐
+│ Emulator │ Host:Port      │
+├──────────┼────────────────┤
+│ Hosting  │ 127.0.0.1:5000 │
+└──────────┴────────────────┘
+  Emulator Hub host: 127.0.0.1 port: 4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[info] i  hosting: 127.0.0.1 - - [14/Sep/2025:21:00:43 +0000] "GET /login HTTP/1.1" 200 - "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [14/Sep/2025:21:00:43 +0000] \"GET /login HTTP/1.1\" 200 - \"-\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [14/Sep/2025:21:00:43 +0000] "GET /styles-GK6SAB2N.css HTTP/1.1" 200 429 "http://127.0.0.1:5000/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [14/Sep/2025:21:00:43 +0000] \"GET /styles-GK6SAB2N.css HTTP/1.1\" 200 429 \"http://127.0.0.1:5000/login\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [14/Sep/2025:21:00:43 +0000] "GET /polyfills-5CFQRCPP.js HTTP/1.1" 200 - "http://127.0.0.1:5000/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [14/Sep/2025:21:00:43 +0000] \"GET /polyfills-5CFQRCPP.js HTTP/1.1\" 200 - \"http://127.0.0.1:5000/login\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [14/Sep/2025:21:00:43 +0000] "GET /main-QXMXDBL5.js HTTP/1.1" 200 - "http://127.0.0.1:5000/login" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [14/Sep/2025:21:00:43 +0000] \"GET /main-QXMXDBL5.js HTTP/1.1\" 200 - \"http://127.0.0.1:5000/login\" \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36\""}}
