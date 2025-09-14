@@ -1,0 +1,28 @@
+.banner {
+  height: 10vh;
+  width: 100%;
+  background-color: var(--color-marcos);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center; // opcional, centra verticalmente
+  padding: 0 2vw;      // opcional, agrega espacio a los lados
+}
+
+#title {
+  color: var(--color-textos);
+  font-size: 50px;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+
+.btn-component {
+  background-color: --var(--color-contrastes);
+  color: var(--color-textos);
+  margin: 0 2vw;
+  text-decoration: none;
+}
+
+.btn-component:hover {
+  background-color: #6096ba;
+}

@@ -1,0 +1,13 @@
+<main id="main-container">
+  <div id="login-container">
+    <h3 id="login-title">Ingrese sus credenciales</h3>
+    <form id="login-form" (ngSubmit)="validar()">
+      <label for="user-email" class="form-component form-text">Correo Electrónico: </label>
+      <input type="email" id="user-email" class="form-component" [(ngModel)]="email" name="email" required />
+      <label for="password" class="form-component form-text">Contraseña: </label>
+      <input type="password" id="user-pswd" class="form-component" [(ngModel)]="password" name="password" required />
+      <input type="submit" class="form-component" id="login-btn" value="Ingresar" />
+      <input type="button" class="form-component" id="quick-login-btn" value="Ingreso Rápido" (click)="completar()"/>
+    </form>
+  </div>
+</main>

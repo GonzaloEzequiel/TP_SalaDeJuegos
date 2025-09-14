@@ -1,0 +1,49 @@
+.container-container {
+    display: flex;
+    flex-direction: column;
+    margin: 10vh;
+    min-height: 90vh;
+}
+
+.juegos-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.juego-card {
+
+    height: 300px;
+    width: 35vw;
+    background-color: white;
+    padding: 3px;
+    border: 3px solid white;
+    border-radius: 10px;
+    margin: 5vh;
+        
+}
+
+#ahorcado-game {
+    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEQRqkb4JQD_dqHvufDItzkV9s0IXDxUZ3AQ&s"); 
+    background-position: center;
+    background-size: 100%;  
+}
+
+#mayormenor-game {
+    background: url("https://aprendiendomatematicas.com/wp-content/uploads/2023/06/signos-mas-menos-igual-768x398.jpg");
+    background-position: center;
+    background-size: 100%;
+}
+
+#preguntados-game {
+    background: url("https://t4.ftcdn.net/jpg/03/09/44/57/360_F_309445752_htXY7HAUYQsx8mD8zhmHgdtgaxyUUSx2.jpg");
+    background-position: center;
+    background-size: 100%;
+}
+
+#mijuego-game {
+    background: url("https://fotografias-2.larazon.es/clipping/cmsimages01/2025/05/27/E692D339-F763-43A7-A8E2-D15DC3F63058/half-life-3-seria-final-saga-segun-ultimas-informaciones_98.jpg?crop=1280,720,x0,y0&width=1900&height=1069&optimize=low&format=webply");
+    background-position: center;
+    background-size: 100%;
+}

@@ -1,0 +1,48 @@
+.card-container {
+    width: 70vw;
+    max-height: 90vh;
+    border: 0.1px solid white;
+
+    border-radius: 20px;
+    background-color: rgba(96, 150, 186, 0.8);
+    padding-bottom: 25px;
+    box-shadow: 3px 3px 10px -3px grey;
+    
+    margin: 2vh auto;
+}
+
+#card-title {
+    font-weight: bolder;
+    font-size: 40px;
+    text-align: center;
+    color: black;
+    margin: 1vh;
+}
+
+hr {
+    width: 50%;
+}
+
+#data-container {
+    margin: 3vh auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#text-container {
+    width: 70%;
+}
+
+.card-text {
+    text-align: center;
+    font-size: 18px;
+    color:  black;
+}
+
+img {
+    height: 15vh;
+    width: auto;
+    border-radius: 20px;
+    border: 3px solid white;
+}

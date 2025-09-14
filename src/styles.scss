@@ -1,1 +1,35 @@
-/* You can add global styles to this file, and also import other style files */
+// :root {
+//     --color-fondos: #e7ecef;
+//     --color-marcos: #274c77;
+//     --color-mensajes: #6096ba;
+//     --color-contrastes: #a3cef1;
+//     --color-textos: black;
+// }
+
+:root {
+    --color-fondos: #1F2041;        // Space cadet
+    --color-marcos: #6096BA;        // Air Superiority blue
+    --color-contrastes: #A8763E;    // Copper
+    --color-validacion: #426A5A;    // Hooker's green
+    --color-incorreccion: #6F1A07;  // Barn red
+    --color-textos: #EAE0D5;        // Almond
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background: url(https://s2.minijuegosgratis.com/styles/img/plots/pattern-module-small-op20.png?v=1753165801) repeat center var(--color-fondos);
+}
+
+body {
+  height: 100vh;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+main {
+  width: 100%;
+}
