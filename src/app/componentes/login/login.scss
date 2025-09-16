@@ -1,20 +1,28 @@
-#login-container {
-    width: 70vw;
-    max-height: 90vh;
-    border: 0.1px solid white;
+#main-container {
+    display: flex;
+    flex-direction: row;
+}
 
+#login-container {
+    width: 60vw;
+    border: 3px solid white;
     border-radius: 20px;
     background-color: rgba(96, 150, 186, 0.8);
-    padding-bottom: 25px;
     box-shadow: 3px 3px 10px -3px grey;
-    
     margin: 2vh auto;
-}
+    padding: 1vw;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}   
 
 #login-form {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
+    width: 60%;
+    margin: 1vw;
 }
 
 #login-title {
@@ -24,24 +32,79 @@
     color: var(--color-textos);
 }
 
-.form-component {
-    margin: 1rem auto;
-    max-width: 70%;
+#form-credenciales > div {
+    width: 100%;
+    margin: 2vh auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.form-text {
-    font-size: 18px;
-    color:  black;
-}
-
-#login-form > input {
-    height: 25px;
-    width: 300px;
-    border-radius: 20px;
-    margin-top: 0px;
+.text {
+    font-size: 20px;
     text-align: center;
 }
 
-#login-form #login-btn {
-    height: 35px;
+.form-component {
+    margin: 1rem auto;
+    width: 100%;
+    max-width: 100%;
 }
+
+.form-input {
+    width: 100%;
+    height: 35px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+#botonera {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-items: space-evenly;
+}
+
+.form-btn {
+    width: auto;
+    height: 5vh;
+    margin: 10px auto;
+    background-color: var(--color-fondos);
+    color: var(--color-textos);
+}
+
+a {
+    font-size: 21px;
+    color: var(--color-fondos);
+}
+
+#img-container {
+    margin: 1vw;;
+    width: 40vw;
+    height: 60vh;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+    animation: slider 20s infinite ease-in-out;
+}
+
+@keyframes slider {
+  0% {
+    background-image: url("https://wallpaperbat.com/img/615590-retro-gamer-iphone-wallpaper-wallpaper-iphone-wallpaper-gaming-wallpaper.jpg");
+  }
+  20% {
+    background-image: url("https://wallpaperbat.com/img/611442-bit-video-game-wallpaper-for-iphone-and-ipad.jpg");
+  }
+  40% {
+    background-image: url("https://wallpaperbat.com/img/615604-classic-video-and-arcade-games-mashup-by-elomin-judan-classic-games-poster-1400x1980-download-hd-wallpaper.jpg");
+  }
+  60% {
+    background-image: url("https://wallpaperbat.com/img/615584-free-download-video-game-phone-wallpaper-1080x1920-for-your-desktop-mobile-tablet-explore-video-game-phone-wallpaper-video-wallpaper-download-video-as-wallpaper-use-youtube-video-as-wallpaper.jpg");
+  }
+  80% {
+    background-image: url("https://wallpaperbat.com/img/613776-top-video-game-phone-wallpaper-full-hd-1080p-for-pc-background-anime-wallpaper-phone-legend-of-zelda-anime-wallpaper-1920x1080.jpg");
+  }
+  100% {
+    background-image: url("https://wallpaperbat.com/img/613776-top-video-game-phone-wallpaper-full-hd-1080p-for-pc-background-anime-wallpaper-phone-legend-of-zelda-anime-wallpaper-1920x1080.jpg");
+  }
+} 
