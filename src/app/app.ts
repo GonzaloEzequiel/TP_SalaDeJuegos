@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Menu } from "./componentes/menu/menu";
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { Menu } from "./componentes/menu/menu";
   imports: [
     RouterOutlet,
     FormsModule,
+    MatSnackBarModule,
     Menu
 ],
   templateUrl: './app.html',

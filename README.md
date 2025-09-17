@@ -1,7 +1,8 @@
 # TP1SalaDeJuegos
 El aplicativo Sala De Juegos es el primer Trabajo Práctico de la asignatura Laboratorio IV  
 
-Construido en Angular 20 y desplegado en Firebase
+
+Desarrollado en Angular 20 y desplegado en Firebase
 
 ## V 1.0.0 Sprint 1
 #### Novedades:
@@ -17,3 +18,8 @@ Se corrigó la infraestructura del proyecto en Angular permitiendo su correcto d
 Se rediseño el componente Login adecuandose a estándares de interfaz de usuario.  
 Se realizó una adecuación de la paleta de colores del sitio.  
 Se añadió información personal al componente Quien-Soy.
+
+## V 1.1.0 Sprint 2
+### Novedades
+Se implementó el componente Registro para la creación de nuevos usuarios
+Se implementó la base de datos Supabase para los sistemas de Login y Registro

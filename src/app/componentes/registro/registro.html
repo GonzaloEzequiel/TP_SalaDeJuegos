@@ -1,0 +1,46 @@
+<main id="main-container">
+  <div id="registro-container">
+    <h3 class="title" id="registro-title">Regístrate para Jugar</h3>
+    
+    <div id="form-container">
+      
+      <div id="img-container"></div>
+
+      <form id="registro-form" (ngSubmit)="registro()">
+
+        <div id="form-credenciales">
+          <div>
+            <label for="user-name" class="form-component text">Nombre: 
+              <input type="text" class="form-component form-input" id="user-name" [(ngModel)]="nombre" name="nombre" required></label>
+          </div>
+          <div>
+            <label for="user-name" class="form-component text">Edad: 
+              <input type="number" class="form-component form-input" id="user-name" [(ngModel)]="edad" name="nombre" required></label>
+          </div>
+          <div>
+            <label for="user-email" class="form-component text">Correo Electrónico: 
+              <input type="email" class="form-component form-input" id="user-email" [(ngModel)]="email" name="email" required></label>
+          </div>
+          <div>
+            <label for="password" class="form-component text">Contraseña:
+              <input type="password" class="form-component form-input" id="user-pass" [(ngModel)]="password" name="password" required></label>
+          </div>
+          <div>
+            <label for="password2" class="form-component text">Repite tu Contraseña:
+              <input type="password" class="form-component form-input" id="user-pass" [(ngModel)]="password2" name="password2" required></label>
+          </div>
+          <div>
+            <label for="avatar" class="form-component text">Imagen de Avatar:
+              <input type="file" class="form-component form-input" id="user-pass" [(ngModel)]="avatar" name="avatar" required></label>
+          </div>
+        </div>
+
+        <div id="botonera">
+          <input class="form-component form-btn" id="registro-btn" type="submit" value="Crear Cuenta">
+        </div>
+
+      </form>    
+
+    </div>
+  </div>
+</main>

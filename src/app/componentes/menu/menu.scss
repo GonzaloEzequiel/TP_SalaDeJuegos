@@ -14,12 +14,13 @@
 }
 
 .btn-component {
-  background-color: --var(--color-contrastes);
+  height: 3vh;
+  width: 6vw;
   color: var(--color-textos);
   margin: 0 2vw;
   text-decoration: none;
 }
 
 .btn-component:hover {
-  background-color: var(--color-contrastes);
+  background-color: var(--color-fondos);
 }

@@ -3,7 +3,7 @@
   flex-direction: row;
 }
 
-#login-container {
+#registro-container {
   width: 50vw;
   border: 3px solid white;
   border-radius: 20px;
@@ -13,11 +13,18 @@
   padding: 1vw;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-}   
+}
 
-#login-form {
+#form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#registro-form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,7 +32,7 @@
   margin: 1vw;
 }
 
-#login-title {
+#registro-title {
   font-weight: bolder;
   font-size: 40px;
   text-align: center;
@@ -46,7 +53,7 @@
 }
 
 .form-component {
-  margin: 1rem auto;
+  margin: 0.5rem auto;
   width: 100%;
   max-width: 100%;
 }
@@ -95,33 +102,33 @@ a.text {
 
 @keyframes slider {
   0% {
-    background-image: url("https://wallpapers.com/images/high/iphone-gaming-bmo-adventure-time-y426bshoqsh5rafx.webp");
+    background-image: url("https://img1.wallspic.com/previews/5/6/1/0/6/160165/160165-among_us-among_us_character_colors-character-colorfulness-azure-360x780.jpg");
   }
   20% {
-    background-image: url("https://wallpapers.com/images/high/iphone-gaming-ps4-chalk-buttons-kufzi5zxul6hjm9d.webp");
+    background-image: url("https://img2.wallspic.com/previews/6/5/9/0/8/180956/180956-assassin_creed-assassins_creed_valhalla-assassins_creed_odyssey-assassins_creed_iii-assassins_creed_shadows-360x780.jpg");
   }
   40% {
-    background-image: url("https://wallpapers.com/images/high/iphone-gaming-minecraft-trees-mzuppfvbsnrkbh6m.webp");
+    background-image: url("https://img1.wallspic.com/previews/3/4/7/4/6/164743/164743-race_car-dallara_stradale-sports_car-cars-auto_racing-360x780.jpg");
   }
   60% {
-    background-image: url("https://wallpapers.com/images/high/rainbow-six-siege-buck-iphone-2zgxejz8ag8noyzf.webp");
+    background-image: url("https://img2.wallspic.com/previews/8/8/1/6/6/166188/166188-minecraft_dungeons_creeping_winter-360x780.jpg");
   }
   80% {
-    background-image: url("https://wallpapers.com/images/high/iphone-gaming-pokemon-watercolor-characters-pge59fyoqi3llrcw.webp");
+    background-image: url("https://img3.wallspic.com/previews/7/5/8/4/6/164857/164857-ballistic_vest-helmet-cloud-military_person-military_uniform-360x780.jpg");
   }
   100% {
-    background-image: url("https://wallpapers.com/images/high/iphone-gaming-bmo-adventure-time-y426bshoqsh5rafx.webp");
+    background-image: url("https://img1.wallspic.com/previews/5/6/1/0/6/160165/160165-among_us-among_us_character_colors-character-colorfulness-azure-360x780.jpg");
   }
 } 
 
 
 @media (max-width: 1025px) {
 
-  #login-container {
+  #registro-container {
     width: 90vw;
   }
 
-  #login-form {
+  #registro-form {
     width: 90%;
   }
 
