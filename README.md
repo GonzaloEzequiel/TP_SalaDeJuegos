@@ -17,9 +17,10 @@ El aplicativo se despliega en Firebase (se detecta issue) conteniendo los siguie
 Se corrigó la infraestructura del proyecto en Angular permitiendo su correcto despliegue en Firebase hosting.  
 Se rediseño el componente Login adecuandose a estándares de interfaz de usuario.  
 Se realizó una adecuación de la paleta de colores del sitio.  
-Se añadió información personal al componente Quien-Soy.
+Se añadió información personal al componente Quien-Soy.  
+Se corrigió la implementación (ubicación) del favicon.
 
 ## V 1.1.0 Sprint 2
 ### Novedades
-Se implementó el componente Registro para la creación de nuevos usuarios
+Se implementó el componente Registro para la creación de nuevos usuarios  
 Se implementó la base de datos Supabase para los sistemas de Login y Registro

@@ -61,7 +61,7 @@
 .form-input {
   width: 100%;
   height: 35px;
-  border-radius: 20px;
+  border-radius: 10px;
   text-align: center;
 }
 
@@ -135,4 +135,26 @@ a.text {
   #img-container {
     display: none;
   }
+}
+
+
+
+/* TEST ZONE */
+
+#avatar-label {
+  display: inline-block;
+  padding: 5px 20px;
+  background-color: var(--color-textos); // azul o el color de tu tema
+  color: var(--color-fondos);
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.3s ease;
+
+  &:hover {
+    size: 102%;
+  }
+}
+
+.avatar-label:active {
+  background-color: var(--color-contrastes);
 }

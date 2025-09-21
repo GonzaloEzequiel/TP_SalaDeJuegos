@@ -14,8 +14,8 @@
               <input type="text" class="form-component form-input" id="user-name" [(ngModel)]="nombre" name="nombre" required></label>
           </div>
           <div>
-            <label for="user-name" class="form-component text">Edad: 
-              <input type="number" class="form-component form-input" id="user-name" [(ngModel)]="edad" name="nombre" required></label>
+            <label for="user-age" class="form-component text">Edad: 
+              <input type="number" class="form-component form-input" id="user-age" [(ngModel)]="edad" name="edad" required></label>
           </div>
           <div>
             <label for="user-email" class="form-component text">Correo Electrónico: 
@@ -27,11 +27,11 @@
           </div>
           <div>
             <label for="password2" class="form-component text">Repite tu Contraseña:
-              <input type="password" class="form-component form-input" id="user-pass" [(ngModel)]="password2" name="password2" required></label>
+              <input type="password" class="form-component form-input" id="user-pass2" [(ngModel)]="password2" name="password2" required></label>
           </div>
           <div>
-            <label for="avatar" class="form-component text">Imagen de Avatar:
-              <input type="file" class="form-component form-input" id="user-pass" [(ngModel)]="avatar" name="avatar" required></label>
+            <label for="avatar" class="form-component form-input text" id="avatar-label" (change)="onFileSelected($event)" >Elegí tu Avatar <span style="font-style: normal; height: 90%;">📸</span>
+              <input type="file" class="form-component form-input" id="avatar" [(ngModel)]="avatar" name="avatar" accept=".jpg,.jpeg,.png" required hidden></label>
           </div>
         </div>
 

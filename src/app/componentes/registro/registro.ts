@@ -43,19 +43,27 @@ export class Registro {
       .then(({data, error}) => {
 
         if(error) {
-          console.error(`Error: ${error.message}`);
+
+          if (error.message.includes('already registered') || error.message.includes('already exists')) {
+            this.snackBar.open('El correo ya está registrado. Intenta con otro.', 'Cerrar', {
+              duration: 3000,
+              horizontalPosition: 'center',
+              verticalPosition: 'top'
+            });
+          } else {
+            this.snackBar.open(`Error: ${error.message}`, 'Cerrar', { duration: 5000 });
+          }
         }
         else {
           console.log(`Usuario Registado: ${data.user}`);
           this.insertarUsuario(data.user!);
+          this.router.navigate(['/home']);
         }
 
       });
 
     } else {
-      this.snackBar.open("Datos Incorrectos", "Cerrar", {
-        duration: 5000
-      });
+      this.snackBar.open("Datos Incorrectos", "Cerrar", { duration: 5000 });
     }
   }
 
