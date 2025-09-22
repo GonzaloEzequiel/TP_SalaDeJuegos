@@ -22,5 +22,6 @@ Se corrigió la implementación (ubicación) del favicon.
 
 ## V 1.1.0 Sprint 2
 ### Novedades
-Se implementó el componente Registro para la creación de nuevos usuarios  
-Se implementó la base de datos Supabase para los sistemas de Login y Registro
+Se implementó el componente Error, para rutas inexistentes con redireccionamiento al Home.  
+Se implementó el componente Registro para la creación de nuevos usuarios.  
+Se implementó la base de datos Supabase para los sistemas de Login y Registro.  

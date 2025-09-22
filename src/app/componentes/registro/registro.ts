@@ -73,7 +73,8 @@ export class Registro {
    */
   insertarUsuario(user :User) {
 
-    const avatarUrl = this.guardarArchivo().then(data => {
+    const avatarUrl = this.guardarArchivo()
+    .then(data => {
 
       if(data) {        
         supabase.from('USUARIOS').insert([{
@@ -85,8 +86,12 @@ export class Registro {
         .then(({data, error}) => {
           if(error)
             console.error(`Error: ${error.message}`);
-          else
+          else {
+            supabase.from('LOGIN').insert([{
+              ID_USUARIO: user.id
+            }]);
             this.router.navigate(['/home']);
+          }
         })
       }
 
@@ -99,6 +104,10 @@ export class Registro {
    * @returns la información respectiva de la imagen
    */
   async guardarArchivo() {
+
+    if (!this.avatar)
+      return { path: "https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Pic-Clip-Art-Background.png" };
+
     const {data, error} = await supabase
       .storage
       .from('images')
@@ -122,7 +131,7 @@ export class Registro {
             this.password === this.password2;
   }
 
-  onFileSelected(event: any) {
+  onFileSelected(event :any) {
     this.avatar = event.target.files[0];
   }
 

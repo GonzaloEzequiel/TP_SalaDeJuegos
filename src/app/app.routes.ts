@@ -3,6 +3,7 @@ import { Home } from './componentes/home/home';
 import { QuienSoy } from './componentes/quien-soy/quien-soy';
 import { Login } from './componentes/login/login';
 import { Registro } from './componentes/registro/registro';
+import { Error } from './componentes/error/error';
 
 export const routes: Routes = [
   {
@@ -25,5 +26,9 @@ export const routes: Routes = [
   {
     path : 'registro',
     component : Registro
+  },
+  {
+    path: '**',
+    component: Error
   }
 ];

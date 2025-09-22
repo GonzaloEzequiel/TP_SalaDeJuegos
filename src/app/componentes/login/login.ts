@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { createClient } from '@supabase/supabase-js';
@@ -18,10 +18,13 @@ const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
 export class Login {
 
   public email = "";
-  public password = "";  
+  public password = "";
 
   constructor(private router :Router, private snackBar :MatSnackBar) {}
 
+  /**
+   * Valida y Loegea al usuario, y redirige al home
+   */
   login() {
 
     supabase.auth.signInWithPassword({
@@ -32,23 +35,33 @@ export class Login {
 
       if(error) {
         this.snackBar.open("Credenciales Incorrectas", "Cerrar", {
-        duration: 5000
-      });
+          duration: 5000
+        });
       }
-      else
+      else {
+        supabase.from('LOGIN').insert([{
+          ID_USUARIO: data.user.id
+        }]);
         this.router.navigate(['/home']);
+      }
 
     });
     
   }
 
-  async completar() {
+  /**
+   * Completa los campos de usuario con datos válidos
+   */
+  completar() {
         
-    const {data, error} = await supabase.from('USUARIOS').select('EMAIL').limit(1).single();
+    this.email = "augusto@unt.com";
+    this.password = "AccesoRapido_1234";
+
+  }
+
+  registrarLogin() {
+
     
-    if (error) {
-      console.error('Error obteniendo usuario:', error.message);
-    }
 
   }
 
