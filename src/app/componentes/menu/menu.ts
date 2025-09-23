@@ -52,9 +52,8 @@ export class Menu {
         console.error("Error: ", error.message); 
         return null; 
       }
-      
-      this.userdata = data;
 
+      this.userdata = data;
 
       if(this.userdata) {
 
@@ -63,10 +62,7 @@ export class Menu {
           this.userdata.AVATAR_URL = this.consultarAvatar(data.AVATAR_URL);
         else
           this.userdata.AVATAR_URL = "https://cdn-icons-png.freepik.com/512/6596/6596121.png";
-      }
-        
-
-      
+      } 
       
       this.isLoggedUser = true;
       return this.userdata; 
@@ -83,17 +79,6 @@ export class Menu {
    * @returns avatar
    */
   consultarAvatar(avatarUrl :string) {
-
-    console.log("1");
-    console.log(avatarUrl);
-    console.log(supabase.storage);
-    console.log(supabase.storage.from('images'));
-    console.log(supabase.storage.from('images').getPublicUrl(avatarUrl));
-    console.log(supabase.storage.from('images').getPublicUrl(avatarUrl).data);
-    console.log(supabase.storage.from('images').getPublicUrl(avatarUrl).data.publicUrl);
-
-
-
     return supabase.storage.from('images').getPublicUrl(avatarUrl).data.publicUrl;
   }
 
