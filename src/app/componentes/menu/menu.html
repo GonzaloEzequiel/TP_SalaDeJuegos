@@ -9,17 +9,19 @@
     <span id="banner-title" class="title">{{ tituloApp }}</span>
   </div>
  
-  <div class="banner-der" *ngIf="!isLoading">
+  <div class="banner-der">
+    <div class="userlogin-container"  *ngIf="!isLoading">
 
-    @if(isLoggedUser) {
-      <span id="usuarioLogeado">{{ userdata?.NOMBRE }}</span>
-      <img [src]="userdata?.AVATAR_URL" alt="Avatar" class="avatar">
-      <a class="btn-component text" (click)="deslogearUsuario()">Logout</a>
-    } @else {
-      <img [src]="'https://cdn-icons-png.freepik.com/512/6596/6596121.png'" alt="Avatar" class="avatar">
-      <a class="btn-component text" routerLink="/login" routerLinkActive="active" id="LoginLogout">Login</a>
-    }
+        @if(isLoggedUser) {
+          <span id="usuarioLogeado" class="text-component">{{ userdata?.NOMBRE }}</span>
+          <img [src]="userdata?.AVATAR_URL" alt="Avatar" class="avatar">
+          <a class="text-component" (click)="deslogearUsuario()">Logout</a>
+        } @else {
+          <img [src]="'https://cdn-icons-png.freepik.com/512/6596/6596121.png'" alt="Avatar" class="avatar">
+          <a class="text-component" routerLink="/usuarios/login" routerLinkActive="active" id="LoginLogout">Login</a>
+        }
 
+    </div>
   </div>
 
 </nav>
@@ -27,9 +29,9 @@
 <div class="navegador" [class.open]="isMenuOpen">
 
   <button class="menu-btn" (click)="toggleMenu()">☰</button>
-  <a class="btn-component text" routerLink="/home" routerLinkActive="active">Home</a>
-  <a >Estadísticas</a>
-  <a >Chat</a>
-  <a class="btn-component text" routerLink="/quiensoy" routerLinkActive="active">Quien Soy</a>
+  <a class="btn-component" routerLink="/home" routerLinkActive="active">Home</a>
+  <a class="btn-component">Estadísticas</a>
+  <a class="btn-component" routerLink="/chat" routerLinkActive="active" *ngIf="!isLoading && isLoggedUser" >Chat</a>
+  <a class="btn-component" routerLink="/quiensoy" routerLinkActive="active">Quien Soy</a>
 
 </div>

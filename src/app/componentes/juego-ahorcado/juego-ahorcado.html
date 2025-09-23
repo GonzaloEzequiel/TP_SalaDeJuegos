@@ -1,0 +1,45 @@
+<app-menu></app-menu>
+
+<div id="container">
+	<div id="juego-container">
+
+		<div id="grafico-container">
+			<svg id="dibujo" x="0px" y="0px" viewBox="0 0 400 155" stroke="#000000" fill="none"> 
+
+			<!-- </svg> version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 400 500" stroke="#000000" fill="none"> -->
+				<!-- <polyline stroke-width="5" stroke-miterlimit="5" points="253.996,142.899 253.996,59.666 115.663,59.666 115.663,434.999 "/> -->
+
+				<!-- <polyline stroke-width="3" stroke-miterlimit="3" points="250,200 250,50 120,60 120,435 "/> -->
+				<polyline stroke-width="3" stroke-miterlimit="3" points="200,50 200,25 150,25 150,100"/>
+
+
+
+
+
+				<!-- <line stroke-width="5" stroke-miterlimit="5" x1="392.33" y1="434.999" x2="8.33" y2="434.999"/> -->
+				<g id="added-parts">
+
+				</g>
+			</svg>
+		</div>
+
+		<div id="palabra-container">
+
+		@for(letra of letrasExistentes; track letras) {
+			<span class="letter">
+				{{ letrasElegidas.includes(letra) || letra === ' ' || letra === '-' ? letra : '_' }}
+			</span>
+		}
+
+    </div>
+
+		<div id="teclado-container">
+
+		@for(letra of letras; track letras) {
+			<button [disabled]="letrasElegidas.includes(letra) || estado !== 'jugando'" (click)="elegirLetra(letra)">{{ letra }}</button>
+		}
+
+    </div>
+
+	</div>	
+</div>

@@ -2,15 +2,13 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { createClient, User } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
-import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Menu } from "../menu/menu";
 
 const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
 
 @Component({
   selector: 'app-registro',
-  imports: [FormsModule, Menu],
+  standalone: false,
   templateUrl: './registro.html',
   styleUrl: './registro.scss'
 })

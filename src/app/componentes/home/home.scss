@@ -22,6 +22,10 @@
   margin: 5vh;
   display: flex;
   flex-direction: column;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .juego-img-wrapper {

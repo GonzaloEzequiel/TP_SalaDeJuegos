@@ -1,23 +1,72 @@
 .banner {
-  height: 10vh;
+  height: 7vh;
   width: 100%;
   background-color: var(--color-marcos);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  justify-items: center;
+}
+
+// Sector izquierdo
+.menu-btn {
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
   padding: 0 2vw;
+}
+
+// Sector central
+.banner-cent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  margin: 0 10px;
 }
 
 #banner-title {
   font-size: 30px;
 }
 
+// Sector derecho
+
+.userlogin-container {
+  display: flex;    
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.usuarioLogeado {
+  font-weight: 600;
+}
+
+.avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.text-component {
+  height: 3vh;
+  color: var(--color-textos);
+  margin: 0 1vw;
+  text-decoration: none;
+}
+
+// Componentes
 .btn-component {
   height: 3vh;
   width: 6vw;
   color: var(--color-textos);
-  margin: 0 2vw;
+  margin: 0 1vw;
   text-decoration: none;
 }
 
@@ -25,68 +74,15 @@
   background-color: var(--color-fondos);
 }
 
-
-// TEST ZONE
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #222; /* fondo oscuro estilo minijuegos */
-  color: #fff;
-  padding: 10px 20px;
-  font-family: Arial, sans-serif;
-}
-
-.menu-btn {
-  font-size: 22px;
-  background: none;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-
-.navbar-center {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo {
-  width: 40px;
-  height: 40px;
-}
-
-.navbar-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.usuarioLogeado {
-  font-weight: 500;
-}
-
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-}
-
-.logout-btn:hover {
-  background: #c62828;
-}
-//TEST ZONE
-
-
-// NAVEGADOR
+// Navegador lateral
 .navegador {
   position: fixed;
   top: 0;
-  left: -250px;
-  width: 250px;
+  left: -150px;
+  width: 150px;
   height: 100%;
-  background: #333;
-  color: white;
+  background-color: var(--color-fondos);
+  color: var(--color-textos);
   padding: 20px;
   transition: left 0.3s ease;
   display: flex;

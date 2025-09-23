@@ -1,17 +1,14 @@
-import { Component, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { createClient } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Menu } from "../menu/menu";
 
 const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
 
 @Component({
   selector: 'app-login',
-  standalone: true,
-  imports: [FormsModule, RouterLink, RouterLinkActive, Menu],
+  standalone: false,
   templateUrl: './login.html',
   styleUrls: ['./login.scss']
 })
@@ -41,6 +38,7 @@ export class Login {
       else {
 
         try {
+          // Se registra la fecha/hora y usuario que logea
           await supabase.from('LOGIN').insert([{ ID_USUARIO: data.session.user.id }]);
           this.router.navigate(['/home']);
 
@@ -61,12 +59,6 @@ export class Login {
         
     this.email = "augusto@utn.com";
     this.password = "AccesoRapido_1234";
-
-  }
-
-  registrarLogin() {
-
-    
 
   }
 

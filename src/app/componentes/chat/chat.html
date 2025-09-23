@@ -1,0 +1,35 @@
+<app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
+
+<div id="main-container">
+
+  <div id="chatroom-container">
+
+    <div id="mensajes-containter">
+
+      <div class="message">
+        @for (msg of mensajes; track msg.ID) {
+          <div class="message-header">
+            <span class="user">{{ msg.NOMBRE_USUARIO }}</span>
+            <span class="time">{{ msg.FECHA_HORA | date:'shortTime' }}</span>
+          </div>
+          <div class="message-body">
+            {{ msg.MENSAJE }}
+          </div>  
+        }
+      </div>
+
+    </div>
+
+    <form id="chat-container" (ngSubmit)="enviarMensaje()">
+      <input id="chat-input"
+        type="textarea" 
+        [(ngModel)]="nuevoMensaje" 
+        name="mensaje" 
+        placeholder="Escribe lo que quieras..." 
+        required 
+      />
+
+      <button id="btn-enviar" aria-label="Enviar mensaje" type="submit"></button>
+    </form>
+    
+</div>

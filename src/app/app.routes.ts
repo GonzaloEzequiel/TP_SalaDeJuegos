@@ -1,9 +1,8 @@
 import { Routes } from '@angular/router';
+import { Error } from './componentes/error/error';
 import { Home } from './componentes/home/home';
 import { QuienSoy } from './componentes/quien-soy/quien-soy';
-import { Login } from './componentes/login/login';
-import { Registro } from './componentes/registro/registro';
-import { Error } from './componentes/error/error';
+import { Chat } from './componentes/chat/chat';
 
 export const routes: Routes = [
   {
@@ -12,23 +11,29 @@ export const routes: Routes = [
     pathMatch : 'full'
   },
   {
+    path: 'usuarios',
+    loadChildren: () => import('./modulos/usuarios/usuarios-module').then(m => m.UsuarioModule)
+  },
+  {
+    path: 'juegos',
+    loadChildren: () => import('./modulos/juegos/juegos-module').then(m => m.JuegosModule)
+  },
+  {
+    path : 'chat',
+    loadComponent: () => import('./componentes/chat/chat').then(c => c.Chat)
+  },
+  {
     path : 'home',
     component : Home
-  },
+  },  
   {
     path : 'quiensoy',
     component : QuienSoy
   },
-  {
-    path : 'login',
-    component : Login
-  },
-  {
-    path : 'registro',
-    component : Registro
-  },
+  
   {
     path: '**',
     component: Error
   }
+
 ];

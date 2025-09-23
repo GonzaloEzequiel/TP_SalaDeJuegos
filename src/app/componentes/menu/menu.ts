@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { createClient } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
 import { UserData } from '../../models/user-data';
@@ -14,7 +14,6 @@ const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
   templateUrl: './menu.html',
   styleUrls: ['./menu.scss']
 })
-
 export class Menu {
 
   userdata: UserData | null = null;
@@ -22,6 +21,10 @@ export class Menu {
   isMenuOpen = false;
   isLoggedUser = false;
   isLoading = true;
+
+  @Output() usuarioLogeo = new EventEmitter<UserData>();
+
+  constructor(private router :Router) {}
   
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
@@ -29,6 +32,7 @@ export class Menu {
 
   async ngOnInit() {
     this.userdata = await this.consultarUsuario();
+    this.usuarioLogeo.emit(this.userdata!);
     this.isLoading = false;
   }
 
@@ -89,7 +93,7 @@ export class Menu {
     this.userdata = null;
     this.isLoggedUser = false;
     supabase.auth.signOut()
-      .then(() => console.log('Sesión cerrada'));
+      .then(() => this.router.navigate(['/home']));
   }
 
 }
