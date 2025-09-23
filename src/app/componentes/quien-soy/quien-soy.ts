@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
+import { Menu } from "../menu/menu";
 
 @Component({
   selector: 'app-quien-soy',
-  imports: [],
+  imports: [Menu],
   templateUrl: './quien-soy.html',
   styleUrl: './quien-soy.scss'
 })

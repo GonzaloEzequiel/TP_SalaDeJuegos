@@ -4,12 +4,13 @@ import { createClient, User } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Menu } from "../menu/menu";
 
 const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
 
 @Component({
   selector: 'app-registro',
-  imports: [FormsModule],
+  imports: [FormsModule, Menu],
   templateUrl: './registro.html',
   styleUrl: './registro.scss'
 })
@@ -33,34 +34,45 @@ export class Registro {
   /**
    * Proceso de registro contra "auth.usuarios" de supabase
    */
-  registro() {
+  async registro() {
     if(this.validarDatos()) {
 
-      supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email: this.email,
         password: this.password
-      })
-      .then(({data, error}) => {
-
-        if(error) {
-
-          if (error.message.includes('already registered') || error.message.includes('already exists')) {
-            this.snackBar.open('El correo ya está registrado. Intenta con otro.', 'Cerrar', {
-              duration: 3000,
-              horizontalPosition: 'center',
-              verticalPosition: 'top'
-            });
-          } else {
-            this.snackBar.open(`Error: ${error.message}`, 'Cerrar', { duration: 5000 });
-          }
-        }
-        else {
-          console.log(`Usuario Registado: ${data.user}`);
-          this.insertarUsuario(data.user!);
-          this.router.navigate(['/home']);
-        }
-
       });
+
+      if(error) {
+
+        if (error.message.includes('already registered') || error.message.includes('already exists')) {
+          this.snackBar.open('El correo ya está registrado. Intenta con otro.', 'Cerrar', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+          });
+        } else {
+          this.snackBar.open(`Error: ${error.message}`, 'Cerrar', { duration: 5000 });
+        }
+
+        return;
+      }
+
+      // else {
+      //   console.log("Usuario Registado: ", data.user);
+      //   this.insertarUsuario(data.user!);
+      //   this.router.navigate(['/home']);
+      // }
+
+      const user = data.user;
+      const session = data.session;
+
+      if(user)
+        this.insertarUsuario(user)
+
+      if(session) {
+        this.snackBar.open("Registro exitoso. Bienvenido!", "Cerrar", { duration: 5000 });
+        this.router.navigate(['/home']);
+      }
 
     } else {
       this.snackBar.open("Datos Incorrectos", "Cerrar", { duration: 5000 });
@@ -79,6 +91,7 @@ export class Registro {
       if(data) {        
         supabase.from('USUARIOS').insert([{
           ID: user.id,
+          EMAIL: this.email,
           NOMBRE: this.nombre,
           EDAD: this.edad,
           AVATAR_URL: data.path

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Menu } from "../menu/menu";
 
 @Component({
   selector: 'app-error',
-  imports: [],
+  standalone: true,
+  imports: [Menu],
   templateUrl: './error.html',
-  styleUrl: './error.scss'
+  styleUrls: ['./error.scss']
 })
 export class Error {
 

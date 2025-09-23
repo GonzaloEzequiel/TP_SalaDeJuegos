@@ -1,8 +1,7 @@
 export interface UserData {
-  id: number;
-  nombre: string;
-  edad: number;
-  authId: string;
-  avatar: string;
-  fecha_registro: string;
+  ID: number;
+  NOMBRE: string;
+  EDAD: number;
+  AVATAR_URL: string;
+  EMAIL: string;
 }

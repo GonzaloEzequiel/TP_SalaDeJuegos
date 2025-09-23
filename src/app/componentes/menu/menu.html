@@ -1,16 +1,38 @@
-<div class="banner">
-  <div id="title-container">
-    <h1 id="banner-title" class="title">Sala de Juegos</h1>
-  </div>
+<nav class="banner" [class.load]="isLoggedUser">
   
-  <!-- <div id="user-info">
-    <p [userdata.nombre]="test"></p>
-    <img src={{avatar}}/>
-  </div> -->
-
-  <div id="botonera">
-    <a class="btn-component text" routerLink="/home" routerLinkActive="active">Home</a>
-    <a class="btn-component text" routerLink="/quiensoy" routerLinkActive="active">Quien Soy</a>
-    <a class="btn-component text" routerLink="/login" routerLinkActive="active" id="LoginLogout">Login</a>
+  <div class="banner-izq">
+    <button class="menu-btn" (click)="toggleMenu()">☰</button>
   </div>
+
+  
+  <div class="banner-cent">
+    <img src="../../../../public/favicon.ico" alt="logo" class="logo">
+    <span id="banner-title" class="title">{{ tituloApp }}</span>
+  </div>
+
+ 
+  <div class="banner-der" *ngIf="!isLoading">
+
+    @if(isLoggedUser) {
+      <span id="usuarioLogeado">{{ userdata?.NOMBRE }}</span>
+      <img [src]="userdata?.AVATAR_URL" alt="Avatar" class="avatar">
+      <a class="btn-component text" (click)="deslogearUsuario()">Logout</a>
+    } @else {
+      <img [src]="'https://cdn-icons-png.freepik.com/512/6596/6596121.png'" alt="Avatar" class="avatar">
+      <a class="btn-component text" routerLink="/login" routerLinkActive="active" id="LoginLogout">Login</a>
+    }
+
+  </div>
+
+
+</nav>
+
+<div class="navegador" [class.open]="isMenuOpen">
+
+  <button class="menu-btn" (click)="toggleMenu()">☰</button>
+  <a class="btn-component text" routerLink="/home" routerLinkActive="active">Home</a>
+  <a >Estadísticas</a>
+  <a >Chat</a>
+  <a class="btn-component text" routerLink="/quiensoy" routerLinkActive="active">Quien Soy</a>
+
 </div>

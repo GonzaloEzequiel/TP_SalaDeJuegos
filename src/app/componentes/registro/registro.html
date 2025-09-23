@@ -1,3 +1,5 @@
+<app-menu></app-menu>
+
 <main id="main-container">
   <div id="registro-container">
     <h3 class="title" id="registro-title">Regístrate para Jugar</h3>
@@ -15,7 +17,7 @@
           </div>
           <div>
             <label for="user-age" class="form-component text">Edad: 
-              <input type="number" class="form-component form-input" id="user-age" [(ngModel)]="edad" name="edad" required></label>
+              <input type="number" class="form-component form-input" id="user-age" [(ngModel)]="edad" name="edad" value="" required></label>
           </div>
           <div>
             <label for="user-email" class="form-component text">Correo Electrónico: 
@@ -31,7 +33,7 @@
           </div>
           <div>
             <label for="avatar" class="form-component form-input text" id="avatar-label" (change)="onFileSelected($event)" >Elegí tu Avatar <span style="font-style: normal; height: 90%;">📸</span>
-              <input type="file" class="form-component form-input" id="avatar" [(ngModel)]="avatar" name="avatar" accept=".jpg,.jpeg,.png" required hidden></label>
+              <input type="file" class="form-component form-input" id="avatar" name="avatar" accept=".jpg,.jpeg,.png" required hidden></label>
           </div>
         </div>
 

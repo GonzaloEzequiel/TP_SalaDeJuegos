@@ -4,14 +4,14 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { createClient } from '@supabase/supabase-js';
 import { environment } from '../../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { Menu } from "../menu/menu";
 
 const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink, RouterLinkActive],
+  imports: [FormsModule, RouterLink, RouterLinkActive, Menu],
   templateUrl: './login.html',
   styleUrls: ['./login.scss']
 })
@@ -31,7 +31,7 @@ export class Login {
       email: this.email,
       password: this.password
     })
-    .then(({data, error}) => {
+    .then(async ({data, error}) => {
 
       if(error) {
         this.snackBar.open("Credenciales Incorrectas", "Cerrar", {
@@ -39,10 +39,15 @@ export class Login {
         });
       }
       else {
-        supabase.from('LOGIN').insert([{
-          ID_USUARIO: data.user.id
-        }]);
-        this.router.navigate(['/home']);
+
+        try {
+          await supabase.from('LOGIN').insert([{ ID_USUARIO: data.session.user.id }]);
+          this.router.navigate(['/home']);
+
+        } catch(e) {
+          console.error("Error insertando login:", e);
+        }
+        
       }
 
     });
@@ -54,7 +59,7 @@ export class Login {
    */
   completar() {
         
-    this.email = "augusto@unt.com";
+    this.email = "augusto@utn.com";
     this.password = "AccesoRapido_1234";
 
   }
