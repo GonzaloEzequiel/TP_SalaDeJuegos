@@ -1,24 +1,26 @@
 <app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
 
 <div id="main-container">
-
   <div id="chatroom-container">
 
-    <div id="mensajes-containter">
+    <div id="mensajes-containter" #mensajesContainer>
+      @for (msg of mensajes; track msg.ID) {
+        <div class="mensaje {{ msg.ID_USUARIO === usuarioLogeado?.ID?.toString() ? 'mensaje-propio' : '' }}">
 
-      <div class="message">
-        @for (msg of mensajes; track msg.ID) {
-          <div class="message-header">
-            <span class="user">{{ msg.NOMBRE_USUARIO }}</span>
-            <span class="time">{{ msg.FECHA_HORA | date:'shortTime' }}</span>
+          <div class="mensaje-header">
+            <span id="username">{{ msg.NOMBRE_USUARIO }} </span>
+            <!-- <span id="timestamp">{{ msg.FECHA_HORA | date:'shortTime' }}</span> -->
           </div>
-          <div class="message-body">
+
+          <div class="mensaje-body">
             {{ msg.MENSAJE }}
           </div>  
-        }
-      </div>
 
+          <span id="timestamp">{{ msg.FECHA_HORA | date:'shortTime' }}</span>
+        </div>
+      }
     </div>
+
 
     <form id="chat-container" (ngSubmit)="enviarMensaje()">
       <input id="chat-input"
@@ -32,4 +34,5 @@
       <button id="btn-enviar" aria-label="Enviar mensaje" type="submit"></button>
     </form>
     
+  </div>
 </div>
