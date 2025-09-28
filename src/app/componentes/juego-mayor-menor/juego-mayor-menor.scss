@@ -1,0 +1,12 @@
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#juego-container {
+  background-image: url('/panio.jpg');
+	background-position: center;
+	background-repeat: no-repeat;
+  height: 100%;
+}

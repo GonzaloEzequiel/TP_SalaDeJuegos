@@ -1,3 +1,23 @@
-<p>juego-mayor-menor works!</p>
+<app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
 
-<H1 style="color: wheat;">GONZALOOOOOOOOOOOOO</H1>
+<div id="container">
+	<div id="juego-container">
+
+    <div id="cartas-container">
+      <img class="carta" id="carta-vieja" src="" alt={{valorCartaVieja}}/>
+      <img class="carta" id="carta-nueva" src="" alt={{valorCartaNueva}}/>
+      <img class="carta" id="carta-proxima" src="https://deckofcardsapi.com/static/img/back.png" alt="dorso próxima carta"/>    
+    </div>
+
+    <div id="botones-container">
+      <button class="boton" id="boton-menor">MENOR</button>
+      <button class="boton" id="boton-igual">IGUAL</button>
+      <button class="boton" id="boton-mayor">MAYOR</button>
+    </div>
+
+    <div id="puntaje-container">
+
+    </div>
+
+  </div>
+</div>

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { UserData } from '../../models/user-data';
 
 @Component({
   standalone: false,
@@ -9,6 +11,8 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./juego-ahorcado.scss']
 })
 export class JuegoAhorcado {
+
+  usuarioLogeado :UserData | null = null;
   
   susbcripcion!: Subscription;
   estado: 'jugando' | 'ganaste' | 'perdiste' = 'jugando';
@@ -31,13 +35,13 @@ export class JuegoAhorcado {
     '<path stroke-width="4" stroke-miterlimit="10" d="M245.571,190.082c0-4.879,3.955-8.833,8.833-8.833 c4.879,0,8.833,3.955,8.833,8.833"/>'
   ];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router :Router) {}
 
   ngOnInit() {
-    this.newPuzzle();
+    this.nuevoJuego();
   }
 
-  async newPuzzle() {
+  async nuevoJuego() {
     this.susbcripcion = this.http.get<string[]>('https://random-word-api.herokuapp.com/word?lang=es')
     .subscribe(res => {
       this.palabra = res[0].toLowerCase();
@@ -72,11 +76,27 @@ export class JuegoAhorcado {
 
   gameOver(won: boolean) {
     alert(won ? '🎉 Ganaste!' : `💀 Perdiste! La palabra era: ${this.palabra}`);
-    this.newPuzzle();
+    this.nuevoJuego();
   }
 
   ngOnDestroy() {
     this.susbcripcion.unsubscribe();
+  }
+
+  /**
+   * Recibe información del usuario logeado en del componente menú
+   * @param user data del usuario
+   */
+  onUsuarioLogeado(user :UserData) {
+
+    this.usuarioLogeado = user;
+
+    // Valida que haya un usuario logeado, sino lo redirecciona
+    if(this.usuarioLogeado === null) {
+      console.error("Usuario no logeado");
+      this.router.navigate(['/error']);
+    }
+
   }
 
 
