@@ -1,22 +1,36 @@
 <app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
 
 <div id="container">
+  <h1 class="title">Mayor o Menor ...</h1>
 	<div id="juego-container">
 
     <div id="cartas-container">
-      <img class="carta" id="carta-vieja" src="" alt={{valorCartaVieja}}/>
-      <img class="carta" id="carta-nueva" src="" alt={{valorCartaNueva}}/>
-      <img class="carta" id="carta-proxima" src="https://deckofcardsapi.com/static/img/back.png" alt="dorso próxima carta"/>    
+        <div class="carta-img-wrapper" id="carta-vieja">
+          <img class="carta" src="{{imagenCartaVieja}}" />
+        </div>
+
+        <div class="carta-img-wrapper" id="carta-nueva">
+          @if(imagenCartaNueva != "") {
+            <img class="carta" src="{{imagenCartaNueva}}" />
+          }
+          @else {
+            <button (click)="nuevoJuego()">COMENZAR</button>
+          }
+        </div>
+
+        <div class="carta-img-wrapper" id="carta-proxima">
+          <img class="carta" src="https://deckofcardsapi.com/static/img/back.png" alt="dorso próxima carta"/>    
+        </div>
     </div>
 
     <div id="botones-container">
-      <button class="boton" id="boton-menor">MENOR</button>
-      <button class="boton" id="boton-igual">IGUAL</button>
-      <button class="boton" id="boton-mayor">MAYOR</button>
+      <button class="boton" id="boton-menor" (click)="apostar('menor')">MENOR</button>
+      <button class="boton" id="boton-igual" (click)="apostar('igual')">IGUAL</button>
+      <button class="boton" id="boton-mayor" (click)="apostar('mayor')">MAYOR</button>
     </div>
 
     <div id="puntaje-container">
-
+      <p class="text">Puntos: {{puntaje}}</p>
     </div>
 
   </div>
