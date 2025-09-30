@@ -1,1 +1,41 @@
-<p>juego-preguntados works!</p>
+<app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
+
+<div id="container">
+
+  <h1 class="title">" Peguntados: Rick & Morty "</h1>
+
+  <div id="reglas-container">
+    <p class="text">
+      Reglas: Tenés que adivinar cómo se llama el personaje de la foto! <br>
+      Un Juego son diez rondas, cada ronda te damos cuatro opciones para que elijas, y si elegiste bien ganás diez (10) puntos.
+    </p>
+  </div>
+
+	<div id="juego-container">
+
+    <div id="foto-container">
+      @if(imagenPersonaje != "") {
+        <img id="foto-personaje" src="{{imagenPersonaje}}">
+      }
+      @else {
+        <button class="boton" (click)="nuevoJuego()">COMENZAR</button>
+      }      
+    </div>
+
+    <div id="botones-container">
+      <div id="fila1">
+        <button class="boton" id="botonA" (click)="adivinar(opcionA)">{{opcionA}}</button>
+        <button class="boton" id="botonB" (click)="adivinar(opcionB)">{{opcionB}}</button>
+      </div>
+      <div id="fila2">
+        <button class="boton" id="botonC" (click)="adivinar(opcionC)">{{opcionC}}</button>
+        <button class="boton" id="botonD" (click)="adivinar(opcionD)">{{opcionD}}</button>
+      </div>
+    </div>
+
+    <div id="puntaje-container">
+      <p class="text">Ronda: {{ronda}} Puntos: {{puntaje}}</p>
+    </div>
+
+  </div>
+</div>

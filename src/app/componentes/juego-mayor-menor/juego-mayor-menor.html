@@ -1,24 +1,38 @@
 <app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
 
 <div id="container">
-  <h1 class="title">Mayor o Menor ...</h1>
+
+  <h1 class="title">¿ Mayor o Menor ?</h1>
+
+  <div id="reglas-container">
+    <p class="text">
+      Reglas: Tras levantar la primera carta vas a tendrás que adivinar si la siguiente carta será mayor o menor que la anterior.<br>
+      Si acertás sumás dos (2) puntos, si fallás perdés un (1) punto. Si acertás la apuesta por "Igual" sumás cincuenta (50) puntos!.
+    </p>
+  </div>
+
 	<div id="juego-container">
 
     <div id="cartas-container">
         <div class="carta-img-wrapper" id="carta-vieja">
-          <img class="carta" src="{{imagenCartaVieja}}" />
+          @if(imagenCartaVieja != "") {
+            <p class="title">Anterior</p>
+            <img class="carta" src="{{imagenCartaVieja}}" />
+          }
         </div>
 
         <div class="carta-img-wrapper" id="carta-nueva">
           @if(imagenCartaNueva != "") {
+            <p class="title">Actual</p>
             <img class="carta" src="{{imagenCartaNueva}}" />
           }
           @else {
-            <button (click)="nuevoJuego()">COMENZAR</button>
+            <button class="boton" (click)="nuevoJuego()">COMENZAR</button>
           }
         </div>
 
         <div class="carta-img-wrapper" id="carta-proxima">
+          <p class="title">Siguiente</p>
           <img class="carta" src="https://deckofcardsapi.com/static/img/back.png" alt="dorso próxima carta"/>    
         </div>
     </div>

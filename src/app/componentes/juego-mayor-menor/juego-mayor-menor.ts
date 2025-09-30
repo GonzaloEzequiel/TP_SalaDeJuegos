@@ -39,63 +39,69 @@ export class JuegoMayorMenor {
 
       this.robarCarta();
     });
-  }
+  } 
 
-  async robarCarta() {
+  async robarCarta(): Promise<void> {
 
-    console.log(this.valorCartaVieja);
-    console.log(this.valorCartaNueva);
+    return new Promise((resolve, reject) => {
+      this.http.get<any>(`https://deckofcardsapi.com/api/deck/${this.mazo}/draw/?count=1`)
+      .subscribe({
+        next: (res) => {
+          if (res.success) {
 
+            this.valorCartaVieja = this.valorCartaNueva;
+            this.imagenCartaVieja = this.imagenCartaNueva;
 
+            this.imagenCartaNueva = res.cards[0].image;
 
-    this.valorCartaVieja = this.valorCartaNueva;
-    this.imagenCartaVieja = this.imagenCartaNueva;
+            switch (res.cards[0].value) {
+              case 'ACE':
+                this.valorCartaNueva = 1;
+                break;
+              case 'JACK':
+                this.valorCartaNueva = 11;
+                break;
+              case 'QUEEN':
+                this.valorCartaNueva = 12;
+                break;
+              case 'KING':
+                this.valorCartaNueva = 13;
+                break;
+              default:
+                this.valorCartaNueva = parseInt(res.cards[0].value);
+                break;
+            }
 
-    this.http.get<any>(`https://deckofcardsapi.com/api/deck/${this.mazo}/draw/?count=1`)
-    .subscribe(res => {
-      if(res.success) {
-        this.imagenCartaNueva = res.cards[0].image;
-        switch(res.cards[0].value) {
-          case 'ACE':
-            this.valorCartaNueva = 1;
-            break;
-          case 'JACK':
-            this.valorCartaNueva = 11;
-            break;
-          case 'QUEEN':
-            this.valorCartaNueva = 12;
-            break;
-          case 'KING':
-            this.valorCartaNueva = 13;
-            break;
-          default:
-            this.valorCartaNueva = parseInt(res.cards[0].value);
-            break;
-        }                  
-      }
-      else
-        console.error("Falló la API para robar carta");
+            resolve();
+
+          } else {
+            console.error("Falló la API para robar carta");
+            reject("API error");
+          }
+        },
+        error: (err) => reject(err)
+      });
     });
-
   }
+
 
   async apostar(opcion :string) {
 
-    this.robarCarta()
-    .then(() => {
-
-      console.log(`Apuesta: ${this.valorCartaNueva} ${opcion} ${this.valorCartaVieja}`);
+    try {
+      await this.robarCarta();
 
       if( (opcion === "menor" && this.valorCartaNueva < this.valorCartaVieja) ||
           (opcion === "mayor" && this.valorCartaNueva > this.valorCartaVieja) )
         this.puntaje += 2;
       else if(opcion === "igual" && this.valorCartaNueva == this.valorCartaVieja) 
         this.puntaje += 50;
-      else
+      else if(this.puntaje > 0)
         this.puntaje --;
 
-    });
-    
+    }
+    catch (err) {
+      console.error("Error al apostar:", err);
+    }    
   }
 
   ngOnDestroy() {
@@ -103,7 +109,7 @@ export class JuegoMayorMenor {
   }
 
   /**
-   * Recibe información del usuario logeado en del componente menú
+   * Recibe información del usuario logeado en el componente menú
    * @param user data del usuario
    */
   onUsuarioLogeado(user :UserData) {

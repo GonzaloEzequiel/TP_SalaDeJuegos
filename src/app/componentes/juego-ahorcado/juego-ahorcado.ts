@@ -35,7 +35,7 @@ export class JuegoAhorcado {
     '<path stroke-width="4" stroke-miterlimit="10" d="M245.571,190.082c0-4.879,3.955-8.833,8.833-8.833 c4.879,0,8.833,3.955,8.833,8.833"/>'
   ];
 
-  constructor(private http: HttpClient, private router :Router) {}
+  constructor(private http :HttpClient, private router :Router) {}
 
   ngOnInit() {
     this.nuevoJuego();
@@ -74,7 +74,7 @@ export class JuegoAhorcado {
     }
   }
 
-  gameOver(won: boolean) {
+  gameOver(won :boolean) {
     alert(won ? '🎉 Ganaste!' : `💀 Perdiste! La palabra era: ${this.palabra}`);
     this.nuevoJuego();
   }
