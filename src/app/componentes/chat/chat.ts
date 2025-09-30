@@ -1,14 +1,11 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { createClient } from '@supabase/supabase-js';
+import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { environment } from '../../../environments/environment';
 import { UserData } from '../../models/user-data';
 import { ChatMensaje } from '../../models/mensaje-data';
 import { Menu } from "../menu/menu";
-
-const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
+import { Db } from '../../servicios/db';
 
 @Component({
   selector: 'app-chatroom',
@@ -19,10 +16,11 @@ const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
 export class Chat {
 
   usuarioLogeado :UserData | null = null;
+  
   nuevoMensaje :string = '';
   mensajes: ChatMensaje[] = [];
 
-  constructor(private router :Router) {}
+  constructor(private router :Router, public db :Db) {}
 
   // Scroll automático al final del chat-box
   @ViewChild('mensajesContainer') private mensajesContainer!: ElementRef;
@@ -43,7 +41,7 @@ export class Chat {
     console.log('[DEBUG] Iniciando suscripción realtime...');
 
      // Suscripción en tiempo real (canal Supabase)
-    supabase.channel('chat-room')
+    this.db.client.channel('chat-room')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'CHATMENSAJES' },
       (payload) => {
         this.mensajes = [...this.mensajes, payload.new as ChatMensaje];
@@ -59,7 +57,7 @@ export class Chat {
   */
   async cargarMensajes() {
 
-    const { data, error } = await supabase
+    const { data, error } = await this.db.client
     .from('CHATMENSAJES')
     .select('*')
     .order('CREATED_AT', { ascending: true });
@@ -81,7 +79,7 @@ export class Chat {
 
     if (!this.nuevoMensaje.trim()) return;
 
-    const { data, error } = await supabase
+    const { data, error } = await this.db.client
       .from('CHATMENSAJES')
       .insert([{
         ID_USUARIO: this.usuarioLogeado?.ID,
@@ -91,9 +89,8 @@ export class Chat {
 
     if (error) {
       console.error("Error al enviar:", error.message);
-    } else {
-      // this.cargarMensajes();      
-      this.nuevoMensaje = ''; // limpiar input
+    } else {    
+      this.nuevoMensaje = '';
     }
   }
 

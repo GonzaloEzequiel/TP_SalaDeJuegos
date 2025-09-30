@@ -37,9 +37,15 @@ Se implementó el juego de "Ahorcado" con un teclado virtual (mejoras pendientes
 
 ## V 1.2.1
 ### Correcciones
-Se corrigión un issue en la sala de Chat por el cual no se mostraban los mensajes en tiempo real.
+Se corrigió un issue en la sala de Chat por el cual no se mostraban los mensajes en tiempo real.  
 //Se agregó un manejo de excepciones para el componente Registro por el cual se mostraban errores de creación de usuario nativos de la base de datos.
 
 ### Novedades
 //Se modificó la interfaz visual del juego "Ahorcado", la disposición de los elementos en pantalla y se agregaron indicadores visuales de intentos y errores.  
 Se implementó el juego de "Mayor o Menor".  
+Se implementó un apartado con las reglas del juego para cada componente Juego.  
+
+## V 1.3.0 Sprint 4
+### Novedades
+Se implementó el juego de "Preguntados" (llama a la API via Servicio).  
+Se definió el juego propio, actualizándose la información del mismo en el componente QuienSoy.

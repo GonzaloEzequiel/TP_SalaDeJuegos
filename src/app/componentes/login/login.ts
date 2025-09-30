@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { createClient } from '@supabase/supabase-js';
-import { environment } from '../../../environments/environment';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Db } from '../../servicios/db';
 
-const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
 
 @Component({
   selector: 'app-login',
@@ -17,14 +15,14 @@ export class Login {
   public email = "";
   public password = "";
 
-  constructor(private router :Router, private snackBar :MatSnackBar) {}
+  constructor(private router :Router, public db :Db, private snackBar :MatSnackBar) {}
 
   /**
    * Valida y Loegea al usuario, y redirige al home
    */
   login() {
 
-    supabase.auth.signInWithPassword({
+    this.db.client.auth.signInWithPassword({
       email: this.email,
       password: this.password
     })
@@ -39,7 +37,7 @@ export class Login {
 
         try {
           // Se registra la fecha/hora y usuario que logea
-          await supabase.from('LOGIN').insert([{ ID_USUARIO: data.session.user.id }]);
+          await this.db.client.from('LOGIN').insert([{ ID_USUARIO: data.session.user.id }]);
           this.router.navigate(['/home']);
 
         } catch(e) {

@@ -105,6 +105,7 @@ export class JuegoMayorMenor {
   }
 
   ngOnDestroy() {
+    console.log("DESTUYENDO COMPONENTE")
     this.susbcripcion.unsubscribe();
   }
 

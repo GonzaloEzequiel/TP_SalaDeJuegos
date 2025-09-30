@@ -84,9 +84,9 @@ export class JuegoPreguntados {
 
   }
 
-  ngOnDestroy() {
-    this.susbcripcion.unsubscribe();
-  }
+  // ngOnDestroy() {
+  //   this.susbcripcion.unsubscribe();
+  // }
 
   /**
    * Recibe información del usuario logeado en del componente menú

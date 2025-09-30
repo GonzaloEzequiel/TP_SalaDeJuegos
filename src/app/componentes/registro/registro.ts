@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { createClient, User } from '@supabase/supabase-js';
-import { environment } from '../../../environments/environment';
+import { User } from '@supabase/supabase-js';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
+import { Db } from '../../servicios/db';
 
 @Component({
   selector: 'app-registro',
@@ -21,7 +19,7 @@ export class Registro {
   password2 :string;
   avatar :File | null = null;
 
-  constructor(private router :Router, private snackBar :MatSnackBar) {
+  constructor(private router :Router, public db :Db, private snackBar :MatSnackBar) {
     this.nombre = "";
     this.edad = 0;
     this.email = "";
@@ -35,7 +33,7 @@ export class Registro {
   async registro() {
     if(this.validarDatos()) {
 
-      const { data, error } = await supabase.auth.signUp({
+      const { data, error } = await this.db.client.auth.signUp({
         email: this.email,
         password: this.password
       });
@@ -54,12 +52,6 @@ export class Registro {
 
         return;
       }
-
-      // else {
-      //   console.log("Usuario Registado: ", data.user);
-      //   this.insertarUsuario(data.user!);
-      //   this.router.navigate(['/home']);
-      // }
 
       const user = data.user;
       const session = data.session;
@@ -87,7 +79,7 @@ export class Registro {
     .then(data => {
 
       if(data) {        
-        supabase.from('USUARIOS').insert([{
+        this.db.client.from('USUARIOS').insert([{
           ID: user.id,
           EMAIL: this.email,
           NOMBRE: this.nombre,
@@ -98,7 +90,7 @@ export class Registro {
           if(error)
             console.error(`Error: ${error.message}`);
           else {
-            supabase.from('LOGIN').insert([{
+            this.db.client.from('LOGIN').insert([{
               ID_USUARIO: user.id
             }]);
             this.router.navigate(['/home']);
@@ -119,7 +111,7 @@ export class Registro {
     if (!this.avatar)
       return { path: "https://www.pngplay.com/wp-content/uploads/12/User-Avatar-Profile-PNG-Pic-Clip-Art-Background.png" };
 
-    const {data, error} = await supabase
+    const {data, error} = await this.db.client
       .storage
       .from('images')
       .upload(`users/${this.avatar?.name}`, this.avatar!, {
