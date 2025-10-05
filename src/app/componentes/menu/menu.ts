@@ -1,11 +1,9 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { createClient } from '@supabase/supabase-js';
-import { environment } from '../../../environments/environment';
+import { Db } from '../../servicios/db';
 import { UserData } from '../../models/user-data';
 import { NgIf } from '@angular/common';
 
-const supabase = createClient(environment.apiUrl, environment.publicAnonKey);
 
 @Component({
   selector: 'app-menu',
@@ -24,7 +22,7 @@ export class Menu {
 
   @Output() usuarioLogeo = new EventEmitter<UserData>();
 
-  constructor(private router :Router) {}
+  constructor(private router :Router, public db :Db) {}
   
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
@@ -42,13 +40,13 @@ export class Menu {
   async consultarUsuario() { 
     try { 
 
-      const { data: { user }, error: userError } = await supabase.auth.getUser(); 
+      const { data: { user }, error: userError } = await this.db.client.auth.getUser(); 
       if (userError || !user) { 
         console.error('No hay usuario logeado');
         return null; 
       } 
 
-      const { data, error } = await supabase.from('USUARIOS')
+      const { data, error } = await this.db.client.from('USUARIOS')
       .select('*')
       .eq('ID', user.id)
       .single(); 
@@ -83,7 +81,7 @@ export class Menu {
    * @returns avatar
    */
   consultarAvatar(avatarUrl :string) {
-    return supabase.storage.from('images').getPublicUrl(avatarUrl).data.publicUrl;
+    return this.db.client.storage.from('images').getPublicUrl(avatarUrl).data.publicUrl;
   }
 
   /**
@@ -92,7 +90,7 @@ export class Menu {
   deslogearUsuario() {
     this.userdata = null;
     this.isLoggedUser = false;
-    supabase.auth.signOut()
+    this.db.client.auth.signOut()
       .then(() => this.router.navigate(['/home']));
   }
 

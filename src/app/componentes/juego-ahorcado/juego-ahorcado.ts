@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { UserData } from '../../models/user-data';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2'
 
 @Component({
   standalone: false,
@@ -13,74 +15,129 @@ import { UserData } from '../../models/user-data';
 export class JuegoAhorcado {
 
   usuarioLogeado :UserData | null = null;
+  ronda :number = 1;
+  maxRondas :number = 5;
+  vidas :number = 6;
+  puntaje :number = 0;
   
   susbcripcion!: Subscription;
   estado: 'jugando' | 'ganaste' | 'perdiste' = 'jugando';
   alfabeto = 'abcdefghijklmnñopqrstuvwxyz';
   letras = this.alfabeto.split('');
+  equivalencias: { [key: string]: string[] } = {
+    'a': ['a', 'á', 'à', 'â', 'ä'],
+    'e': ['e', 'é', 'è', 'ê', 'ë'],
+    'i': ['i', 'í', 'ì', 'î', 'ï'],
+    'o': ['o', 'ó', 'ò', 'ô', 'ö'],
+    'u': ['u', 'ú', 'ù', 'û', 'ü'],
+    'c': ['c', 'ç']
+  };
   palabra = '';
   letrasExistentes: string[] = [];
   letrasElegidas: string[] = [];
-  totalIncorrectas = 0;
   letrasFaltantes = 0;
-  partesMunieco = [
-    '<circle stroke-width="10" stroke-miterlimit="10" cx="254.404" cy="174.26" r="29.412"/>',
-    '<line stroke-width="10" stroke-miterlimit="10" x1="254.404" y1="203.672" x2="254.404" y2="314.056"/>',
-    '<line stroke-width="10" stroke-miterlimit="10" x1="255.339" y1="311.094" x2="185.875" y2="406.468"/>',
-    '<line stroke-width="10" stroke-miterlimit="10" x1="323.46" y1="406.468" x2="253.996" y2="311.094"/>',
-    '<line stroke-width="10" stroke-miterlimit="10" x1="254.404" y1="229.409" x2="164.11" y2="256.834"/>',
-    '<line stroke-width="10" stroke-miterlimit="10" x1="254.404" y1="229.409" x2="344.699" y2="256.834"/>',
-    '<circle fill="#000000" cx="243.663" cy="169.333" r="3.667"/>',
-    '<circle fill="#000000" cx="265.663" cy="169.333" r="3.667"/>',
-    '<path stroke-width="4" stroke-miterlimit="10" d="M245.571,190.082c0-4.879,3.955-8.833,8.833-8.833 c4.879,0,8.833,3.955,8.833,8.833"/>'
-  ];
 
-  constructor(private http :HttpClient, private router :Router) {}
+  constructor(private http :HttpClient, private router :Router, private snackBar :MatSnackBar) {}
 
   ngOnInit() {
-    this.nuevoJuego();
+    
   }
 
-  async nuevoJuego() {
-    this.susbcripcion = this.http.get<string[]>('https://random-word-api.herokuapp.com/word?lang=es')
-    .subscribe(res => {
-      this.palabra = res[0].toLowerCase();
-      this.letrasExistentes = this.palabra.split('');
-      this.letrasElegidas = [];
-      this.totalIncorrectas = 0;
-      this.letrasFaltantes = this.letrasExistentes.filter(
-        l => l !== ' ' && l !== '-'
-      ).length;
-    });
+  nuevoJuego() {
+
   }
+
+
+  nuevaRonda() {    
+
+    this.susbcripcion = this.http.get<string[]>('https://random-word-api.herokuapp.com/word?lang=es')
+    .subscribe({
+      next: res => {
+
+        this.palabra = res[0].toLowerCase();
+        this.letrasExistentes = this.palabra.split('');
+
+        this.vidas = 6;
+        this.puntaje = 0;
+        this.ronda = 1;
+        this.letrasElegidas = [];
+        this.letrasFaltantes = this.letrasExistentes.filter( letra => letra !== ' ' && letra !== '-' ).length;
+
+      },
+        error: err => {
+        console.error('Error al obtener palabra:', err);
+      }
+
+    });
+    
+  }
+  
 
   elegirLetra(letra: string) {
-    if (this.letrasElegidas.includes(letra)) return;
 
+    // se guarda la letra en "elegidas"
     this.letrasElegidas.push(letra);
 
-    const indexes = this.letrasExistentes
-      .map((l, i) => (l === letra ? i : -1))
-      .filter(i => i !== -1);
+    // Se contrasta con las variantes del diccionario
+    const variantes = this.equivalencias[letra] || [letra];
 
+    // Mapea y filtra el indice de las letras recibidas enntre las letras existentes de la palabra
+    const indexes = this.letrasExistentes
+      .map((le, ind) => (variantes.includes(le) ? ind : -1))
+      .filter(ind => ind !== -1);
+
+    // Si el array filtrado tiene elementos entonces hubo match, se quita la letra de las remanentes
     if (indexes.length > 0) {
       this.letrasFaltantes -= indexes.length;
-      if (this.letrasFaltantes === 0) this.gameOver(true);
-    } else {
-      this.totalIncorrectas++;
-      if (this.totalIncorrectas >= this.partesMunieco.length) {
-        this.gameOver(false);
-      }
+
+      if (this.letrasFaltantes === 0) 
+        this.finRonda(true);
+
+    } 
+    // Si el array no tiene elementos pierde una vida, si no quedan vidas se termina la ronda
+    else {      
+      this.vidas--;
+
+      if (this.vidas == 0)
+        this.finRonda(false);
     }
   }
 
-  gameOver(won :boolean) {
-    alert(won ? '🎉 Ganaste!' : `💀 Perdiste! La palabra era: ${this.palabra}`);
-    this.nuevoJuego();
+  finRonda(punto :Boolean) {
+
+    if(punto) {
+      this.puntaje += 20;
+      Swal.fire({
+        title: "🎉 Ganaste la ronda!",
+        text: `20 Puntos por acertar! La palabra era: ${this.palabra}, quedan ${this.maxRondas - this.ronda} rondas.`,
+        icon: "success"
+      });
+    }
+    else {
+      Swal.fire({
+        title: "💀 Perdiste la ronda",
+        text: `Sin puntos esta vez! La palabra era: ${this.palabra}, quedan ${this.maxRondas - this.ronda} rondas.`,
+        icon: "error"
+      });
+    }    
+
+    if(this.ronda <= this.maxRondas) {
+      this.ronda++;
+      this.nuevaRonda();
+    }
+    else
+      this.gameOver();
+
+  }
+
+  gameOver() {
+    // mensaje de TERMINACION
+    // grabar los resultados.
   }
 
   ngOnDestroy() {
-    this.susbcripcion.unsubscribe();
+    if(this.susbcripcion)
+      this.susbcripcion.unsubscribe();
   }
 
   /**
@@ -88,15 +145,14 @@ export class JuegoAhorcado {
    * @param user data del usuario
    */
   onUsuarioLogeado(user :UserData) {
-
-    this.usuarioLogeado = user;
-
-    // Valida que haya un usuario logeado, sino lo redirecciona
-    if(this.usuarioLogeado === null) {
+    
+    if(!user) {
       console.error("Usuario no logeado");
       this.router.navigate(['/error']);
+      return;
     }
-
+    
+    this.usuarioLogeado = user;
   }
 
 

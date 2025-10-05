@@ -27,65 +27,56 @@ h1 {
 
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 #ahorcado-container {
-  // height: 60vh;
-  // background-image: url('/ahorcado/fondo.png');
-  // image-resolution: 100%;
-  // background-position: center;
-  // border: 3px solid var(--color-textos);
-  // border-radius: 20px;
-  // box-shadow: 3px 3px 10px -3px grey;
-  // padding: 1vw;
-
-  // display: flex;
-  // flex-direction: row;
-  // justify-content: space-evenly;
-  // align-items: center;
 
   height: 60vh;
-  background-image: url('/ahorcado/fondo.png');
+  width: 30vh;
 
-  background-repeat: no-repeat;   /* Que no se repita */
-  background-position: center;    /* Que quede centrado */
-  background-size: 40%;           /* Escala para cubrir todo el contenedor */
-  background-attachment: fixed;   /* El fondo no se mueve al cambiar resolución */
+  margin: 0 auto;
+
+  border-radius: 20px;
 
   border: 3px solid var(--color-textos);
-  border-radius: 20px;
   box-shadow: 3px 3px 10px -3px grey;
-  padding: 1vw;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-
-  aspect-ratio: 16 / 9;   /* usa la relación real de tu imagen */
+  img {
+    height: 59.5vh;
+    width: 29.5vh;
+    border-radius: 18px;
+    z-index: -10;
+  }
 
 }
-
-
 
 #palabra-container {
   width: 90%;
-  margin: 1rem 0;
-  font-size: 1.5rem;
+  margin: 1rem auto;
+  font-size: 3rem;
+  gap: 0.3rem;
+  justify-content: center;  
 
-  .letter {
-    display: inline-block;
-    width: 20px;
-    text-align: center;
+  #palabra {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+
+    .text {
+      display: inline-block;
+      min-width: 1ch; 
+      text-align: center;
+    }
   }
+
 }
 
-
-#teclado-container {
+#botones-container {
   display: flex;
   flex-wrap: wrap;
   width: 90%;
-  margin: 1rem, auto;
+  margin: 1rem auto;
   gap: 0.3rem;
 
   button {

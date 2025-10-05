@@ -38,7 +38,7 @@ Se implementó el juego de "Ahorcado" con un teclado virtual (mejoras pendientes
 ## V 1.2.1
 ### Correcciones
 Se corrigió un issue en la sala de Chat por el cual no se mostraban los mensajes en tiempo real.  
-//Se agregó un manejo de excepciones para el componente Registro por el cual se mostraban errores de creación de usuario nativos de la base de datos.
+Se agregó un manejo de excepciones para el componente Registro por el cual se mostraban errores de creación de usuario nativos de la base de datos.
 
 ### Novedades
 //Se modificó la interfaz visual del juego "Ahorcado", la disposición de los elementos en pantalla y se agregaron indicadores visuales de intentos y errores.  

@@ -38,7 +38,7 @@ export class Registro {
         password: this.password
       });
 
-      if(error) {
+      if(error) {      
 
         if (error.message.includes('already registered') || error.message.includes('already exists')) {
           this.snackBar.open('El correo ya está registrado. Intenta con otro.', 'Cerrar', {
@@ -46,6 +46,24 @@ export class Registro {
             horizontalPosition: 'center',
             verticalPosition: 'top'
           });
+
+        }
+        else
+        if(error.message.includes('Password should be at least 6 characters')) {
+          this.snackBar.open('La contraseña debe tener al menos 6 caracteres.', 'Cerrar', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+          });
+        }
+        else
+        if(error.message.includes('User already registered')) {
+          this.snackBar.open('El usuario (correo) ya se encuentra registrado.', 'Cerrar', {
+            duration: 3000,
+            horizontalPosition: 'center',
+            verticalPosition: 'top'
+          });
+
         } else {
           this.snackBar.open(`Error: ${error.message}`, 'Cerrar', { duration: 5000 });
         }
@@ -128,7 +146,7 @@ export class Registro {
    */
   validarDatos() {
     return  this.nombre != "" &&
-            this.edad > 0 &&
+            (this.edad > 18 && this.edad < 99) &&
             this.email != "" &&
             this.password != "" &&
             this.password === this.password2;

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
-import { Subscription } from 'rxjs';
 import { UserData } from '../../models/user-data';
+import { Preguntados } from '../../servicios/preguntados';
 
 @Component({
   standalone: false,
@@ -14,10 +13,8 @@ export class JuegoPreguntados {
 
   usuarioLogeado :UserData | null = null;
 
-  susbcripcion! :Subscription;
-
-  cantidadPersonajes = 0;
   ronda :number = 1;
+  maxRondas :number = 10;
   nombrePersonaje :string = "";
   imagenPersonaje :string = "";
   opcionA :string = "";
@@ -26,16 +23,7 @@ export class JuegoPreguntados {
   opcionD :string = "";
   puntaje :number = 0;
 
-  constructor(private http :HttpClient, private router :Router) {}
-
-  ngOnInit() {
-
-    this.http.get<any>(`https://rickandmortyapi.com/api/character/`)
-    .subscribe(res => {
-      this.cantidadPersonajes = res.info.count;
-    });
-
-  }
+  constructor(private router :Router, public preguntados :Preguntados) {}
 
   nuevoJuego() {   
 
@@ -44,31 +32,33 @@ export class JuegoPreguntados {
     this.nombrePersonaje = "";
     this.imagenPersonaje = "";    
 
-    this.seleccionarNuevaRonda();
+    this.nuevaRonda();
 
   } 
 
-  async seleccionarNuevaRonda(){
+  /**
+   * Arma una nueva ronda invocando al Servicio
+   */
+  nuevaRonda() {
+    this.preguntados.getPersonajesNuevaRonda()
+      .subscribe( res =>{
 
-    let ruletaA = Math.floor(Math.random() * this.cantidadPersonajes) +1;
-    let ruletaB = Math.floor(Math.random() * this.cantidadPersonajes) +1;
-    let ruletaC = Math.floor(Math.random() * this.cantidadPersonajes) +1;
-    let ruletaD = Math.floor(Math.random() * this.cantidadPersonajes) +1;
+        let elegido = Math.floor(Math.random() * 4);
 
-    let elegido = Math.floor(Math.random() * 4);
+        this.nombrePersonaje = res[elegido].name;
+        this.imagenPersonaje = res[elegido].image;
+        this.opcionA = res[0].name;
+        this.opcionB = res[1].name;
+        this.opcionC = res[2].name;
+        this.opcionD = res[3].name;
 
-    this.http.get<any>(`https://rickandmortyapi.com/api/character/${ruletaA},${ruletaB},${ruletaC},${ruletaD}`)
-    .subscribe(res => {
-      this.nombrePersonaje = res[elegido].name;
-      this.imagenPersonaje = res[elegido].image;
-      this.opcionA = res[0].name;   console.log("nombre1: ", res[0].name);
-      this.opcionB = res[1].name;   console.log("nombre2: ", res[1].name);
-      this.opcionC = res[2].name;   console.log("nombre3: ", res[2].name);
-      this.opcionD = res[3].name;   console.log("nombre4: ", res[3].name);
-    });
-
+      });
   }
 
+  /**
+   * Valida la selección del usuario, y suma los puntos si corresponde
+   * @param seleccion 
+   */
   adivinar(seleccion :string) {
 
     if(seleccion === this.nombrePersonaje) {
@@ -77,16 +67,12 @@ export class JuegoPreguntados {
 
     this.ronda++;
 
-    if(this.ronda <= 10) 
-      this.seleccionarNuevaRonda();
+    if(this.ronda <= this.maxRondas) 
+      this.nuevaRonda();
     else
       this.gameOver();
 
   }
-
-  // ngOnDestroy() {
-  //   this.susbcripcion.unsubscribe();
-  // }
 
   /**
    * Recibe información del usuario logeado en del componente menú
@@ -94,13 +80,13 @@ export class JuegoPreguntados {
    */
   onUsuarioLogeado(user :UserData) {
 
-    this.usuarioLogeado = user;
-
-    // Valida que haya un usuario logeado, sino lo redirecciona
-    if(this.usuarioLogeado === null) {
+    if(!user) {
       console.error("Usuario no logeado");
       this.router.navigate(['/error']);
+      return;
     }
+    
+    this.usuarioLogeado = user;
 
   }
 
