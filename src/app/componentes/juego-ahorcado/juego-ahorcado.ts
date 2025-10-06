@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { UserData } from '../../models/user-data';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -14,13 +13,16 @@ import Swal from 'sweetalert2'
 })
 export class JuegoAhorcado {
 
+  comenzar :Boolean = false;
+
   usuarioLogeado :UserData | null = null;
+  susbcripcion!: Subscription;
+  
   ronda :number = 1;
   maxRondas :number = 5;
   vidas :number = 6;
   puntaje :number = 0;
   
-  susbcripcion!: Subscription;
   estado: 'jugando' | 'ganaste' | 'perdiste' = 'jugando';
   alfabeto = 'abcdefghijklmnñopqrstuvwxyz';
   letras = this.alfabeto.split('');
@@ -37,17 +39,25 @@ export class JuegoAhorcado {
   letrasElegidas: string[] = [];
   letrasFaltantes = 0;
 
-  constructor(private http :HttpClient, private router :Router, private snackBar :MatSnackBar) {}
+  constructor(private http :HttpClient, private router :Router) {}
 
   ngOnInit() {
-    
+    this.comenzar = false;
   }
 
-  nuevoJuego() {
-
+  /**
+   * 
+   */
+  nuevoJuego() {    
+    this.comenzar = true;
+    this.ronda = 1;
+    this.puntaje = 0;
+    this.nuevaRonda();
   }
 
-
+  /**
+   * 
+   */
   nuevaRonda() {    
 
     this.susbcripcion = this.http.get<string[]>('https://random-word-api.herokuapp.com/word?lang=es')
@@ -57,29 +67,30 @@ export class JuegoAhorcado {
         this.palabra = res[0].toLowerCase();
         this.letrasExistentes = this.palabra.split('');
 
-        this.vidas = 6;
-        this.puntaje = 0;
-        this.ronda = 1;
+        this.vidas = 6;              
         this.letrasElegidas = [];
         this.letrasFaltantes = this.letrasExistentes.filter( letra => letra !== ' ' && letra !== '-' ).length;
 
       },
-        error: err => {
+      error: err => {
         console.error('Error al obtener palabra:', err);
       }
 
     });
     
-  }
-  
+  }  
 
-  elegirLetra(letra: string) {
-
-    // se guarda la letra en "elegidas"
-    this.letrasElegidas.push(letra);
+  /**
+   * 
+   * @param letra 
+   */
+  elegirLetra(letra: string) {    
 
     // Se contrasta con las variantes del diccionario
     const variantes = this.equivalencias[letra] || [letra];
+
+    // se guarda la letra en "elegidas"
+    this.letrasElegidas.push(...variantes.filter(v => !this.letrasElegidas.includes(v)));
 
     // Mapea y filtra el indice de las letras recibidas enntre las letras existentes de la palabra
     const indexes = this.letrasExistentes
@@ -91,7 +102,7 @@ export class JuegoAhorcado {
       this.letrasFaltantes -= indexes.length;
 
       if (this.letrasFaltantes === 0) 
-        this.finRonda(true);
+        setTimeout(() => { this.finRonda(true); }, 2000);
 
     } 
     // Si el array no tiene elementos pierde una vida, si no quedan vidas se termina la ronda
@@ -99,13 +110,18 @@ export class JuegoAhorcado {
       this.vidas--;
 
       if (this.vidas == 0)
-        this.finRonda(false);
+        setTimeout(() =>  { this.finRonda(false); }, 2000);
+
     }
   }
 
-  finRonda(punto :Boolean) {
+  /**
+   * 
+   * @param puntos 
+   */
+  finRonda(puntos :Boolean) {
 
-    if(punto) {
+    if(puntos) {
       this.puntaje += 20;
       Swal.fire({
         title: "🎉 Ganaste la ronda!",
@@ -121,7 +137,7 @@ export class JuegoAhorcado {
       });
     }    
 
-    if(this.ronda <= this.maxRondas) {
+    if(this.ronda < this.maxRondas) {
       this.ronda++;
       this.nuevaRonda();
     }
@@ -130,9 +146,38 @@ export class JuegoAhorcado {
 
   }
 
+  /**
+   * 
+   */
   gameOver() {
-    // mensaje de TERMINACION
-    // grabar los resultados.
+
+    // grabar los resultados en la tabla de puntuaciones
+
+    Swal.fire({
+      title: "🍄 Se acabó!",
+      text: `Tu puntaje fue de ${this.puntaje}.`,
+      icon: "success"
+    })
+    .then(() => {
+
+      Swal.fire({
+        title: "Te jugás otra partida?",
+        text: 'Elegí "No!" para volver al menu de juegos',
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#58cb49ff",
+        cancelButtonColor: "#6096BA",
+        confirmButtonText: "Sí!",
+        cancelButtonText: "No!"
+      })
+      .then((result) => {
+        if (result.isConfirmed)
+          this.ngOnInit();
+        else 
+          this.router.navigate(['/home']);
+      });
+
+    });    
   }
 
   ngOnDestroy() {

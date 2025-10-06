@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { UserData } from '../../models/user-data';
+import Swal from 'sweetalert2'
 
 @Component({
   standalone: false,
@@ -12,20 +13,33 @@ import { UserData } from '../../models/user-data';
 })
 export class JuegoMayorMenor {
 
+  comenzar :Boolean = false;
+
   usuarioLogeado :UserData | null = null;
   susbcripcion! :Subscription;
+
+  puntaje :number = 0;
+
   mazo :string = "";
   cant :number = 0;
   imagenCartaVieja :string = "";
   imagenCartaNueva :string = "";
   valorCartaVieja :number = 0;
   valorCartaNueva :number = 0;
-  puntaje :number = 0;
 
   constructor(private http: HttpClient, private router :Router) {}
 
+  ngOnInit() {
+    this.comenzar = false;
+  }
+
+  /**
+   * 
+   */
   nuevoJuego() {
+    this.comenzar = true;
     this.puntaje = 0;
+    this.imagenCartaVieja = "";
 
     this.susbcripcion = this.http.get<any>('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=2')
     .subscribe(res => {
@@ -38,9 +52,14 @@ export class JuegoMayorMenor {
 
       this.robarCarta();
     });
-  } 
+  }
 
-  async robarCarta(): Promise<void> {
+
+  /**
+   * 
+   * @returns 
+   */
+  async robarCarta(): Promise<void> {    
 
     return new Promise((resolve, reject) => {
 
@@ -81,7 +100,7 @@ export class JuegoMayorMenor {
   }
 
   /**
-   * Estable el comportamiento según la apuesta y las cartas en la mesa
+   * Evalúa la respuesta del usuario y procesa el puntaje según corresponda
    * @param opcion el tipo de apuesta
    */
   async apostar(opcion :string) {
@@ -93,14 +112,50 @@ export class JuegoMayorMenor {
           (opcion === "mayor" && this.valorCartaNueva > this.valorCartaVieja) )
         this.puntaje += 2;
       else if(opcion === "igual" && this.valorCartaNueva == this.valorCartaVieja) 
-        this.puntaje += 50;
+        this.puntaje += 20;
       else if(this.puntaje > 0 && this.valorCartaNueva != this.valorCartaVieja)
         this.puntaje --;
+
+      if(this.cant == 0)
+        this.gameOver();
 
     }
     catch (err) {
       console.error("Error al apostar:", err);
     }    
+  }
+
+  /**
+   * 
+   */
+  gameOver(){
+
+    Swal.fire({
+      title: "♠️ Se acabó!",
+      text: `Tu puntaje fue de ${this.puntaje}.`,
+      icon: "success"
+    })
+    .then(() => {
+
+      Swal.fire({
+        title: "Te jugás otra partida?",
+        text: 'Elegí "No!" para volver al menu de juegos',
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#58cb49ff",
+        cancelButtonColor: "#6096BA",
+        confirmButtonText: "Sí!",
+        cancelButtonText: "No!"
+      })
+      .then((result) => {
+        if (result.isConfirmed)
+          this.ngOnInit();
+        else 
+          this.router.navigate(['/home']);
+      });
+
+    });
+
   }
 
   ngOnDestroy() {
@@ -113,15 +168,14 @@ export class JuegoMayorMenor {
    * @param user data del usuario
    */
   onUsuarioLogeado(user :UserData) {
-
-    this.usuarioLogeado = user;
-
-    // Valida que haya un usuario logeado, sino lo redirecciona
-    if(this.usuarioLogeado === null) {
+    
+    if(!user) {
       console.error("Usuario no logeado");
       this.router.navigate(['/error']);
+      return;
     }
-
+    
+    this.usuarioLogeado = user;
   }
 
 }

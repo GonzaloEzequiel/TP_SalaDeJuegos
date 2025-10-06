@@ -2,44 +2,48 @@
 
 <div id="container">
 
-	<h1 class="title">Ahorcado !!</h1>
-
-	<div id="reglas-container">
-		<p class="text">
-			Salvá al flaco de verde! Jugamos a 5 rondas.<br>
-			Tenés que adivinar la plabra secreta eligiendo de a una letra, si no está en la palabra perdés una (1) 'vida'. <br>
-			Si adivinás la palabra ganás veinte (20) puntos pero si perdés seis vidas en una sola palabra esa ronda no sumás puntos!
-		</p>
-	</div>
-
-	<img src="/public/start.png" alt="">
-
-	<div id="juego-container" hidden>
-
-		<div id="ahorcado-container">
-			<img src="/ahorcado/{{vidas}}.png" />
+	<h1 class="title">Ahorcado !!!</h1>
+	
+	@if(!comenzar) {
+		<div id="reglas-container">
+			<p class="text">
+				Salvá al flaco de verde! Jugamos a 5 rondas.<br>
+				Tenés que adivinar la plabra secreta eligiendo de a una letra, si no está en la palabra perdés una (1) 'vida'. <br>
+				Si adivinás la palabra ganás veinte (20) puntos pero si perdés seis vidas en una sola palabra esa ronda no sumás puntos!
+			</p>
 		</div>
 
-		<div id="palabra-container">
-			<div id="palabra">
-				@for(letra of letrasExistentes; track letras) {
-					<span class="text">
-						{{ letrasElegidas.includes(letra) || letra === ' ' || letra === '-' ? letra : '_' }}
-					</span>
-				}			
-    </div>
+		<img id="startImg" src="/start.png" alt="" (click)="nuevoJuego()">
+	}
+	@else {
+		<div id="juego-container">
 
-		<div id="botones-container">
-			@for(letra of letras; track letras) {
-				<button [disabled]="letrasElegidas.includes(letra) || estado !== 'jugando'" (click)="elegirLetra(letra)">{{ letra }}</button>
-			}
-    </div>
+			<div id="ahorcado-container">
+				<img src="/ahorcado/{{vidas}}.png" />
+			</div>
 
-		<div id="puntaje-container">
-      <p class="text">Puntos: {{puntaje}}</p>
-			<p class="text">Ronda: {{ronda}} / {{maxRondas}}</p>
-			<p class="text">Vidas: {{vidas}}</p>
-		</div>
+			<div id="palabra-container">
+				<div id="palabra">
+					@for(letra of letrasExistentes; track letras) {
+						<span class="text">
+							{{ letrasElegidas.includes(letra) || letra === ' ' || letra === '-' ? letra : '_' }}
+						</span>
+					}
+				</div>			
+			</div>
 
-	</div>	
+			<div id="botones-container">
+				@for(letra of letras; track letras) {
+					<button [disabled]="letrasElegidas.includes(letra) || estado !== 'jugando'" (click)="elegirLetra(letra)">{{ letra }}</button>
+				}
+			</div>
+
+			<div id="puntaje-container">
+				<p class="text">Puntos: {{puntaje}}</p>
+				<p class="text">Ronda: {{ronda}} / {{maxRondas}}</p>
+				<p class="text">Vidas: {{vidas}}</p>
+			</div>
+
+		</div>			
+	}
 </div>

@@ -1,0 +1,22 @@
+#startImg {
+  height: 20vh;
+  width: 32vh;
+  margin: 0 auto;
+}
+#startImg:hover {
+  cursor: pointer;
+}
+
+#display-container {
+  width: 85vw;
+
+  border-radius: 20px;
+  border: 3px solid var(--color-textos);
+  box-shadow: 3px 3px 10px -3px grey;
+}
+
+#botones-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+}

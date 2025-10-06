@@ -1,1 +1,34 @@
-<p>juego-mi-juego works!</p>
+<app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
+
+<div id="container">
+
+	<h1 class="title">Ahorcado !!!</h1>
+	
+	@if(!comenzar) {
+		<div id="reglas-container">
+			<p class="text">
+				
+			</p>
+		</div>
+
+		<img id="startImg" src="/start.png" alt="" (click)="nuevoJuego()">
+	}
+	@else {
+		<div id="juego-container">
+
+			<div id="display-container">
+
+      </div>
+
+			<div id="botones-container">
+				<img src="/miJuego/control.png" alt=""> <p>Saltar</p>
+			</div>
+
+			<div id="puntaje-container">
+				<p class="text">Puntos: {{puntaje}}</p>
+				<p class="text">Vidas: {{vidas}}</p>
+			</div>
+
+		</div>			
+	}
+</div>

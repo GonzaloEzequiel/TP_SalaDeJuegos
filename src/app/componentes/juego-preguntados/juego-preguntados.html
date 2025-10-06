@@ -2,41 +2,42 @@
 
 <div id="container">
 
-  <h1 class="title">" Preguntados: Rick & Morty "</h1>
+  <h1 class="title">Preguntados: "Rick & Morty"</h1>
 
-  <div id="reglas-container">
-    <p class="text">
-      Reglas: Tenés que adivinar cómo se llama el personaje de la foto! <br>
-      Un Juego son diez rondas, cada ronda te damos cuatro opciones para que elijas, y si elegiste bien ganás diez (10) puntos.
-    </p>
-  </div>
-
-	<div id="juego-container">
-
-    <div id="foto-container">
-      @if(imagenPersonaje != "") {
-        <img id="foto-personaje" src="{{imagenPersonaje}}">
-      }
-      @else {
-        <button class="boton" (click)="nuevoJuego()">COMENZAR</button>
-      }      
+  @if(!comenzar) {
+    <div id="reglas-container">
+      <p class="text">
+        Reglas: Tenés que adivinar cómo se llama el personaje de la foto! <br>
+        Un Juego son diez rondas, cada ronda te damos cuatro opciones para que elijas, y si elegiste bien ganás diez (10) puntos.
+      </p>
     </div>
 
-    <div id="botones-container">
-      <div id="fila1">
-        <button class="boton" id="botonA" (click)="adivinar(opcionA)">{{opcionA}}</button>
-        <button class="boton" id="botonB" (click)="adivinar(opcionB)">{{opcionB}}</button>
+    <img id="startImg" src="/start.png" alt="" (click)="nuevoJuego()">
+  }
+  @else {
+    <div id="juego-container">
+
+      <div id="foto-container">
+          <img id="foto-personaje" src="{{imagenPersonaje}}">
       </div>
-      <div id="fila2">
-        <button class="boton" id="botonC" (click)="adivinar(opcionC)">{{opcionC}}</button>
-        <button class="boton" id="botonD" (click)="adivinar(opcionD)">{{opcionD}}</button>
+
+      <div id="botones-container">
+        <div id="fila1">
+          <button class="boton" id="botonA" (click)="adivinar(opcionA)">{{opcionA}}</button>
+          <button class="boton" id="botonB" (click)="adivinar(opcionB)">{{opcionB}}</button>
+        </div>
+        <div id="fila2">
+          <button class="boton" id="botonC" (click)="adivinar(opcionC)">{{opcionC}}</button>
+          <button class="boton" id="botonD" (click)="adivinar(opcionD)">{{opcionD}}</button>
+        </div>
       </div>
-    </div>
 
-    <div id="puntaje-container">
-      <p class="text">Puntos: {{puntaje}}</p>
-      <p class="text">Ronda: {{ronda}} / {{maxRondas}}</p>
-    </div>
+      <div id="puntaje-container">
+        <p class="text">Puntos: {{puntaje}}</p>
+        <p class="text">Ronda: {{ronda}} / {{maxRondas}}</p>
+      </div>
 
-  </div>
+    </div>
+  }
+	
 </div>

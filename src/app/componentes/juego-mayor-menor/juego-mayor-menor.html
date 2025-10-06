@@ -2,54 +2,55 @@
 
 <div id="container">
 
-  <h1 class="title">¿ Mayor o Menor ?</h1>
+  <h1 class="title">Mayor o Menor ???</h1>
 
-  <div id="reglas-container">
-    <p class="text">
-      Reglas: Jugamos con dos mazos, los Aces tienen valor "1". <br>
-      Tras levantar la primera carta vas a tener que adivinar si la siguiente será mayor o menor que la actual.<br>
-      Si acertás sumás dos (2) puntos, si fallás perdés un (1) punto. Si acertás la apuesta por "Igual" sumás cincuenta (100) puntos!.
-    </p>
-  </div>
-
-	<div id="juego-container">
-
-    <div id="cartas-container">
-        <div class="carta-img-wrapper" id="carta-vieja">
-          @if(imagenCartaVieja != "") {
-            <p class="title">Anterior</p>
-            <img class="carta" src="{{imagenCartaVieja}}" />
-            <p class="text"> </p>
-          }
-        </div>
-
-        <div class="carta-img-wrapper" id="carta-nueva">
-          @if(imagenCartaNueva != "") {
-            <p class="title">Actual</p>
-            <img class="carta" src="{{imagenCartaNueva}}" />
-            <p class="text"> </p>
-          }
-          @else {
-            <button class="boton" (click)="nuevoJuego()">COMENZAR</button>
-          }
-        </div>
-
-        <div class="carta-img-wrapper" id="carta-proxima">
-          <p class="title">Siguiente</p>
-          <img class="carta" src="https://deckofcardsapi.com/static/img/back.png" alt="dorso próxima carta"/>
-          <p class="text">Restantes: {{cant}}</p>
-        </div>
+  @if(!comenzar) {
+    <div id="reglas-container">
+      <p class="text">
+        Reglas: Jugamos con dos mazos, los Aces tienen valor "1". <br>
+        Tras levantar la primera carta vas a tener que adivinar si la siguiente será mayor o menor que la actual.<br>
+        Si acertás sumás dos (2) puntos, si fallás perdés un (1) punto. Si acertás la apuesta por "Igual" sumás veinte (20) puntos!.
+      </p>
     </div>
 
-    <div id="botones-container">
-      <button class="boton" id="boton-menor" (click)="apostar('menor')">MENOR</button>
-      <button class="boton" id="boton-igual" (click)="apostar('igual')">IGUAL</button>
-      <button class="boton" id="boton-mayor" (click)="apostar('mayor')">MAYOR</button>
-    </div>
+    <img id="startImg" src="/start.png" alt="" (click)="nuevoJuego()">
+  }
+  @else {
+    <div id="juego-container">
 
-    <div id="puntaje-container">
-      <p class="text">Puntos: {{puntaje}}</p>
-    </div>
+      <div id="cartas-container">
+          <div class="carta-img-wrapper" id="carta-vieja">
+            @if(imagenCartaVieja != "") {
+              <p class="title">Anterior</p>
+              <img class="carta" src="{{imagenCartaVieja}}" />
+              <p class="text"> </p>
+            }
+          </div>
 
-  </div>
+          <div class="carta-img-wrapper" id="carta-nueva">
+              <p class="title">Actual</p>
+              <img class="carta" src="{{imagenCartaNueva}}" />
+              <p class="text"> </p>
+          </div>
+
+          <div class="carta-img-wrapper" id="carta-proxima">
+            <p class="title">Siguiente</p>
+            <img class="carta" src="https://deckofcardsapi.com/static/img/back.png" alt="dorso próxima carta"/>
+            <p class="text">Restantes: {{cant}}</p>
+          </div>
+      </div>
+
+      <div id="botones-container">
+        <button class="boton" id="boton-menor" (click)="apostar('menor')">MENOR</button>
+        <button class="boton" id="boton-igual" (click)="apostar('igual')">IGUAL</button>
+        <button class="boton" id="boton-mayor" (click)="apostar('mayor')">MAYOR</button>
+      </div>
+
+      <div id="puntaje-container">
+        <p class="text">Puntos: {{puntaje}}</p>
+      </div>
+
+    </div>
+  }
+
 </div>

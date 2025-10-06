@@ -41,7 +41,7 @@ Se corrigió un issue en la sala de Chat por el cual no se mostraban los mensaje
 Se agregó un manejo de excepciones para el componente Registro por el cual se mostraban errores de creación de usuario nativos de la base de datos.
 
 ### Novedades
-//Se modificó la interfaz visual del juego "Ahorcado", la disposición de los elementos en pantalla y se agregaron indicadores visuales de intentos y errores.  
+Se modificó la interfaz visual del juego "Ahorcado", la disposición de los elementos en pantalla y se agregaron indicadores visuales de intentos y errores.  
 Se implementó el juego de "Mayor o Menor".  
 Se implementó un apartado con las reglas del juego para cada componente Juego.  
 
@@ -49,3 +49,13 @@ Se implementó un apartado con las reglas del juego para cada componente Juego.
 ### Novedades
 Se implementó el juego de "Preguntados" (llama a la API via Servicio).  
 Se definió el juego propio, actualizándose la información del mismo en el componente QuienSoy.
+
+## V 1.3.1 Sprint 4
+### Correcciones
+Mayor o Menor | Se modficó el puntuaje que otorga una 'apuesta' por carta igual.
+
+### Novedades
+Se estableció la funcionalidad de opción rejugabilidad para cada uno de los juegos. Cuando antes se enviaba automáticamente al home, el usuario ahora tiene la posibilidad de jugar otra partida.
+Se implementó el juego propio.
+
+## V 1.4.0 Sprint 5

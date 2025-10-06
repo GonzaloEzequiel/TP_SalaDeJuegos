@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserData } from '../../models/user-data';
 import { Preguntados } from '../../servicios/preguntados';
+import Swal from 'sweetalert2'
 
 @Component({
   standalone: false,
@@ -11,21 +12,33 @@ import { Preguntados } from '../../servicios/preguntados';
 })
 export class JuegoPreguntados {
 
+  comenzar :Boolean = false;
+
   usuarioLogeado :UserData | null = null;
 
   ronda :number = 1;
   maxRondas :number = 10;
+  puntaje :number = 0;
+
   nombrePersonaje :string = "";
   imagenPersonaje :string = "";
   opcionA :string = "";
   opcionB :string = "";
   opcionC :string = "";
   opcionD :string = "";
-  puntaje :number = 0;
 
   constructor(private router :Router, public preguntados :Preguntados) {}
 
+  ngOnInit() {
+    this.comenzar = false;
+  }
+
+  /**
+   * 
+   */
   nuevoJuego() {   
+
+    this.comenzar = true;
 
     this.ronda = 1;
     this.puntaje = 0;
@@ -90,9 +103,38 @@ export class JuegoPreguntados {
 
   }
 
+  /**
+   * 
+   */
   gameOver(){
-    alert(`TEST!! Se acabó... tu puntaje: ${this.puntaje} `);
-    this.nuevoJuego();
+
+    // grabar los resultados en la tabla de puntuaciones
+    
+    Swal.fire({
+      title: "🤖 Se acabó !!",
+      text: `Tu puntaje fue de: ${this.puntaje}`,
+      icon: "success"
+    })
+    .then(() => {
+    
+      Swal.fire({
+        title: "Te jugás otra partida?",
+        text: 'Elegí "No!" para volver al menu de juegos',
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#58cb49ff",
+        cancelButtonColor: "#6096BA",
+        confirmButtonText: "Sí!",
+        cancelButtonText: "No!"
+      })
+      .then((result) => {
+        if (result.isConfirmed)
+          this.ngOnInit();
+        else 
+          this.router.navigate(['/home']);
+      });
+    });
+
   }
 
 }
