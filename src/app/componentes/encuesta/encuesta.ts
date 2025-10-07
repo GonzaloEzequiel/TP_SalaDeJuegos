@@ -1,53 +1,51 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, AsyncValidatorFn, Validators, ValidatorFn, AbstractControl, ValidationErrors} from '@angular/forms';
+import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors} from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { Router } from '@angular/router';
+import { Db } from '../../servicios/db';
+import { UserData } from '../../models/user-data';
+import { Menu } from "../menu/menu";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-encuesta',
-  imports: [],
+  imports: [Menu],
   templateUrl: './encuesta.html',
   styleUrl: './encuesta.scss'
 })
 export class Encuesta {
 
-  form! = new FormGroup()
+  usuarioLogeado :UserData | null = null;
 
-  ngOnInig() {
+  form!:FormGroup;
+  repiteClave :string ="";
+
+  constructor(private router :Router, public db :Db) {}
+
+  ngOnInit() {
 
     this.form  = new FormGroup({
-      usuario: new FormControl("", {
-        asyncValidators: this.usuarioExistenteAsyncValidator(this.usuariosService),  // validación custom contra una BBDD por medio de una API 
-        updateOn: 'blur'                                                        // cuando se quita el foco del input   [ change || submit || undefined ]
-      }),
-      // primer parámetro: valor "inicial", segundo parámetro: validadores
-      nombre: new FormControl("", Validators.pattern('^[a-zA-Z]+$')),         // validador de contenido (patrón de expresión regular)
-      edad: new FormControl("", [Validators.min(18), Validators.max(99)]),    // (array de) validadores de valor mínimo y máximo
-      mail: new FormControl("", Validators.email),                            // validador de estructura de correo electronico
-      clave: new FormControl("", Validators.minLength(4)),                    // validador de cantidad de caracteres
-      repiteClave: new FormControl(null, Validators.required)                 // validador de campo requerido
-    }, 
-    confirmarClaveValidator(); 
+      usuario: new FormControl("", Validators.pattern('^[a-zA-Z]+$')),           
+      nombre: new FormControl("", Validators.pattern('^[a-zA-Z]+$')),         
+      edad: new FormControl("", [Validators.min(18), Validators.max(99)]),    
+      mail: new FormControl("", Validators.email),                            
+      clave: new FormControl("", Validators.minLength(4)),                    
+      repiteClave: new FormControl(null, Validators.required)                 
+    })
+    this.confirmarClaveValidator();
 
   }
 
-
-
-  usuarioExisteAsyncValidator(service: UsuariosService) :AsyncValidatorFn {
-    return (control: AbstractControl) => {                        // form control del usuario
-      const usuario = control.value;
-      return service.TraerUsuarios(usuario)
-        .pipe(				                                            // el operador pipe permite "hacer algo" antes que el valor llegue a la suscripción
-          map(usuarios => {
-            if(usuarios.length > 0)
-              return { usuarioExiste: "El usuario ya existe" };   // validation error
-            return null;
-          })			
-        );
-    };
-  }
-
+  get usuario() { return this.form.get('usuario'); }
+  get nombre() { return this.form.get('nombre'); }
+  get edad() { return this.form.get('edad'); }
+  get mail() { return this.form.get('mail'); }
+  get clave() { return this.form.get('clave'); }
+  get repiteClaveCtrl() { return this.form.get('repiteClave'); }
+  
   confirmarClaveValidator() :ValidatorFn {
     return (formGroup: AbstractControl) :ValidationErrors | null => {
-      const clave = formGroup.get('clave');                                         // el metodo get devuelve el AbstractControl con el nombre del string del parámetro (o null)
+      const clave = formGroup.get('clave');                                         
       const repiteClave = formGroup.get('repiteClave');
       const respuestaError = { claveNoCoincide: "Las contraseñas no coinciden" };
       
@@ -61,5 +59,37 @@ export class Encuesta {
       }		
     };
   }
-  
+
+  enviarForm() {
+    console.log("TEST COMPLETAR");
+
+    if (this.form.valid) {
+    Swal.fire({
+      title: 'Formulario enviado ✅',
+      text: JSON.stringify(this.form.value, null, 2),
+      icon: 'success'
+    });
+    } else {
+      Swal.fire({
+        title: 'Error ❌',
+        text: 'Por favor, completá correctamente todos los campos.',
+        icon: 'error'
+      });
+    }
+  }
+
+  /**
+   * Recibe información del usuario logeado en del componente menú
+   * @param user data del usuario
+   */
+  onUsuarioLogeado(user :UserData) {
+    
+    if(!user) {
+      console.error("Usuario no logeado");
+      this.router.navigate(['/error']);
+      return;
+    }
+    
+    this.usuarioLogeado = user;
+  }
 }

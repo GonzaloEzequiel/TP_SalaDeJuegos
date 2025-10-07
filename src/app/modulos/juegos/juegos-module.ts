@@ -6,6 +6,7 @@ import { JuegoAhorcado } from '../../componentes/juego-ahorcado/juego-ahorcado';
 import { JuegoMayorMenor } from '../../componentes/juego-mayor-menor/juego-mayor-menor';
 import { JuegoPreguntados } from '../../componentes/juego-preguntados/juego-preguntados';
 import { JuegoMiJuego } from '../../componentes/juego-mi-juego/juego-mi-juego';
+import { ReactiveFormsModule } from '@angular/forms';
 import { Menu } from "../../componentes/menu/menu";
 
 
@@ -19,6 +20,7 @@ import { Menu } from "../../componentes/menu/menu";
   imports: [
     CommonModule,
     JuegosModuleRoutingModule,
+    ReactiveFormsModule,
     Menu
   ],
   exports: [

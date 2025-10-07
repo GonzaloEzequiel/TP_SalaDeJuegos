@@ -1,56 +1,58 @@
+<app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
+
 <div id="main-container">
-  <form [formGroup]="form" (ngSubmit)="enviarForm()">
-    <div class="row">
-      <div class="form-control-group col-5">
-        <label class="form-label" for="usuario">Ususario</label>
-        <input type="text" class="form-control" id="usuario" formControlName="usuario">
-        <small class="text-danger">{{usuario?.getError('usuarioExiste')}}</small>
+  <div id="form-container">
+    <!--<form [formGroup]="form" (ngSubmit)="enviarForm()"> -->
+    <form>
+      <div class="row">
+        <div class="form-control-group col-5">
+          <label for="usuario">Usuario</label>
+          <input type="text" id="usuario" formControlName="usuario" class="form-control">
+          <small class="text-danger" *ngIf="usuario?.hasError('pattern')">Debe contener solo letras</small>
+          <small class="text-danger" *ngIf="usuario?.hasError('required')">Campo obligatorio</small>
+        </div>
+
+        <div class="form-control-group col-5">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" formControlName="nombre" class="form-control">
+          <small class="text-danger" *ngIf="nombre?.hasError('pattern')">Debe contener solo letras</small>
+          <small class="text-danger" *ngIf="nombre?.hasError('required')">Campo obligatorio</small>
+        </div>
       </div>
-      
-      <div class="form-control-group col5">
-        <label class="form-label" for="nombre">Nombre</label>
-        <input type="text" class="form-control" id="nombre" formControlName="nombre">
-        <ng-container *ngIf="nombre?.hasError('pattern')">
-          <small class="text-danger">Debe contener sólo letras</small>
-        </ng-container>
+
+      <div class="row">
+        <div class="form-control-group col-5">
+          <label for="mail">Mail</label>
+          <input type="email" id="mail" formControlName="mail" class="form-control">
+          <small class="text-danger" *ngIf="mail?.hasError('email')">Formato inválido</small>
+          <small class="text-danger" *ngIf="mail?.hasError('required')">Campo obligatorio</small>
+        </div>
+
+        <div class="form-control-group col-5">
+          <label for="edad">Edad</label>
+          <input type="number" id="edad" formControlName="edad" class="form-control">
+          <small class="text-danger" *ngIf="edad?.hasError('min')">Debe ser mayor de edad</small>
+          <small class="text-danger" *ngIf="edad?.hasError('max')">Debe ser menor de 99 años</small>
+        </div>
       </div>
-    </div>
-    
-    <div class="row">
-      <div class="form-control-group col5">
-        <label class="form-label" for="mail">Mail</label>
-        <input type="email" class="form-control" id="mail" formControlName="mail">
-        <ng-container *ngIf="mail?.hasError('mail')">
-          <small class="text-danger">Formato inválido</small>
-        </ng-container>
+
+      <div class="row">
+        <div class="form-control-group col-5">
+          <label for="clave">Clave</label>
+          <input type="password" id="clave" formControlName="clave" class="form-control">
+          <small class="text-danger" *ngIf="clave?.hasError('minlength')">
+            Mínimo {{ clave?.getError('minlength')?.requiredLength }} caracteres
+          </small>
+        </div>
+
+        <div class="form-control-group col-5">
+          <label for="repiteClave">Repite Clave</label>
+          <input type="password" id="repiteClave" formControlName="repiteClave" class="form-control">
+          <small class="text-danger" *ngIf="repiteClaveCtrl?.hasError('claveNoCoincide')">Las contraseñas no coinciden</small>
+        </div>
       </div>
-      
-      <div class="form-control-group col5">
-        <label class="form-label" for="edad">Edad</label>
-        <input type="number" class="form-control" id="edad" formControlName="edad">
-        <ng-container *ngIf="edad?.hasError('min')">
-          <small class="text-danger">Debe ser mayor de edad</small>
-        </ng-container>
-      </div>
-    </div>
-    
-    <div class="row">
-      <div class="form-control-group col5">
-        <label class="form-label" for="clave">Clave</label>
-        <input type="password" class="form-control" id="clave" formControlName="clave">
-        <ng-container *ngIf="clave?.hasError('minlength')">
-          <small class="text-danger">La clave debe tener mínimo {{clave?.getError('minlength').requiredLength}} caracteres</small>
-        </ng-container>
-      </div>
-      
-      <div class="form-control-group col5">
-        <label class="form-label" for="repiteClave">Repite Clave</label>
-        <input type="password" class="form-control" id="repiteClave" formControlName="repiteClave">
-        <small class="text-danger">{{repiteClave?.getError('claveNoCoincide')}}</small>
-      </div>
-    </div>
-    
-    <button [disabled]="!form.valid" type="submit" class="btn btn-primary w-25 mt-4"> Enviar </button>
-      
-  </form>
+
+      <button [disabled]="!form.valid" type="submit" class="btn btn-primary mt-4 w-25">Enviar</button>
+    </form>
+  </div>
 </div>
