@@ -1,72 +1,94 @@
-// #startImg {
-//   height: 20vh;
-//   width: 32vh;
-//   margin: 0 auto;
-// }
-// #startImg:hover {
-//   cursor: pointer;
-// }
-
-// #display-container {
-//   width: 85vw;
-
-//   border-radius: 20px;
-//   border: 3px solid var(--color-textos);
-//   box-shadow: 3px 3px 10px -3px grey;
-// }
-
-// #botones-container {
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: left;
-// }
-
-
-:host {
-  display: block;
-  max-width: 900px;
-  margin: 12px auto;
-  font-family: system-ui, Arial, sans-serif;
+#container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.game-wrapper {
-  position: relative;
-  width: 900px;
-  user-select: none;
+h1 {
+  margin: 5vh auto;
 }
 
-.game-canvas {
-  display: block;
-  width: 100%;
-  height: 200px;
-  background: linear-gradient(#f7f7f7, #fff);
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+#reglas-container {
+  width: 50vw;
+  margin: 0 auto;
 }
 
-.controls {
-  margin-top: 8px;
-  display:flex;
-  gap:8px;
-  align-items:center;
+#reglas-container p {
+  margin-top: 0;
+  text-align: center;
 }
 
-.controls button {
-  padding: 6px 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background: #fff;
-  cursor:pointer;
+#startImg {
+  height: 20vh;
+  width: 32vh;
+  margin: 0 auto;
+}
+#startImg:hover {
+  cursor: pointer;
 }
 
-.controls button:disabled {
-  opacity: 0.5;
-  cursor: default;
+#juego-container {
+	background-position: center;
+	background-repeat: no-repeat;
+  width: 50vw;
+  height: 65vh;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
 }
 
-.controls .info {
-  margin-left: auto;
-  color: #333;
-  font-weight: 600;
+#cartas-container {
+  height: 60vh;
+  background-image: url('/mayormenor/panio.jpg');
+  border: 3px solid var(--color-textos);
+  border-radius: 20px;
+  box-shadow: 3px 3px 10px -3px grey;
+  padding: 1vw;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.carta-img-wrapper {
+  width: 18%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#carta-vieja {
+  height: 24vh;
+}
+
+#carta-nueva {
+  height: 30vh;
+  width: 22%;
+}
+
+#carta-proxima {
+  height: 24vh;
+}
+
+.carta-img-wrapper img.carta {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+#botones-container {
+  margin: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.boton {
+  height: 4vh;
+  width: 8vw;
+  background-color: var(--color-marcos);
+  color: var(--color-textos);
 }

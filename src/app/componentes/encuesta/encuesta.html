@@ -1,1 +1,56 @@
-<p>encuesta works!</p>
+<div id="main-container">
+  <form [formGroup]="form" (ngSubmit)="enviarForm()">
+    <div class="row">
+      <div class="form-control-group col-5">
+        <label class="form-label" for="usuario">Ususario</label>
+        <input type="text" class="form-control" id="usuario" formControlName="usuario">
+        <small class="text-danger">{{usuario?.getError('usuarioExiste')}}</small>
+      </div>
+      
+      <div class="form-control-group col5">
+        <label class="form-label" for="nombre">Nombre</label>
+        <input type="text" class="form-control" id="nombre" formControlName="nombre">
+        <ng-container *ngIf="nombre?.hasError('pattern')">
+          <small class="text-danger">Debe contener sólo letras</small>
+        </ng-container>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="form-control-group col5">
+        <label class="form-label" for="mail">Mail</label>
+        <input type="email" class="form-control" id="mail" formControlName="mail">
+        <ng-container *ngIf="mail?.hasError('mail')">
+          <small class="text-danger">Formato inválido</small>
+        </ng-container>
+      </div>
+      
+      <div class="form-control-group col5">
+        <label class="form-label" for="edad">Edad</label>
+        <input type="number" class="form-control" id="edad" formControlName="edad">
+        <ng-container *ngIf="edad?.hasError('min')">
+          <small class="text-danger">Debe ser mayor de edad</small>
+        </ng-container>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="form-control-group col5">
+        <label class="form-label" for="clave">Clave</label>
+        <input type="password" class="form-control" id="clave" formControlName="clave">
+        <ng-container *ngIf="clave?.hasError('minlength')">
+          <small class="text-danger">La clave debe tener mínimo {{clave?.getError('minlength').requiredLength}} caracteres</small>
+        </ng-container>
+      </div>
+      
+      <div class="form-control-group col5">
+        <label class="form-label" for="repiteClave">Repite Clave</label>
+        <input type="password" class="form-control" id="repiteClave" formControlName="repiteClave">
+        <small class="text-danger">{{repiteClave?.getError('claveNoCoincide')}}</small>
+      </div>
+    </div>
+    
+    <button [disabled]="!form.valid" type="submit" class="btn btn-primary w-25 mt-4"> Enviar </button>
+      
+  </form>
+</div>
