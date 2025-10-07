@@ -31,8 +31,8 @@
 					}
 				</div>			
 			</div>
-
-			<div id="botones-container">
+			
+			<div id="botones-container" >
 				@for(letra of letras; track letras) {
 					<button [disabled]="letrasElegidas.includes(letra) || estado !== 'jugando'" (click)="elegirLetra(letra)">{{ letra }}</button>
 				}

@@ -42,7 +42,7 @@ export class Chat {
 
      // Suscripción en tiempo real (canal Supabase)
     this.db.client.channel('chat-room')
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'CHATMENSAJES' },
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'MENSAJES_CHAT' },
       (payload) => {
         this.mensajes = [...this.mensajes, payload.new as ChatMensaje];
         setTimeout(() => this.scrollToBottom(), 50);
@@ -58,7 +58,7 @@ export class Chat {
   async cargarMensajes() {
 
     const { data, error } = await this.db.client
-    .from('CHATMENSAJES')
+    .from('MENSAJES_CHAT')
     .select('*')
     .order('CREATED_AT', { ascending: true });
     
@@ -80,7 +80,7 @@ export class Chat {
     if (!this.nuevoMensaje.trim()) return;
 
     const { data, error } = await this.db.client
-      .from('CHATMENSAJES')
+      .from('MENSAJES_CHAT')
       .insert([{
         ID_USUARIO: this.usuarioLogeado?.ID,
         NOMBRE_USUARIO: this.usuarioLogeado?.NOMBRE,

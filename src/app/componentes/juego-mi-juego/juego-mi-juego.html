@@ -1,4 +1,4 @@
-<app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
+<!-- <app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu> -->
 
 <div id="container">
 
@@ -7,7 +7,8 @@
 	@if(!comenzar) {
 		<div id="reglas-container">
 			<p class="text">
-				
+				Saltá para esquivar todos los obstáculos!<br>
+				Cuanto más lejos llegues sin chocar, más puntos acumularás!
 			</p>
 		</div>
 
@@ -18,6 +19,10 @@
 
 			<div id="display-container">
 
+
+				
+
+
       </div>
 
 			<div id="botones-container">
@@ -25,10 +30,25 @@
 			</div>
 
 			<div id="puntaje-container">
-				<p class="text">Puntos: {{puntaje}}</p>
-				<p class="text">Vidas: {{vidas}}</p>
+				<!-- <p class="text">Puntos: {{puntaje}}</p>
+				<p class="text">Vidas: {{vidas}}</p> -->
+				<!-- <span class="text">Score: {{ score }} • High: {{ highScore }}</span> -->
 			</div>
 
 		</div>			
 	}
 </div>
+
+
+
+<!-- <div class="game-wrapper" (click)="onTap()" role="button" tabindex="0"> -->
+	<canvas #gameCanvas class="game-canvas"></canvas>
+ 
+
+	<!-- <div class="controls">
+		<button (click)="start()" [disabled]="running">Start</button>
+		<button (click)="reset()">Reset</button>
+		<button (click)="jump()">Jump</button>
+		<span class="info">Score: {{ score }} • High: {{ highScore }}</span>
+	</div> -->
+<!-- </div> -->

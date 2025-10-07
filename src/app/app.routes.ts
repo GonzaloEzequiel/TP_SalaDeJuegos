@@ -23,6 +23,14 @@ export const routes: Routes = [
     loadComponent: () => import('./componentes/chat/chat').then(c => c.Chat)
   },
   {
+    path : 'resultados',
+    loadComponent: () => import('./componentes/resultados/resultados').then(c => c.Resultados)
+  },
+  {
+    path : 'encuesta',
+    loadComponent: () => import('./componentes/encuesta/encuesta').then(c => c.Encuesta)
+  },
+  {
     path : 'home',
     component : Home
   },  

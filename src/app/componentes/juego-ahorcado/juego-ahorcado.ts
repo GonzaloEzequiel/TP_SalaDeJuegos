@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { UserData } from '../../models/user-data';
+import { Db } from '../../servicios/db';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -23,7 +24,7 @@ export class JuegoAhorcado {
   vidas :number = 6;
   puntaje :number = 0;
   
-  estado: 'jugando' | 'ganaste' | 'perdiste' = 'jugando';
+  estado: 'jugando' | 'pausa' = 'jugando';
   alfabeto = 'abcdefghijklmnñopqrstuvwxyz';
   letras = this.alfabeto.split('');
   equivalencias: { [key: string]: string[] } = {
@@ -39,7 +40,7 @@ export class JuegoAhorcado {
   letrasElegidas: string[] = [];
   letrasFaltantes = 0;
 
-  constructor(private http :HttpClient, private router :Router) {}
+  constructor(private http :HttpClient, private router :Router, public db :Db) {}
 
   ngOnInit() {
     this.comenzar = false;
@@ -58,7 +59,9 @@ export class JuegoAhorcado {
   /**
    * 
    */
-  nuevaRonda() {    
+  nuevaRonda() {
+
+    this.estado = 'jugando';
 
     this.susbcripcion = this.http.get<string[]>('https://random-word-api.herokuapp.com/word?lang=es')
     .subscribe({
@@ -106,13 +109,17 @@ export class JuegoAhorcado {
 
     } 
     // Si el array no tiene elementos pierde una vida, si no quedan vidas se termina la ronda
-    else {      
-      this.vidas--;
+    else {
 
-      if (this.vidas == 0)
+      if(this.vidas > 1)
+        this.vidas--;
+      else {
+        this.estado = 'pausa';
         setTimeout(() =>  { this.finRonda(false); }, 2000);
+      }
 
     }
+
   }
 
   /**
@@ -151,7 +158,7 @@ export class JuegoAhorcado {
    */
   gameOver() {
 
-    // grabar los resultados en la tabla de puntuaciones
+    this.db.guardarResultadosJuegos(this.usuarioLogeado!.ID, this.usuarioLogeado!.NOMBRE, 1, this.puntaje);
 
     Swal.fire({
       title: "🍄 Se acabó!",

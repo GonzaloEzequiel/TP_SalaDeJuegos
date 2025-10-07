@@ -97,13 +97,13 @@ export class Registro {
     .then(data => {
 
       if(data) {        
-        this.db.client.from('USUARIOS').insert([{
+        this.db.client.from('USUARIOS').insert({
           ID: user.id,
           EMAIL: this.email,
           NOMBRE: this.nombre,
           EDAD: this.edad,
           AVATAR_URL: data.path
-        }])
+        })
         .then(({data, error}) => {
           if(error)
             console.error(`Error: ${error.message}`);
@@ -113,7 +113,7 @@ export class Registro {
             }]);
             this.router.navigate(['/home']);
           }
-        })
+        });
       }
 
     })
