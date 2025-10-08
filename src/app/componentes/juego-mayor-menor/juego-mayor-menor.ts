@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { UserData } from '../../models/user-data';
+import { Db } from '../../servicios/db';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -27,7 +28,7 @@ export class JuegoMayorMenor {
   valorCartaVieja :number = 0;
   valorCartaNueva :number = 0;
 
-  constructor(private http: HttpClient, private router :Router) {}
+  constructor(private http: HttpClient, private router :Router, public db :Db) {}
 
   ngOnInit() {
     this.comenzar = false;
@@ -129,6 +130,8 @@ export class JuegoMayorMenor {
    * 
    */
   gameOver(){
+
+    this.db.guardarResultadosJuegos(this.usuarioLogeado!.ID, this.usuarioLogeado!.NOMBRE, 2, this.puntaje);
 
     Swal.fire({
       title: "♠️ Se acabó!",

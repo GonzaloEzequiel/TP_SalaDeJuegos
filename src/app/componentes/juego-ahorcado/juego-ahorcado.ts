@@ -111,7 +111,7 @@ export class JuegoAhorcado {
     // Si el array no tiene elementos pierde una vida, si no quedan vidas se termina la ronda
     else {
 
-      if(this.vidas > 1)
+      if(this.vidas >= 1)
         this.vidas--;
       else {
         this.estado = 'pausa';

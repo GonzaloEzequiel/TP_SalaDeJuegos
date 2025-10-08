@@ -1,54 +1,43 @@
 #main-container {
   display: flex;
-  flex-direction: row;
+  justify-content: center;
 }
 
-#login-container {
-  width: 50vw;
+#form-container {
+  width: 55vw;
+  background-color: rgba(96, 150, 186, 0.8);
   border: 3px solid white;
   border-radius: 20px;
-  background-color: rgba(96, 150, 186, 0.8);
   box-shadow: 3px 3px 10px -3px grey;
-  margin: 2vh auto;
-  padding: 1vw;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 2vw;
+  margin-top: 2vh;
 }
 
-#login-form {
+.row {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 60%;
-  margin: 1vw;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 
-#login-title {
-  font-weight: bolder;
-  font-size: 40px;
-  text-align: center;
-  color: var(--color-textos);
-}
-
-#form-credenciales > div {
-  width: 100%;
-  margin: 2vh auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.col-5 {
+  flex: 1 1 48%;
 }
 
 .text {
   font-size: 20px;
-  text-align: center;
+  display: block;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  color: white;
 }
 
 .form-component {
-  margin: 1rem auto;
-  width: 100%;
-  max-width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.form-control-group {
+  margin: 0 auto;
 }
 
 .form-input {
@@ -56,43 +45,51 @@
   height: 35px;
   border-radius: 10px;
   text-align: center;
+  border: none;
+  outline: none;
+  padding: 0.4rem;
 }
 
-#botonera {
-  width: 100%;
+.radio-group,
+.checkbox-group {
   display: flex;
-  flex-direction: row;
-  justify-items: space-evenly;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: white;
+}
+
+.radio-group input,
+.checkbox-group input {
+  margin-right: 0.5rem;
+  accent-color: #007bff;
+  transform: scale(1.2);
+}
+
+.text-danger {
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+  color: #ffcccc;
 }
 
 .form-btn {
-  height: 4vh;
-  width: 8vw;
-  margin: 10px auto;
+  display: block;
+  margin: 1.5rem auto 0 auto;
   background-color: var(--color-fondos);
   color: var(--color-textos);
+  padding: 0.5rem 2rem;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
-a.text {
-  font-size: 21px;
-  color: var(--color-fondos);
-  position: relative;
-  z-index: 10;
-  pointer-events: auto;
-  cursor: pointer;
+.form-btn:hover {
+  background-color: #4e7ba1;
 }
 
-@media (max-width: 1025px) {
-
-  #login-container {
+@media (max-width: 1024px) {
+  #form-container {
     width: 90vw;
-  }
-
-  #login-form {
-    width: 90%;
-  }
-
-  #img-container {
-    display: none;
   }
 }

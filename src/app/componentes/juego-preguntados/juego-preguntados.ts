@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserData } from '../../models/user-data';
 import { Preguntados } from '../../servicios/preguntados';
+import { Db } from '../../servicios/db';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -27,7 +28,7 @@ export class JuegoPreguntados {
   opcionC :string = "";
   opcionD :string = "";
 
-  constructor(private router :Router, public preguntados :Preguntados) {}
+  constructor(private router :Router, public preguntados :Preguntados, public db :Db) {}
 
   ngOnInit() {
     this.comenzar = false;
@@ -43,7 +44,8 @@ export class JuegoPreguntados {
     this.ronda = 1;
     this.puntaje = 0;
     this.nombrePersonaje = "";
-    this.imagenPersonaje = "";    
+    this.imagenPersonaje = "";
+    this.opcionA = "", this.opcionB ="", this.opcionC ="", this.opcionD = "";
 
     this.nuevaRonda();
 
@@ -108,8 +110,9 @@ export class JuegoPreguntados {
    */
   gameOver(){
 
-    // grabar los resultados en la tabla de puntuaciones
-    
+    this.db.guardarResultadosJuegos(this.usuarioLogeado!.ID, this.usuarioLogeado!.NOMBRE, 3, this.puntaje);
+
+
     Swal.fire({
       title: "🤖 Se acabó !!",
       text: `Tu puntaje fue de: ${this.puntaje}`,

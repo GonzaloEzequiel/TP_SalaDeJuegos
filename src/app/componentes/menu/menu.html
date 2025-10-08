@@ -5,7 +5,7 @@
   </div>
   
   <div class="banner-cent">
-    <img src="Logo.png" alt="logo" class="logo">
+    <img src="logo.png" alt="logo" class="logo">
     <span id="banner-title" class="title">{{ tituloApp }}</span>
   </div>
  
@@ -30,7 +30,7 @@
 
   <button class="menu-btn" (click)="toggleMenu()">☰</button>
   <a class="btn-component" routerLink="/home" routerLinkActive="active">Home</a>
-  <a class="btn-component" routerLink="/resultados" routerLinkActive="active">Resultados</a>
+  <!-- <a class="btn-component" routerLink="/resultados" routerLinkActive="active">Resultados</a> -->
   <a class="btn-component" routerLink="/chat" routerLinkActive="active" *ngIf="!isLoading && isLoggedUser">Chat</a>
   <a class="btn-component" routerLink="/encuesta" routerLinkActive="active" *ngIf="!isLoading && isLoggedUser">Encuesta</a>
   <a class="btn-component" routerLink="/quiensoy" routerLinkActive="active">Quien Soy</a>

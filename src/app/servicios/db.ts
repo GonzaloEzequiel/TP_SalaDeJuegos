@@ -31,8 +31,7 @@ export class Db {
       if(error)
         console.error(`Error: ${error.message}`);
       else
-        console.table(['Usuario', 'Puntaje']);
-        console.table([usuario, puntaje]);
+        console.table({"Usuario:" : usuario, "Juego" : idJuego, "Puntaje:" : puntaje});
     });
 
   }

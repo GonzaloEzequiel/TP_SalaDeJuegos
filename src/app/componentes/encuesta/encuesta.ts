@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, ValidatorFn, AbstractControl, ValidationErrors} from '@angular/forms';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators, FormArray,} from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { Db } from '../../servicios/db';
@@ -9,72 +9,78 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-encuesta',
-  imports: [Menu],
+  imports: [Menu, ReactiveFormsModule, NgIf],
   templateUrl: './encuesta.html',
   styleUrl: './encuesta.scss'
 })
 export class Encuesta {
 
   usuarioLogeado :UserData | null = null;
-
-  form!:FormGroup;
+  formEncuesta!:FormGroup;
   repiteClave :string ="";
 
   constructor(private router :Router, public db :Db) {}
 
   ngOnInit() {
 
-    this.form  = new FormGroup({
-      usuario: new FormControl("", Validators.pattern('^[a-zA-Z]+$')),           
-      nombre: new FormControl("", Validators.pattern('^[a-zA-Z]+$')),         
-      edad: new FormControl("", [Validators.min(18), Validators.max(99)]),    
-      mail: new FormControl("", Validators.email),                            
-      clave: new FormControl("", Validators.minLength(4)),                    
-      repiteClave: new FormControl(null, Validators.required)                 
-    })
-    this.confirmarClaveValidator();
+    this.formEncuesta  = new FormGroup({
+      nombre: new FormControl("", [Validators.pattern('^[a-zA-Z]+$'), Validators.required]),         
+      apellido: new FormControl("", [Validators.pattern('^[a-zA-Z]+$'), Validators.required]),         
+      edad: new FormControl("", [Validators.min(18), Validators.max(99), Validators.required]),    
+      telefono: new FormControl("", [Validators.pattern('^[0-9]+$'), Validators.maxLength(10), Validators.required]),
+      visita: new FormControl("", Validators.required),
+      juegos: new FormArray([], Validators.required),
+      mejora: new FormControl("", Validators.required)
+    });
 
   }
 
-  get usuario() { return this.form.get('usuario'); }
-  get nombre() { return this.form.get('nombre'); }
-  get edad() { return this.form.get('edad'); }
-  get mail() { return this.form.get('mail'); }
-  get clave() { return this.form.get('clave'); }
-  get repiteClaveCtrl() { return this.form.get('repiteClave'); }
-  
-  confirmarClaveValidator() :ValidatorFn {
-    return (formGroup: AbstractControl) :ValidationErrors | null => {
-      const clave = formGroup.get('clave');                                         
-      const repiteClave = formGroup.get('repiteClave');
-      const respuestaError = { claveNoCoincide: "Las contraseñas no coinciden" };
-      
-      if(clave?.value !== repiteClave?.value) {
-        formGroup.get('repiteClave')?.setErrors(respuestaError);
-        return respuestaError;
-      }
-      else {
-        formGroup.get('repiteClave')?.setErrors(null);
-        return null;
-      }		
-    };
-  }
+  get nombre() { return this.formEncuesta.get('nombre'); }
+  get apellido() { return this.formEncuesta.get('apellido'); }
+  get edad() { return this.formEncuesta.get('edad'); }
+  get telefono() { return this.formEncuesta.get('telefono'); }
+  get visita() { return this.formEncuesta.get("visita"); }
+  get juegos() { return this.formEncuesta.get("juegos"); }
+  get mejora() { return this.formEncuesta.get("mejora"); }
 
   enviarForm() {
-    console.log("TEST COMPLETAR");
 
-    if (this.form.valid) {
-    Swal.fire({
-      title: 'Formulario enviado ✅',
-      text: JSON.stringify(this.form.value, null, 2),
-      icon: 'success'
+    this.db.client.from('RESULTADOS_ENCUESTA').insert({
+      ID_USUARIO: this.usuarioLogeado?.ID,
+      NOMBRE_USUARIO: this.nombre!.value,
+      APELLIDO_USUARIO: this.apellido!.value,
+      EDAD_USUARIO: this.edad!.value,
+      TELEFONO_USUARIO: this.telefono!.value,
+      RESPUESTA_VISITA: this.visita!.value,
+      RESPUESTA_JUEGO: this.juegos!.value,
+      RESPUESTA_MEJORA: this.mejora!.value
+    })
+    .then(({data, error}) => {
+      if(error) {
+        console.error("Error: ", error);
+        Swal.fire({
+          title: 'Error ❌',
+          text: 'Error al enviar los datos.',
+          icon: 'error'
+        });
+      } else {
+        Swal.fire({
+          title: 'Formulario enviado ✅',
+          text: 'Tu respuesta ha sido registrada',
+          icon: 'success'
+        });
+      }
     });
+      
+  }
+
+  onCheckboxChange(event: any) {
+    const juegosArray = this.juegos as FormArray;
+    if (event.target.checked) {
+      juegosArray.push(new FormControl(event.target.value));
     } else {
-      Swal.fire({
-        title: 'Error ❌',
-        text: 'Por favor, completá correctamente todos los campos.',
-        icon: 'error'
-      });
+      const index = juegosArray.controls.findIndex(x => x.value === event.target.value);
+      juegosArray.removeAt(index);
     }
   }
 

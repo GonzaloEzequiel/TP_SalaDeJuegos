@@ -2,57 +2,76 @@
 
 <div id="main-container">
   <div id="form-container">
-    <!--<form [formGroup]="form" (ngSubmit)="enviarForm()"> -->
-    <form>
-      <div class="row">
-        <div class="form-control-group col-5">
-          <label for="usuario">Usuario</label>
-          <input type="text" id="usuario" formControlName="usuario" class="form-control">
-          <small class="text-danger" *ngIf="usuario?.hasError('pattern')">Debe contener solo letras</small>
-          <small class="text-danger" *ngIf="usuario?.hasError('required')">Campo obligatorio</small>
-        </div>
+    <h2 id="form-title" class="title">Encuesta de Usuario</h2>
 
+    <form [formGroup]="formEncuesta" (ngSubmit)="enviarForm()">
+
+      <div class="row form-component">
         <div class="form-control-group col-5">
-          <label for="nombre">Nombre</label>
-          <input type="text" id="nombre" formControlName="nombre" class="form-control">
+          <label for="nombre" class="text">Nombre</label>
+          <input type="text" id="nombre" formControlName="nombre" class="form-control form-input">
           <small class="text-danger" *ngIf="nombre?.hasError('pattern')">Debe contener solo letras</small>
           <small class="text-danger" *ngIf="nombre?.hasError('required')">Campo obligatorio</small>
         </div>
+
+        <div class="form-control-group col-5">
+          <label for="apellido" class="text">Apellido</label>
+          <input type="text" id="apellido" formControlName="apellido" class="form-control form-input">
+          <small class="text-danger" *ngIf="apellido?.hasError('pattern')">Debe contener solo letras</small>
+          <small class="text-danger" *ngIf="apellido?.hasError('required')">Campo obligatorio</small>
+        </div>
       </div>
 
-      <div class="row">
+      <div class="row form-component">
         <div class="form-control-group col-5">
-          <label for="mail">Mail</label>
-          <input type="email" id="mail" formControlName="mail" class="form-control">
-          <small class="text-danger" *ngIf="mail?.hasError('email')">Formato inválido</small>
-          <small class="text-danger" *ngIf="mail?.hasError('required')">Campo obligatorio</small>
-        </div>
-
-        <div class="form-control-group col-5">
-          <label for="edad">Edad</label>
-          <input type="number" id="edad" formControlName="edad" class="form-control">
+          <label for="edad" class="text">Edad</label>
+          <input type="number" id="edad" formControlName="edad" class="form-control form-input">
           <small class="text-danger" *ngIf="edad?.hasError('min')">Debe ser mayor de edad</small>
           <small class="text-danger" *ngIf="edad?.hasError('max')">Debe ser menor de 99 años</small>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="form-control-group col-5">
-          <label for="clave">Clave</label>
-          <input type="password" id="clave" formControlName="clave" class="form-control">
-          <small class="text-danger" *ngIf="clave?.hasError('minlength')">
-            Mínimo {{ clave?.getError('minlength')?.requiredLength }} caracteres
-          </small>
+          <small class="text-danger" *ngIf="edad?.hasError('required')">Campo obligatorio</small>
         </div>
 
         <div class="form-control-group col-5">
-          <label for="repiteClave">Repite Clave</label>
-          <input type="password" id="repiteClave" formControlName="repiteClave" class="form-control">
-          <small class="text-danger" *ngIf="repiteClaveCtrl?.hasError('claveNoCoincide')">Las contraseñas no coinciden</small>
+          <label for="telefono" class="text">Teléfono</label>
+          <input type="text" id="telefono" formControlName="telefono" class="form-control form-input">
+          <small class="text-danger" *ngIf="telefono?.hasError('pattern')">Debe contener solo números</small>
+          <small class="text-danger" *ngIf="telefono?.hasError('maxLength')">Sólamente 10 números</small>
+          <small class="text-danger" *ngIf="telefono?.hasError('required')">Campo obligatorio</small>
+        </div>
+      </div>
+      
+      <div class="row form-component">
+        <div class="form-control-group col-10">
+          <label class="text">¿Volverías a visitar la página?</label>
+          <div class="radio-group">
+              <label><input type="radio" name="visita" value="true" formControlName="visita"> Sí</label>
+              <label><input type="radio" name="visita" value="false" formControlName="visita"> No</label>
+          </div>
+          <small class="text-danger" *ngIf="visita?.hasError('required')">Campo obligatorio</small>
+        </div>
+      
+        <div class="form-control-group col-10">
+          <label class="text">¿Cuáles juegos te gustaron?</label>
+          <div class="checkbox-group">
+              <label><input type="checkbox" (change)="onCheckboxChange($event)" value="Ahorcado" > Ahorcado</label>
+              <label><input type="checkbox" (change)="onCheckboxChange($event)"  value="Mayor o Menor" > Mayor o Menor</label>
+              <label><input type="checkbox" (change)="onCheckboxChange($event)" value="Preguntados" > Preguntados</label>
+              <label><input type="checkbox" (change)="onCheckboxChange($event)" value="MiJuegoUNDEFINED" > Mi Juego Propio</label>
+          </div>
+          <small class="text-danger" *ngIf="juegos?.hasError('required')">Campo obligatorio</small>
         </div>
       </div>
 
-      <button [disabled]="!form.valid" type="submit" class="btn btn-primary mt-4 w-25">Enviar</button>
+      <div class="row form-component">
+        <div class="form-control-group col-10">
+          <label for="mejora" class="text">Contanos cómo podríamos mejorar</label>
+          <textarea type="textarea" id="mejora" formControlName="mejora" class="form-control form-input"></textarea>
+          <small class="text-danger" *ngIf="mejora?.hasError('required')">Campo obligatorio</small>
+        </div>
+      </div>
+
+      <button [disabled]="!formEncuesta.valid" type="submit" class="btn btn-primary form-btn">Enviar</button>
+
     </form>
   </div>
 </div>
