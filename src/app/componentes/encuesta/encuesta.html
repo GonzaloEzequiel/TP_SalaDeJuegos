@@ -35,7 +35,7 @@
           <label for="telefono" class="text">Teléfono</label>
           <input type="text" id="telefono" formControlName="telefono" class="form-control form-input">
           <small class="text-danger" *ngIf="telefono?.hasError('pattern')">Debe contener solo números</small>
-          <small class="text-danger" *ngIf="telefono?.hasError('maxLength')">Sólamente 10 números</small>
+          <small class="text-danger" *ngIf="telefono?.hasError('maxlength')">Sólamente 10 números</small>
           <small class="text-danger" *ngIf="telefono?.hasError('required')">Campo obligatorio</small>
         </div>
       </div>
@@ -54,7 +54,7 @@
           <label class="text">¿Cuáles juegos te gustaron?</label>
           <div class="checkbox-group">
               <label><input type="checkbox" (change)="onCheckboxChange($event)" value="Ahorcado" > Ahorcado</label>
-              <label><input type="checkbox" (change)="onCheckboxChange($event)"  value="Mayor o Menor" > Mayor o Menor</label>
+              <label><input type="checkbox" (change)="onCheckboxChange($event)" value="Mayor o Menor" > Mayor o Menor</label>
               <label><input type="checkbox" (change)="onCheckboxChange($event)" value="Preguntados" > Preguntados</label>
               <label><input type="checkbox" (change)="onCheckboxChange($event)" value="MiJuegoUNDEFINED" > Mi Juego Propio</label>
           </div>
@@ -70,7 +70,7 @@
         </div>
       </div>
 
-      <button [disabled]="!formEncuesta.valid" type="submit" class="btn btn-primary form-btn">Enviar</button>
+      <button [disabled]="!formEncuesta.valid" type="submit" class="form-btn">Enviar</button>
 
     </form>
   </div>

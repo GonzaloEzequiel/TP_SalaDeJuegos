@@ -1,6 +1,12 @@
 # TP1SalaDeJuegos
 El aplicativo Sala De Juegos es el primer Trabajo Práctico de la asignatura Laboratorio IV  
-Desarrollado en Angular 20 y desplegado en Firebase con base de datos SupaBase
+Desarrollado en Angular 20  
+Hosteado en Firebase  
+BBDD: SupaBase  
+  
+También usa:  
+AngularMaterial
+SweetAlert2
 
 ## V 1.0.0 Sprint 1
 #### Novedades:
@@ -50,12 +56,29 @@ Se implementó un apartado con las reglas del juego para cada componente Juego.
 Se implementó el juego de "Preguntados" (llama a la API via Servicio).  
 Se definió el juego propio, actualizándose la información del mismo en el componente QuienSoy.
 
-## V 1.3.1 Sprint 4
+## V 1.3.1
 ### Correcciones
 Mayor o Menor | Se modficó el puntuaje que otorga una 'apuesta' por carta igual.
 
 ### Novedades
-Se estableció la funcionalidad de opción rejugabilidad para cada uno de los juegos. Cuando antes se enviaba automáticamente al home, el usuario ahora tiene la posibilidad de jugar otra partida.
+Se estableció la funcionalidad de opción rejugabilidad para cada uno de los juegos. Cuando antes se enviaba automáticamente al home, el usuario ahora tiene la posibilidad de jugar otra partida.  
 Se implementó el juego propio.
 
 ## V 1.4.0 Sprint 5
+### Novedades
+Se implementó la funcionalidad de puntuaciones para cada juego. Tras finalizar el juego, la puntuacion obtenida por el usuario, para el juego, se guarda en la base de datos para que los administradores puedan verla.  
+Se agregó el complemento encuesta, con validaciones de formulario ReactiveForms a modo de encuesta de usuario. Las respuestas de la encuesta se guardan en la base de datos.
+
+## V 1.4.1
+### Correcciones
+// Se corrigió el redirect al componente del login, para cuando un usuario no loegeado intenta iniciar un juego.  
+Se corrigió un bug por el cual no se mostraba la hora en el mensaje al momento de enviarlo.  
+Se corrigió un bug donde si bien validaba el largo del campo 'teletfono' del componente encuesta no se mostraba un mensaje de advertencia.
+
+
+### Novedades
+Se realizaron modificaciones en los indicadores visuales de los Puntajes/Vidas/Rondas relativos a cada juegos.  
+Se implementaron indicadores visuales para aciertos/errores en cada juego.  
+Se modificaron los estilos visuales de las botoneras.
+
+### V1.5.0  Srpint 6

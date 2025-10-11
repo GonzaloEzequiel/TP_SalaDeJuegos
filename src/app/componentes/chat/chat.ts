@@ -38,9 +38,7 @@ export class Chat {
     // Cargar mensajes existentes
     await this.cargarMensajes();
 
-    console.log('[DEBUG] Iniciando suscripción realtime...');
-
-     // Suscripción en tiempo real (canal Supabase)
+    // Suscripción en tiempo real (canal Supabase)
     this.db.client.channel('chat-room')
       .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'MENSAJES_CHAT' },
       (payload) => {
@@ -60,7 +58,7 @@ export class Chat {
     const { data, error } = await this.db.client
     .from('MENSAJES_CHAT')
     .select('*')
-    .order('CREATED_AT', { ascending: true });
+    .order('FECHA_CREACION', { ascending: true });
     
     if (error) {
       console.error("Error al cargar mensajes:", error.message);
