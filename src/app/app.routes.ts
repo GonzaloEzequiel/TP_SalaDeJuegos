@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { Error } from './componentes/error/error';
-import { Home } from './componentes/home/home';
-import { QuienSoy } from './componentes/quien-soy/quien-soy';
-import { Chat } from './componentes/chat/chat';
+import { logoutGuard } from './guards/logout/logout-guard';
+import { adminGuard } from './guards/admin/admin-guard';
+import { incFormGuard } from './guards/incForm/inc-form-guard';
+import { loggedGuard } from './guards/logged/logged-guard';
 
 export const routes: Routes = [
   {
@@ -12,11 +12,13 @@ export const routes: Routes = [
   },
   {
     path: 'usuarios',
-    loadChildren: () => import('./modulos/usuarios/usuarios-module').then(m => m.UsuarioModule)
+    loadChildren: () => import('./modulos/usuarios/usuarios-module').then(m => m.UsuarioModule),
+    canMatch: [logoutGuard]
   },
   {
     path: 'juegos',
-    loadChildren: () => import('./modulos/juegos/juegos-module').then(m => m.JuegosModule)
+    loadChildren: () => import('./modulos/juegos/juegos-module').then(m => m.JuegosModule),
+    canActivate: [loggedGuard]
   },
   {
     path : 'chat',
@@ -24,24 +26,25 @@ export const routes: Routes = [
   },
   {
     path : 'resultados',
-    loadComponent: () => import('./componentes/resultados/resultados').then(c => c.Resultados)
+    loadComponent: () => import('./componentes/resultados/resultados').then(c => c.Resultados),
+    canActivate: [adminGuard]
   },
   {
     path : 'encuesta',
-    loadComponent: () => import('./componentes/encuesta/encuesta').then(c => c.Encuesta)
+    loadComponent: () => import('./componentes/encuesta/encuesta').then(c => c.Encuesta),
+    canDeactivate: [incFormGuard]
   },
   {
     path : 'home',
-    component : Home
+    loadComponent: () => import('./componentes/home/home').then(c => c.Home)
   },  
   {
     path : 'quiensoy',
-    component : QuienSoy
+    loadComponent: () => import('./componentes/quien-soy/quien-soy').then(c => c.QuienSoy)
   },
-  
   {
     path: '**',
-    component: Error
+    loadComponent: () => import('./componentes/error/error').then(c => c.Error)
   }
 
 ];

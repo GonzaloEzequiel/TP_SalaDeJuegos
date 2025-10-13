@@ -13,12 +13,12 @@
     <div class="userlogin-container"  *ngIf="!isLoading">
 
         @if(isLoggedUser) {
-          <span id="usuarioLogeado" class="text-component">{{ userdata?.NOMBRE }}</span>
+          <span id="usuarioLogeado" class="text-component text">{{ userdata?.NOMBRE }}</span>
           <img [src]="userdata?.AVATAR_URL" alt="Avatar" class="avatar">
-          <a class="text-component" (click)="deslogearUsuario()">Logout</a>
+          <a class="text-component" href="" (click)="deslogearUsuario()" >Logout</a>
         } @else {
           <img [src]="'https://cdn-icons-png.freepik.com/512/6596/6596121.png'" alt="Avatar" class="avatar">
-          <a class="text-component" routerLink="/usuarios/login" routerLinkActive="active" id="LoginLogout">Login</a>
+          <a class="text-component" routerLink="/usuarios/login" routerLinkActive="active" >Login</a>
         }
 
     </div>
@@ -30,7 +30,7 @@
 
   <button class="menu-btn" (click)="toggleMenu()">☰</button>
   <a class="btn-component" routerLink="/home" routerLinkActive="active">Home</a>
-  <!-- <a class="btn-component" routerLink="/resultados" routerLinkActive="active">Resultados</a> -->
+  <a class="btn-component" routerLink="/resultados" routerLinkActive="active">Resultados</a>
   <a class="btn-component" routerLink="/chat" routerLinkActive="active" *ngIf="!isLoading && isLoggedUser">Chat</a>
   <a class="btn-component" routerLink="/encuesta" routerLinkActive="active" *ngIf="!isLoading && isLoggedUser">Encuesta</a>
   <a class="btn-component" routerLink="/quiensoy" routerLinkActive="active">Quien Soy</a>

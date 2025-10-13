@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { Login } from '../../componentes/login/login';
-import { Registro } from '../../componentes/registro/registro';
+
 
 const routes: Routes = [
   {
     path : 'login',
-    component : Login
+    loadComponent : () => import('../../componentes/login/login').then(c => c.Login)
   },  
   {
     path : 'registro',
-    component : Registro
+    loadComponent : () => import('../../componentes/registro/registro').then(c => c.Registro),
   }
 ];
 

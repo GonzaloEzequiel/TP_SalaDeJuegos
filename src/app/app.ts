@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
-import { Db } from './servicios/db';
+import { DbService } from './servicios/db/db';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +14,6 @@ import { Db } from './servicios/db';
 })
 export class App {
 
-  constructor(public db :Db) {}
+  constructor(public db :DbService) {}
   
 }

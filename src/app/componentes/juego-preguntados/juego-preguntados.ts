@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserData } from '../../models/user-data';
-import { Preguntados } from '../../servicios/preguntados';
-import { Db } from '../../servicios/db';
+import { PreguntadosService } from '../../servicios/preguntados/preguntados';
+import { DbService } from '../../servicios/db/db';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -28,7 +28,7 @@ export class JuegoPreguntados {
   opcionC :string = "";
   opcionD :string = "";
 
-  constructor(private router :Router, public preguntados :Preguntados, public db :Db) {}
+  constructor(private router :Router, public preguntados :PreguntadosService, public db :DbService) {}
 
   ngOnInit() {
     this.comenzar = false;

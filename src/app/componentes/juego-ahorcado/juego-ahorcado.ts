@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
 import { UserData } from '../../models/user-data';
-import { Db } from '../../servicios/db';
+import { DbService } from '../../servicios/db/db';
 import Swal from 'sweetalert2'
 
 @Component({
@@ -40,7 +40,7 @@ export class JuegoAhorcado {
   letrasElegidas: string[] = [];
   letrasFaltantes = 0;
 
-  constructor(private http :HttpClient, private router :Router, public db :Db) {}
+  constructor(private http :HttpClient, private router :Router, public db :DbService) {}
 
   ngOnInit() {
     this.comenzar = false;
@@ -49,7 +49,7 @@ export class JuegoAhorcado {
   /**
    * 
    */
-  nuevoJuego() {    
+  nuevoJuego() {
     this.comenzar = true;
     this.ronda = 1;
     this.puntaje = 0;

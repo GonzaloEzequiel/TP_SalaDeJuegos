@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 import { UserData } from '../../models/user-data';
 import { ChatMensaje } from '../../models/mensaje-data';
 import { Menu } from "../menu/menu";
-import { Db } from '../../servicios/db';
+import { DbService } from '../../servicios/db/db';
 
 @Component({
   selector: 'app-chatroom',
@@ -20,7 +20,7 @@ export class Chat {
   nuevoMensaje :string = '';
   mensajes: ChatMensaje[] = [];
 
-  constructor(private router :Router, public db :Db) {}
+  constructor(private router :Router, public db :DbService) {}
 
   // Scroll automático al final del chat-box
   @ViewChild('mensajesContainer') private mensajesContainer!: ElementRef;

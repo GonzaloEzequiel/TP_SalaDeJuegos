@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators, FormArray,} from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
-import { Db } from '../../servicios/db';
+import { DbService } from '../../servicios/db/db';
 import { UserData } from '../../models/user-data';
 import { Menu } from "../menu/menu";
 import Swal from 'sweetalert2';
@@ -19,7 +19,7 @@ export class Encuesta {
   formEncuesta!:FormGroup;
   repiteClave :string ="";
 
-  constructor(private router :Router, public db :Db) {}
+  constructor(private router :Router, public db :DbService) {}
 
   ngOnInit() {
 
@@ -45,6 +45,16 @@ export class Encuesta {
 
   enviarForm() {
 
+    if (this.formEncuesta.invalid) {
+    this.formEncuesta.markAllAsTouched();
+    Swal.fire({
+      title: 'Campos incompletos ❌',
+      text: 'Por favor completá todos los campos obligatorios antes de enviar.',
+      icon: 'warning'
+    });
+    return;
+  }
+
     this.db.client.from('RESULTADOS_ENCUESTA').insert({
       ID_USUARIO: this.usuarioLogeado?.ID,
       NOMBRE_USUARIO: this.nombre!.value,
@@ -69,6 +79,7 @@ export class Encuesta {
           text: 'Tu respuesta ha sido registrada',
           icon: 'success'
         });
+        this.formEncuesta.reset();
       }
     });
       

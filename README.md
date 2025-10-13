@@ -71,14 +71,23 @@ Se agregó el complemento encuesta, con validaciones de formulario ReactiveForms
 
 ## V 1.4.1
 ### Correcciones
-// Se corrigió el redirect al componente del login, para cuando un usuario no loegeado intenta iniciar un juego.  
+Se cambió el redirect al componente del login, para cuando un usuario no loegeado intenta iniciar un juego.  
 Se corrigió un bug por el cual no se mostraba la hora en el mensaje al momento de enviarlo.  
 Se corrigió un bug donde si bien validaba el largo del campo 'teletfono' del componente encuesta no se mostraba un mensaje de advertencia.
 
-
 ### Novedades
-Se realizaron modificaciones en los indicadores visuales de los Puntajes/Vidas/Rondas relativos a cada juegos.  
-Se implementaron indicadores visuales para aciertos/errores en cada juego.  
-Se modificaron los estilos visuales de las botoneras.
+//Se realizaron modificaciones en los indicadores visuales de los Puntajes/Vidas/Rondas relativos a cada juegos.  
+//Se implementaron indicadores visuales para aciertos/errores en cada juego.  
+//Se modificaron los estilos visuales de las botoneras.
+
+## V 1.4.2
+### Novedades
+Se implemetó el lazy loading para todas las rutas del aplicativo, tanto para los módulos como para los componentes.  
+Se agregó la opción del login rápido para usuario y para admin de forma separada.
+
+### Correcciones
+//Se corrigió un error por el cual la totalidad de los componentes del formulario Encuesta mostraba sus campos como invalid y sus respectivos mensajes de error.
 
 ### V1.5.0  Srpint 6
+//Se implementó el componente Respuestas para los usuarios de perfil administrador.  
+//Se securizaron las rutas mediante el uso de distintos Guards, según usuario logeado (o no), administrador e incompletitud de formulario.

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Db } from '../../servicios/db';
+import { DbService } from '../../servicios/db/db';
 
 
 @Component({
@@ -15,7 +15,7 @@ export class Login {
   public email = "";
   public password = "";
 
-  constructor(private router :Router, public db :Db, private snackBar :MatSnackBar) {}
+  constructor(private router :Router, public db :DbService, private snackBar :MatSnackBar) {}
 
   /**
    * Valida y Loegea al usuario, y redirige al home
@@ -53,10 +53,17 @@ export class Login {
   /**
    * Completa los campos de usuario con datos válidos
    */
-  completar() {
+  completar(admin :boolean = false) {
         
-    this.email = "augusto@utn.com";
-    this.password = "AccesoRapido_1234";
+    if(admin) {
+      this.email = "augusto@utn.com";
+      this.password = "AccesoRapido_1234";
+    }
+    else {
+      this.email = "florencia@utn.com";
+      this.password = "Mentita2025";
+    }
+    
 
   }
 

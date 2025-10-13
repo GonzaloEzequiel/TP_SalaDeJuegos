@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '@supabase/supabase-js';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Db } from '../../servicios/db';
+import { DbService } from '../../servicios/db/db';
 
 @Component({
   selector: 'app-registro',
@@ -19,7 +19,7 @@ export class Registro {
   password2 :string;
   avatar :File | null = null;
 
-  constructor(private router :Router, public db :Db, private snackBar :MatSnackBar) {
+  constructor(private router :Router, public db :DbService, private snackBar :MatSnackBar) {
     this.nombre = "";
     this.edad = 0;
     this.email = "";

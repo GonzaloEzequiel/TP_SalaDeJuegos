@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { Db } from '../../servicios/db';
+import { DbService } from '../../servicios/db/db';
 import { UserData } from '../../models/user-data';
 import { NgIf } from '@angular/common';
 
@@ -22,7 +22,7 @@ export class Menu {
 
   @Output() usuarioLogeo = new EventEmitter<UserData>();
 
-  constructor(private router :Router, public db :Db) {}
+  constructor(private router :Router, public db :DbService) {}
   
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;

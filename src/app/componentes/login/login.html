@@ -23,13 +23,10 @@
 
       <div id="botonera">
         <input class="form-component form-btn" id="login-btn" type="submit" value="Ingresar">
-        <button class="form-component form-btn" id="quick-login-btn" type="button" (click)="completar()">Ingreso Rápido</button>
+        <button class="form-component form-btn" id="quick-login-btn" type="button" (click)="completar()">Ingreso Rápido (user)</button>
+        <button class="form-component form-btn" id="quick-login-btn" type="button" (click)="completar(true)">Ingreso Rápido (admin)</button>
       </div>
-
-      <p class="form-component text">
-        <a routerLink="/password_reset" routerLinkActive="active" class="text">¿Olvidó su contraseña?</a>
-      </p>
-
+      
     </form>
 
     <div id="img-container"></div>

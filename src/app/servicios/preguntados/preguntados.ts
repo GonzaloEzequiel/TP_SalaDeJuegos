@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class Preguntados {
+export class PreguntadosService {
 
   baseUrl :string = 'https://rickandmortyapi.com/api/character/';
   totalPersonajes :number = 0;

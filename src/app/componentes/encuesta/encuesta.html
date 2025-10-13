@@ -10,15 +10,15 @@
         <div class="form-control-group col-5">
           <label for="nombre" class="text">Nombre</label>
           <input type="text" id="nombre" formControlName="nombre" class="form-control form-input">
-          <small class="text-danger" *ngIf="nombre?.hasError('pattern')">Debe contener solo letras</small>
-          <small class="text-danger" *ngIf="nombre?.hasError('required')">Campo obligatorio</small>
+          <small class="text-danger" *ngIf="nombre?.hasError('pattern') && (nombre?.touched || nombre?.dirty)">Debe contener solo letras</small>
+          <small class="text-danger" *ngIf="nombre?.hasError('required') && (nombre?.touched || nombre?.dirty)">Campo obligatorio</small>
         </div>
 
         <div class="form-control-group col-5">
           <label for="apellido" class="text">Apellido</label>
           <input type="text" id="apellido" formControlName="apellido" class="form-control form-input">
-          <small class="text-danger" *ngIf="apellido?.hasError('pattern')">Debe contener solo letras</small>
-          <small class="text-danger" *ngIf="apellido?.hasError('required')">Campo obligatorio</small>
+          <small class="text-danger" *ngIf="apellido?.hasError('pattern') && (apellido?.touched || apellido?.dirty)">Debe contener solo letras</small>
+          <small class="text-danger" *ngIf="apellido?.hasError('required') && (apellido?.touched || apellido?.dirty)">Campo obligatorio</small>
         </div>
       </div>
 
@@ -26,17 +26,17 @@
         <div class="form-control-group col-5">
           <label for="edad" class="text">Edad</label>
           <input type="number" id="edad" formControlName="edad" class="form-control form-input">
-          <small class="text-danger" *ngIf="edad?.hasError('min')">Debe ser mayor de edad</small>
-          <small class="text-danger" *ngIf="edad?.hasError('max')">Debe ser menor de 99 años</small>
-          <small class="text-danger" *ngIf="edad?.hasError('required')">Campo obligatorio</small>
+          <small class="text-danger" *ngIf="edad?.hasError('min') && (edad?.touched || edad?.dirty)">Debe ser mayor de edad</small>
+          <small class="text-danger" *ngIf="edad?.hasError('max') && (edad?.touched || edad?.dirty)">Debe ser menor de 99 años</small>
+          <small class="text-danger" *ngIf="edad?.hasError('required') && (edad?.touched || edad?.dirty)">Campo obligatorio</small>
         </div>
 
         <div class="form-control-group col-5">
           <label for="telefono" class="text">Teléfono</label>
           <input type="text" id="telefono" formControlName="telefono" class="form-control form-input">
-          <small class="text-danger" *ngIf="telefono?.hasError('pattern')">Debe contener solo números</small>
-          <small class="text-danger" *ngIf="telefono?.hasError('maxlength')">Sólamente 10 números</small>
-          <small class="text-danger" *ngIf="telefono?.hasError('required')">Campo obligatorio</small>
+          <small class="text-danger" *ngIf="telefono?.hasError('pattern') && (telefono?.touched || telefono?.dirty)">Debe contener solo números</small>
+          <small class="text-danger" *ngIf="telefono?.hasError('maxlength') && (telefono?.touched || telefono?.dirty)">Sólamente 10 números</small>
+          <small class="text-danger" *ngIf="telefono?.hasError('required') && (telefono?.touched || telefono?.dirty)">Campo obligatorio</small>
         </div>
       </div>
       
@@ -47,7 +47,7 @@
               <label><input type="radio" name="visita" value="true" formControlName="visita"> Sí</label>
               <label><input type="radio" name="visita" value="false" formControlName="visita"> No</label>
           </div>
-          <small class="text-danger" *ngIf="visita?.hasError('required')">Campo obligatorio</small>
+          <small class="text-danger" *ngIf="visita?.hasError('required') && (visita?.touched || visita?.dirty)">Campo obligatorio</small>
         </div>
       
         <div class="form-control-group col-10">
@@ -58,7 +58,7 @@
               <label><input type="checkbox" (change)="onCheckboxChange($event)" value="Preguntados" > Preguntados</label>
               <label><input type="checkbox" (change)="onCheckboxChange($event)" value="MiJuegoUNDEFINED" > Mi Juego Propio</label>
           </div>
-          <small class="text-danger" *ngIf="juegos?.hasError('required')">Campo obligatorio</small>
+          <small class="text-danger" *ngIf="juegos?.hasError('required') && (juegos?.touched || juegos?.dirty)">Campo obligatorio</small>
         </div>
       </div>
 
@@ -66,7 +66,7 @@
         <div class="form-control-group col-10">
           <label for="mejora" class="text">Contanos cómo podríamos mejorar</label>
           <textarea type="textarea" id="mejora" formControlName="mejora" class="form-control form-input"></textarea>
-          <small class="text-danger" *ngIf="mejora?.hasError('required')">Campo obligatorio</small>
+          <small class="text-danger" *ngIf="mejora?.hasError('required') && (mejora?.touched || mejora?.dirty)">Campo obligatorio</small>
         </div>
       </div>
 
