@@ -1,13 +1,11 @@
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserData } from '../../models/user-data';
-import { Component } from '@angular/core';
 
-interface Obstaculo {
-  x: number;
-  y: number;
-  an: number;
-  al: number;
-  vel: number;
+interface Puerta {
+  id: number;
+  bomba: boolean;
+  abierta: boolean;
 }
 
 @Component({
@@ -18,37 +16,68 @@ interface Obstaculo {
 })
 export class JuegoMiJuego {
 
-  comenzar :Boolean = false;
+  comenzar: boolean = false;
+  usuarioLogeado: UserData | null = null;
 
-  usuarioLogeado :UserData | null = null;
-  vidas :number = 3;
-  puntaje :number = 0;
+  puertas: Puerta[] = [];
+  puntaje: number = 0;
+  juegoTerminado: boolean = false;
+  mensajeFinal: string = '';
 
-  constructor(private router :Router) {}
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.comenzar = false;
   }
 
-  nuevoJuego() {    
+  nuevoJuego() {
     this.puntaje = 0;
     this.comenzar = true;
-  } 
-    
+    this.juegoTerminado = false;
+    this.mensajeFinal = '';
+    this.generarPuertas();
+  }
 
-  /**
-  * Recibe información del usuario logeado en el componente menú
-  * @param user data del usuario
-  */
-  onUsuarioLogeado(user :UserData) {
-    
-    if(!user) {
-      console.error("Usuario no logeado");
+  generarPuertas() {
+    this.puertas = [];
+    const bombaIndex = Math.floor(Math.random() * 16);
+
+    for (let i = 0; i < 16; i++) {
+      this.puertas.push({
+        id: i,
+        bomba: i === bombaIndex,
+        abierta: false
+      });
+    }
+  }
+
+  abrirPuerta(puerta: Puerta) {
+    if (this.juegoTerminado || puerta.abierta) return;
+
+    puerta.abierta = true;
+
+    if (puerta.bomba) {
+      this.juegoTerminado = true;
+      this.mensajeFinal = `💣 ¡BOOM! Perdiste con ${this.puntaje} puntos.`;
+    } else {
+      this.puntaje += 10;
+
+      const puertasRestantes = this.puertas.filter(p => !p.abierta);
+      const segurasRestantes = puertasRestantes.filter(p => !p.bomba);
+
+      if (segurasRestantes.length === 0) {
+        this.juegoTerminado = true;
+        this.mensajeFinal = `🎉 ¡Ganaste! Puntaje total: ${this.puntaje}`;
+      }
+    }
+  }
+
+  onUsuarioLogeado(user: UserData) {
+    if (!user) {
+      console.error('Usuario no logeado');
       this.router.navigate(['/error']);
       return;
     }
-    
     this.usuarioLogeado = user;
   }
-
 }

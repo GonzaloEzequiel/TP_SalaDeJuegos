@@ -1,3 +1,4 @@
+<app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
 
 <div id="container">
 
@@ -6,8 +7,7 @@
   @if(!comenzar) {
     <div id="reglas-container">
       <p class="text">
-        Jugamos con dos mazos, los Aces tienen valor "1". <br>
-        Tras levantar la primera carta vas a tener que adivinar si la siguiente será mayor o menor que la actual.<br>
+        Tras levantar la primera carta vas a tener que adivinar si la siguiente será mayor o menor que la actual. Los Aces tienen valor "1".<br>
         Si acertás sumás dos (2) puntos, si fallás perdés un (1) punto. Si acertás la apuesta por "Igual" sumás veinte (20) puntos!.
       </p>
     </div>
@@ -18,35 +18,35 @@
     <div id="juego-container">
 
       <div id="cartas-container">
-          <div class="carta-img-wrapper" id="carta-vieja">
-            @if(imagenCartaVieja != "") {
-              <p class="title">Anterior</p>
-              <img class="carta" src="{{imagenCartaVieja}}" />
-              <p class="text"> </p>
-            }
-          </div>
+        <div class="carta-img-wrapper" id="carta-vieja">
+          @if(imagenCartaVieja != "") {
+            <p class="title">Anterior</p>
+            <img class="carta" src="{{imagenCartaVieja}}" />
+            <p class="text"> </p>
+          }
+        </div>
 
-          <div class="carta-img-wrapper" id="carta-nueva">
-              <p class="title">Actual</p>
-              <img class="carta" src="{{imagenCartaNueva}}" />
-              <p class="text"> </p>
-          </div>
+        <div class="carta-img-wrapper" id="carta-nueva">
+            <p class="title">Actual</p>
+            <img class="carta" src="{{imagenCartaNueva}}" />
+            <p class="text"> </p>
+        </div>
 
-          <div class="carta-img-wrapper" id="carta-proxima">
-            <p class="title">Siguiente</p>
-            <img class="carta" src="https://deckofcardsapi.com/static/img/back.png" alt="dorso próxima carta"/>
-            <p class="text">Restantes: {{cant}}</p>
-          </div>
+        <div class="carta-img-wrapper" id="carta-proxima">
+          <p class="title">Siguiente</p>
+          <img class="carta" src="https://deckofcardsapi.com/static/img/back.png" alt="dorso próxima carta"/>
+          <p class="text">Restantes: {{cant}}</p>
+        </div>
       </div>
 
       <div id="botones-container">
-        <button class="boton" id="boton-menor" (click)="apostar('menor')">MENOR</button>
-        <button class="boton" id="boton-igual" (click)="apostar('igual')">IGUAL</button>
-        <button class="boton" id="boton-mayor" (click)="apostar('mayor')">MAYOR</button>
+        <button class="boton" id="boton-menor" [disabled]="bloqueado" [ngClass]="getClass('menor')" (click)="apostar('menor')">MENOR</button>
+        <button class="boton" id="boton-igual" [disabled]="bloqueado" [ngClass]="getClass('igual')" (click)="apostar('igual')">IGUAL</button>
+        <button class="boton" id="boton-mayor" [disabled]="bloqueado" [ngClass]="getClass('mayor')" (click)="apostar('mayor')">MAYOR</button>
       </div>
 
       <div id="puntaje-container">
-        <p class="text">Puntos: {{puntaje}}</p>
+        <p class="text texto-juego">Puntos: {{puntaje}}</p>
       </div>
 
     </div>

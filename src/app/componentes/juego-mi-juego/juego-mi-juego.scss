@@ -22,68 +22,67 @@ h1 {
   height: 20vh;
   width: 32vh;
   margin: 0 auto;
+  transition: transform 0.2s ease-in-out;
 }
 #startImg:hover {
   cursor: pointer;
+  transform: scale(1.05);
 }
 
 #juego-container {
-	background-position: center;
-	background-repeat: no-repeat;
+  background-position: center;
+  background-repeat: no-repeat;
   width: 50vw;
-  height: 65vh;
+  height: 80vh;
   margin: 0 auto;
-
   display: flex;
   flex-direction: column;
-}
-
-#cartas-container {
-  height: 60vh;
-  background-image: url('/mayormenor/panio.jpg');
-  border: 3px solid var(--color-textos);
-  border-radius: 20px;
-  box-shadow: 3px 3px 10px -3px grey;
-  padding: 1vw;
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
   align-items: center;
-}
-
-.carta-img-wrapper {
-  width: 18%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-#carta-vieja {
-  height: 24vh;
-}
-
-#carta-nueva {
-  height: 30vh;
-  width: 22%;
-}
-
-#carta-proxima {
-  height: 24vh;
-}
-
-.carta-img-wrapper img.carta {
-  max-height: 100%;
-  max-width: 100%;
-  object-fit: contain;
 }
 
 #botones-container {
-  margin: 5vh;
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2rem;
+}
+
+.puerta {
+  height: 9vh;
+  width: 9vh;
+  font-size: 2rem;
+  border: 2px solid var(--color-marcos);
+  border-radius: 8px;
+  background-color: #f5f5f5;
+  color: var(--color-textos);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.puerta:hover:not(.disabled):not(:disabled) {
+  background-color: #e1e1e1;
+}
+
+.puerta.disabled {
+  background-color: #ccc;
+  cursor: default;
+}
+
+#puntaje-container {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.mensaje {
+  font-weight: bold;
+  color: crimson;
+  margin-top: 1rem;
 }
 
 .boton {
@@ -91,4 +90,8 @@ h1 {
   width: 8vw;
   background-color: var(--color-marcos);
   color: var(--color-textos);
+  margin-top: 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
 }

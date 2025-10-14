@@ -17,6 +17,9 @@ export class JuegoPreguntados {
 
   usuarioLogeado :UserData | null = null;
 
+  seleccionActual :string | null = null;
+  correcta :string | null = null;
+  bloqueado :Boolean = false;
   ronda :number = 1;
   maxRondas :number = 10;
   puntaje :number = 0;
@@ -35,10 +38,9 @@ export class JuegoPreguntados {
   }
 
   /**
-   * 
+   * Da inicio a un nuevo juego, reseteando las variables y comenzando la primera ronda
    */
-  nuevoJuego() {   
-
+  nuevoJuego() {
     this.comenzar = true;
 
     this.ronda = 1;
@@ -48,7 +50,6 @@ export class JuegoPreguntados {
     this.opcionA = "", this.opcionB ="", this.opcionC ="", this.opcionD = "";
 
     this.nuevaRonda();
-
   } 
 
   /**
@@ -76,37 +77,57 @@ export class JuegoPreguntados {
    */
   adivinar(seleccion :string) {
 
-    if(seleccion === this.nombrePersonaje) {
+    this.seleccionActual = seleccion;
+    this.correcta = this.nombrePersonaje; 
+    this.bloqueado = true;
+
+    if(seleccion === this.correcta) {
       this.puntaje+= 10;
     }
 
-    this.ronda++;
+    setTimeout(() => {
 
-    if(this.ronda <= this.maxRondas) 
-      this.nuevaRonda();
-    else
-      this.gameOver();
+      this.ronda++;
+
+      if(this.ronda <= this.maxRondas)  {
+        this.nuevaRonda();
+        this.resetColores();
+      }
+      else
+        this.gameOver();
+
+    }, 1000);
 
   }
 
   /**
-   * Recibe información del usuario logeado en del componente menú
-   * @param user data del usuario
+   * Resetea las variables de colores y selección
    */
-  onUsuarioLogeado(user :UserData) {
-
-    if(!user) {
-      console.error("Usuario no logeado");
-      this.router.navigate(['/error']);
-      return;
-    }
-    
-    this.usuarioLogeado = user;
-
+  resetColores() {
+    this.seleccionActual = null;
+    this.correcta = null;
+    this.bloqueado = false;
   }
 
   /**
-   * 
+   * asigna la clase CSS correspondiente a cada opción según si es correcta, incorrecta o no seleccionada
+   * @param opcion Opción a evaluar
+   * @returns 
+   */
+  getClass(opcion: string) {
+    
+    if (!this.seleccionActual) return '';
+
+    if (opcion === this.correcta) return 'correcto';
+    if (opcion === this.seleccionActual && this.seleccionActual !== this.correcta) return 'incorrecto';
+
+    return '';
+  }
+
+
+
+  /**
+   * Da por finalizado el juego, guardando los resultados y mostrando el puntaje final
    */
   gameOver(){
 
@@ -137,6 +158,22 @@ export class JuegoPreguntados {
           this.router.navigate(['/home']);
       });
     });
+
+  }
+
+  /**
+   * Recibe información del usuario logeado en del componente menú
+   * @param user data del usuario
+   */
+  onUsuarioLogeado(user :UserData) {
+
+    if(!user) {
+      console.error("Usuario no logeado");
+      this.router.navigate(['/error']);
+      return;
+    }
+    
+    this.usuarioLogeado = user;
 
   }
 

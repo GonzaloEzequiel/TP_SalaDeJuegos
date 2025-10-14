@@ -76,9 +76,9 @@ Se corrigió un bug por el cual no se mostraba la hora en el mensaje al momento 
 Se corrigió un bug donde si bien validaba el largo del campo 'teletfono' del componente encuesta no se mostraba un mensaje de advertencia.
 
 ### Novedades
-//Se realizaron modificaciones en los indicadores visuales de los Puntajes/Vidas/Rondas relativos a cada juegos.  
-//Se implementaron indicadores visuales para aciertos/errores en cada juego.  
-//Se modificaron los estilos visuales de las botoneras.
+Se realizaron modificaciones en los indicadores de los Puntajes/Vidas/Rondas relativos a cada juegos.  
+Se implementaron indicadores visuales para aciertos/errores en cada juego.  
+Se modificaron los estilos visuales de las botoneras.
 
 ## V 1.4.2
 ### Novedades
@@ -86,8 +86,8 @@ Se implemetó el lazy loading para todas las rutas del aplicativo, tanto para lo
 Se agregó la opción del login rápido para usuario y para admin de forma separada.
 
 ### Correcciones
-//Se corrigió un error por el cual la totalidad de los componentes del formulario Encuesta mostraba sus campos como invalid y sus respectivos mensajes de error.
+Se corrigió un error por el cual la totalidad de los componentes del formulario Encuesta mostraba sus campos como invalid y sus respectivos mensajes de error.
 
 ### V1.5.0  Srpint 6
-//Se implementó el componente Respuestas para los usuarios de perfil administrador.  
-//Se securizaron las rutas mediante el uso de distintos Guards, según usuario logeado (o no), administrador e incompletitud de formulario.
+//Se implementó el componente Respuestas (resultados de la encuesta) para que puedan ser leídas por los usuarios de perfil administrador.  
+Se securizaron las rutas mediante el uso de distintos Guards, según usuario logeado (o no), administrador e incompletitud de formulario.

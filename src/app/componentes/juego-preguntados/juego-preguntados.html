@@ -1,3 +1,4 @@
+<app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
 
 <div id="container">
 
@@ -22,18 +23,18 @@
 
       <div id="botones-container">
         <div id="fila1">
-          <button class="boton" id="botonA" (click)="adivinar(opcionA)">{{opcionA}}</button>
-          <button class="boton" id="botonB" (click)="adivinar(opcionB)">{{opcionB}}</button>
+          <button class="boton" id="botonA" [disabled]="bloqueado" [ngClass]="getClass(opcionA)" (click)="adivinar(opcionA)">{{opcionA}}</button>
+          <button class="boton" id="botonB" [disabled]="bloqueado" [ngClass]="getClass(opcionB)"  (click)="adivinar(opcionB)">{{opcionB}}</button>
         </div>
         <div id="fila2">
-          <button class="boton" id="botonC" (click)="adivinar(opcionC)">{{opcionC}}</button>
-          <button class="boton" id="botonD" (click)="adivinar(opcionD)">{{opcionD}}</button>
+          <button class="boton" id="botonC" [disabled]="bloqueado" [ngClass]="getClass(opcionC)" (click)="adivinar(opcionC)">{{opcionC}}</button>
+          <button class="boton" id="botonD" [disabled]="bloqueado" [ngClass]="getClass(opcionD)" (click)="adivinar(opcionD)">{{opcionD}}</button>
         </div>
       </div>
 
       <div id="puntaje-container">
-        <p class="text">Puntos: {{puntaje}}</p>
-        <p class="text">Ronda: {{ronda}} / {{maxRondas}}</p>
+        <p class="text texto-juego">Puntos: {{puntaje}}</p>
+        <p class="text texto-juego">Ronda: {{ronda}} / {{maxRondas}}</p>
       </div>
 
     </div>

@@ -41,7 +41,7 @@ h1 {
   box-shadow: 3px 3px 10px -3px grey;
   height: 306px;
   width: 306px;
-  margin: 0 auto;
+  margin: 3vh auto;
 }
 
 #foto-personaje{
@@ -55,15 +55,56 @@ h1 {
   margin: 0 auto;
 }
 
-#fila1 #fila2 {
-  margin: 1vh;
+#fila1, #fila2 {
+  margin: 3vh;
   display: flex;
   justify-content: space-around;
 }
 
 .boton {
-  height: 4vh;
-  width: 25vw;
+  height: 6vh;
+  width: 30vw;
   background-color: var(--color-marcos);
   color: var(--color-textos);
+
+  border: 2px solid var(--color-textos);
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px -2px grey;
+  font-size: 1.2rem;
+  font-weight: bold;
+
+  margin: 0 3vh;
+
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--color-contrastes);
+  }
+}
+
+.correcto {
+  background-color: var(--color-validacion) !important;
+  color: var(--color-textos);
+}
+
+.incorrecto {
+  background-color: var(--color-incorreccion) !important;
+  color: var(--color-textos);
+}
+
+.boton:disabled {
+  opacity: 0.9;
+  cursor: not-allowed;
+}
+
+#puntaje-container {
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+  margin: 1rem auto;
+}
+
+.texto-juego {
+  font-size: 1.5rem;
 }

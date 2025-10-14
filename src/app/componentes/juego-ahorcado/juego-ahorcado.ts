@@ -23,6 +23,7 @@ export class JuegoAhorcado {
   maxRondas :number = 5;
   vidas :number = 6;
   puntaje :number = 0;
+  coloresBotones: { [letra: string]: string } = {};
   
   estado: 'jugando' | 'pausa' = 'jugando';
   alfabeto = 'abcdefghijklmnñopqrstuvwxyz';
@@ -89,6 +90,8 @@ export class JuegoAhorcado {
    */
   elegirLetra(letra: string) {    
 
+    if (this.estado !== 'jugando') return;
+
     // Se contrasta con las variantes del diccionario
     const variantes = this.equivalencias[letra] || [letra];
 
@@ -102,6 +105,7 @@ export class JuegoAhorcado {
 
     // Si el array filtrado tiene elementos entonces hubo match, se quita la letra de las remanentes
     if (indexes.length > 0) {
+      this.coloresBotones[letra] = 'verde';
       this.letrasFaltantes -= indexes.length;
 
       if (this.letrasFaltantes === 0) 
@@ -111,9 +115,10 @@ export class JuegoAhorcado {
     // Si el array no tiene elementos pierde una vida, si no quedan vidas se termina la ronda
     else {
 
-      if(this.vidas >= 1)
-        this.vidas--;
-      else {
+      this.coloresBotones[letra] = 'rojo';
+      this.vidas--;
+
+      if(this.vidas == 0) {
         this.estado = 'pausa';
         setTimeout(() =>  { this.finRonda(false); }, 2000);
       }

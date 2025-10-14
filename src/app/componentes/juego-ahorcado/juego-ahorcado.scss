@@ -100,3 +100,25 @@ h1 {
   }
 }
 
+button.verde {
+  background-color: var(--color-validacion) !important;
+  color: var(--color-textos);
+  transition: background-color 0.3s ease;
+}
+
+button.rojo {
+  background-color: var(--color-incorreccion) !important;
+  color: var(--color-textos);
+  transition: background-color 0.3s ease;
+}
+
+#puntaje-container {
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+  margin: 1rem auto;
+}
+
+.texto-juego {
+  font-size: 1.5rem;
+}

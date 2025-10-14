@@ -1,3 +1,4 @@
+<app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
 
 <div id="container">
 
@@ -33,14 +34,15 @@
 			
 			<div id="botones-container" >
 				@for(letra of letras; track letras) {
-					<button [disabled]="letrasElegidas.includes(letra) || estado !== 'jugando'" (click)="elegirLetra(letra)">{{ letra }}</button>
+		 <!-- <button [disabled]="letrasElegidas.includes(letra) || estado !== 'jugando'" (click)="elegirLetra(letra)">{{ letra }}</button> -->
+					<button [disabled]="letrasElegidas.includes(letra) || estado !== 'jugando'" [ngClass]="coloresBotones[letra]" (click)="elegirLetra(letra)">{{ letra }}</button>
 				}
 			</div>
 
 			<div id="puntaje-container">
-				<p class="text">Puntos: {{puntaje}}</p>
-				<p class="text">Ronda: {{ronda}} / {{maxRondas}}</p>
-				<p class="text">Vidas: {{vidas}}</p>
+				<p class="text texto-juego">Puntos: {{puntaje}}</p>
+				<p class="text texto-juego">Ronda: {{ronda}} / {{maxRondas}}</p>
+				<p class="text texto-juego">Vidas: {{vidas}}</p>
 			</div>
 
 		</div>			

@@ -1,53 +1,45 @@
+<app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
 
 <div id="container">
-
-	<h1 class="title">Ahorcado !!!</h1>
+	<h1 class="title">Bomba Oculta 💣</h1>
 	
 	@if(!comenzar) {
 		<div id="reglas-container">
 			<p class="text">
-				Saltá para esquivar todos los obstáculos!<br>
-				Cuanto más lejos llegues sin chocar, más puntos acumularás!
+				Reglas<br><br>
+				Hay 16 puertas. Detrás de una se esconde una bomba.<br>
+				Cada puerta segura vale <b>10 puntos</b>.<br>
+				Si encontrás la bomba… ¡perdés!
 			</p>
 		</div>
 
-		<img id="startImg" src="/start.png" alt="" (click)="nuevoJuego()">
+		<img id="startImg" src="/start.png" alt="Iniciar juego" (click)="nuevoJuego()">
 	}
 	@else {
 		<div id="juego-container">
-
-			<div id="display-container">
-
-
-				
-
-
-      </div>
-
+			
 			<div id="botones-container">
-				<img src="/miJuego/control.png" alt=""> <p>Saltar</p>
+				<div class="grid">
+					@for (puerta of puertas; track puerta.id) {
+						<button 
+							class="puerta" 
+							[class.disabled]="puerta.abierta" 
+							[disabled]="puerta.abierta || juegoTerminado"
+							(click)="abrirPuerta(puerta)">
+							{{ puerta.abierta ? (puerta.bomba ? "💥" : "") : "🚪" }}
+						</button>
+					}
+				</div>
 			</div>
 
 			<div id="puntaje-container">
-				<!-- <p class="text">Puntos: {{puntaje}}</p>
-				<p class="text">Vidas: {{vidas}}</p> -->
-				<!-- <span class="text">Score: {{ score }} • High: {{ highScore }}</span> -->
+				<p class="text texto-juego">Puntos: {{puntaje}}</p>
+				@if (juegoTerminado) {
+					<p class="mensaje">{{ mensajeFinal }}</p>
+					<button class="boton" (click)="nuevoJuego()">Reiniciar 🔄</button>
+				}
 			</div>
 
 		</div>			
 	}
 </div>
-
-
-
-<!-- <div class="game-wrapper" (click)="onTap()" role="button" tabindex="0"> -->
-	<canvas #gameCanvas class="game-canvas"></canvas>
- 
-
-	<!-- <div class="controls">
-		<button (click)="start()" [disabled]="running">Start</button>
-		<button (click)="reset()">Reset</button>
-		<button (click)="jump()">Jump</button>
-		<span class="info">Score: {{ score }} • High: {{ highScore }}</span>
-	</div> -->
-<!-- </div> -->

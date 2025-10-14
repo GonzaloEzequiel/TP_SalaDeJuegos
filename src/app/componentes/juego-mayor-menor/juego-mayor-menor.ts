@@ -20,6 +20,9 @@ export class JuegoMayorMenor {
   susbcripcion! :Subscription;
 
   puntaje :number = 0;
+  seleccionActual :string | null = null;
+  correcta :string | null = null;
+  bloqueado :Boolean = false;
 
   mazo :string = "";
   cant :number = 0;
@@ -42,7 +45,7 @@ export class JuegoMayorMenor {
     this.puntaje = 0;
     this.imagenCartaVieja = "";
 
-    this.susbcripcion = this.http.get<any>('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=2')
+    this.susbcripcion = this.http.get<any>('https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1')
     .subscribe(res => {
       if (res.success) {
         this.mazo = res.deck_id; 
@@ -100,34 +103,106 @@ export class JuegoMayorMenor {
     });
   }
 
-  /**
-   * Evalúa la respuesta del usuario y procesa el puntaje según corresponda
-   * @param opcion el tipo de apuesta
-   */
-  async apostar(opcion :string) {
+  // /**
+  //  * Evalúa la respuesta del usuario y procesa el puntaje según corresponda
+  //  * @param opcion el tipo de apuesta
+  //  */
+  // async apostar(opcion :string) {
+
+  //   this.seleccionActual = opcion;
+  //   this.bloqueado = true;
+
+  //   try {
+  //     await this.robarCarta();
+
+  //     if (this.valorCartaNueva > this.valorCartaVieja) this.correcta = 'mayor';
+  //     else if (this.valorCartaNueva < this.valorCartaVieja) this.correcta = 'menor';
+  //     else this.correcta = 'igual';
+
+  //     if (opcion === this.correcta) {
+  //       if (opcion === 'igual') 
+  //         this.puntaje += 20;
+  //       else 
+  //         this.puntaje += 2;
+  //     } else if (this.puntaje > 0 && this.valorCartaNueva !== this.valorCartaVieja) 
+  //       this.puntaje--;
+      
+  //     setTimeout(() => {
+  //       if (this.cant === 0) 
+  //         this.gameOver();
+  //       else 
+  //         this.resetColores();
+  //     }, 1000);
+
+  //   }
+  //   catch (err) {
+  //     console.error("Error al apostar:", err);
+  //   }    
+  // }
+
+
+  async apostar(opcion: string) {
+    this.bloqueado = true;
 
     try {
       await this.robarCarta();
 
-      if( (opcion === "menor" && this.valorCartaNueva < this.valorCartaVieja) ||
-          (opcion === "mayor" && this.valorCartaNueva > this.valorCartaVieja) )
-        this.puntaje += 2;
-      else if(opcion === "igual" && this.valorCartaNueva == this.valorCartaVieja) 
-        this.puntaje += 20;
-      else if(this.puntaje > 0 && this.valorCartaNueva != this.valorCartaVieja)
-        this.puntaje --;
+      // Determinar la opción correcta según las cartas
+      let correctaTemp: string;
+      if (this.valorCartaNueva > this.valorCartaVieja) correctaTemp = 'mayor';
+      else if (this.valorCartaNueva < this.valorCartaVieja) correctaTemp = 'menor';
+      else correctaTemp = 'igual';
 
-      if(this.cant == 0)
-        this.gameOver();
+      // Calcular puntaje
+      if (opcion === correctaTemp) {
+        if (opcion === 'igual') this.puntaje += 20;
+        else this.puntaje += 2;
+      } else if (this.puntaje > 0 && this.valorCartaNueva !== this.valorCartaVieja) {
+        this.puntaje--;
+      }
 
-    }
-    catch (err) {
+      // 👇 Ahora seteamos ambas al mismo tiempo
+      this.correcta = correctaTemp;
+      this.seleccionActual = opcion;
+
+      // Esperar 1 segundo para mostrar colores antes de resetear
+      setTimeout(() => {
+        if (this.cant === 0) this.gameOver();
+        else this.resetColores();
+      }, 1000);
+
+    } catch (err) {
       console.error("Error al apostar:", err);
-    }    
+    }
+  }
+
+
+
+  /**
+   * Resetea las variables de colores y selección
+   */
+  resetColores() {
+    this.seleccionActual = null;
+    this.correcta = null;
+    this.bloqueado = false;
   }
 
   /**
-   * 
+   * asigna la clase CSS correspondiente a cada opción según si es correcta, incorrecta o no seleccionada
+   * @param opcion Opción a evaluar
+   * @returns 
+   */
+  getClass(opcion: string) {
+    if (!this.seleccionActual) return '';
+
+  if (opcion === this.correcta) return 'correcto';
+  if (opcion === this.seleccionActual && this.seleccionActual !== this.correcta) return 'incorrecto';
+
+  return '';
+  }
+
+  /**
+   * Da por finalizado el juego, guardando los resultados y mostrando el puntaje final
    */
   gameOver(){
 
