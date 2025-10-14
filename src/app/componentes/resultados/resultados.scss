@@ -48,3 +48,14 @@ th {
   font-size: 20px;
   text-align: center;
 }
+
+.btn {
+  display: block;
+  margin: 1.5rem auto 0 auto;
+  background-color: var(--color-fondos);
+  color: var(--color-textos);
+  padding: 0.5rem 2rem;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
