@@ -22,9 +22,9 @@ export class JuegoMiJuego {
   usuarioLogeado :UserData | null = null;
 
   puertas :Puerta[] = [];
-  cantPuertas :number = 16;
-
+  piso :number = 1;
   puntaje :number = 0;
+  vidas :number = 2;
   juegoTerminado :boolean = false;
   mensajeFinal :string = '';
 
@@ -34,25 +34,20 @@ export class JuegoMiJuego {
     this.comenzar = false;
   }
 
-  /**
-   * 
-   */
   nuevoJuego() {
     this.puntaje = 0;
+    this.piso = 1;
     this.comenzar = true;
     this.juegoTerminado = false;
     this.mensajeFinal = '';
     this.generarPuertas();
   }
 
-  /**
-   * 
-   */
   generarPuertas() {
     this.puertas = [];
     const bombaIndex = Math.floor(Math.random() * 16);
 
-    for (let i = 0; i < this.cantPuertas; i++) {
+    for (let i = 0; i < 16; i++) {
       this.puertas.push({
         id: i,
         bomba: i === bombaIndex,
@@ -73,8 +68,19 @@ export class JuegoMiJuego {
 
     if (puerta.bomba) {
 
-      this.juegoTerminado = true;
-      this.gameOver();
+      this.vidas--;
+
+      if(this.vidas <= 0) {
+        this.juegoTerminado = true;
+        this.gameOver();
+      }
+      else {
+        Swal.fire({
+          title: "💥 Te queda la última vida",
+          icon: "warning"
+        })
+        this.nuevoPiso();
+      }
 
     } else {
 
@@ -84,10 +90,29 @@ export class JuegoMiJuego {
       const segurasRestantes = puertasRestantes.filter(p => !p.bomba);
 
       if (segurasRestantes.length === 0) {
-        this.gameOver();
+        
+        if(this.piso == 1) {
+          this.piso++;
+
+          Swal.fire({
+            title: "Segundo piso",
+            text: `Rescatá a los demás perros!.`,
+            icon: "info"
+          })
+
+          this.nuevoPiso();
+        }
+        else {
+          this.gameOver();
+        }
       }
     }
 
+  }
+
+  nuevoPiso() {
+    this.piso++;
+    this.generarPuertas();
   }
 
   /**

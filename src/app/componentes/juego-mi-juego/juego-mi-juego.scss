@@ -40,7 +40,7 @@ h1 {
   align-items: center;
 }
 
-#botones-container {
+#puertas-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,31 +67,21 @@ h1 {
 
 .puerta:hover:not(.disabled):not(:disabled) {
   background-color: #e1e1e1;
+  transform: scale(1.01);
 }
 
 .puerta.disabled {
-  background-color: #ccc;
+  background-color: #188a14de;
   cursor: default;
 }
 
 #puntaje-container {
-  margin-bottom: 2rem;
-  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  width: 90%;
+  margin: 1rem auto;
 }
 
-.mensaje {
-  font-weight: bold;
-  color: crimson;
-  margin-top: 1rem;
-}
-
-.boton {
-  height: 4vh;
-  width: 8vw;
-  background-color: var(--color-marcos);
-  color: var(--color-textos);
-  margin-top: 1rem;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
+.texto-juego {
+  font-size: 1.5rem;
 }

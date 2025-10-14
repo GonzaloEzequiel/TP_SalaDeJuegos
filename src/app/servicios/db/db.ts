@@ -13,7 +13,7 @@ export class DbService {
   constructor() {}
 
   /**
-   * Almacena en la BBDD los puntajes de los jugadores/juegos en la tabla 'RESULTADOS_JUEGOS'
+   * Almacena en la BBDD los puntajes de los jugadores/juegos en la tabla 'RESULTADOS'
    * @param idUsuario 
    * @param usuario 
    * @param idJuego 
@@ -21,7 +21,7 @@ export class DbService {
    */
   guardarResultadosJuegos(idUsuario :number, usuario :string, idJuego :number, puntaje :number) {
 
-    this.client.from('RESULTADOS_JUEGOS').insert({
+    this.client.from('RESULTADOS').insert({
       ID_USUARIO: idUsuario,
       USUARIO: usuario,
       ID_JUEGO: idJuego,
@@ -35,5 +35,36 @@ export class DbService {
     });
 
   }
-  
+
+  /**
+   * 
+   * @param idJuego 
+   */
+  async obtenerTopPuntajes(idJuego :number) {
+
+    await this.client.from('RESULTADOS').select('USUARIO, PUNTAJE, FECHA_CREACION')
+    .eq('ID_JUEGO', idJuego)
+    .order('PUNTAJE', { ascending: false })
+    .limit(3)
+    .then(({data, error}) => {
+      if(error)
+        console.error(`Error: ${error.message}`);
+    
+      return data;
+    });
+  }
+
+  /**
+   * 
+   */
+  async obternerRespuestas() {
+    await this.client.from('RESPUESTAS').select()
+    .then(({data, error}) => {
+      if(error)
+        console.error(`Error: ${error.message}`);
+    
+      return data;
+    });
+  }
+
 }

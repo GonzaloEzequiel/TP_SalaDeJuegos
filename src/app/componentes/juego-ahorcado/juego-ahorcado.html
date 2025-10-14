@@ -14,6 +14,8 @@
 		</div>
 
 		<img id="startImg" src="/start.png" alt="" (click)="nuevoJuego()">
+
+		
 	}
 	@else {
 		<div id="juego-container">
@@ -34,7 +36,6 @@
 			
 			<div id="botones-container" >
 				@for(letra of letras; track letras) {
-		 <!-- <button [disabled]="letrasElegidas.includes(letra) || estado !== 'jugando'" (click)="elegirLetra(letra)">{{ letra }}</button> -->
 					<button [disabled]="letrasElegidas.includes(letra) || estado !== 'jugando'" [ngClass]="coloresBotones[letra]" (click)="elegirLetra(letra)">{{ letra }}</button>
 				}
 			</div>
