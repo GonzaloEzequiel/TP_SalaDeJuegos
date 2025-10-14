@@ -64,6 +64,8 @@ export class JuegoAhorcado {
 
     this.estado = 'jugando';
 
+    this.coloresBotones = {};
+
     this.susbcripcion = this.http.get<string[]>('https://random-word-api.herokuapp.com/word?lang=es')
     .subscribe({
       next: res => {
@@ -189,7 +191,7 @@ export class JuegoAhorcado {
           this.router.navigate(['/home']);
       });
 
-    });    
+    });
   }
 
   ngOnDestroy() {

@@ -87,9 +87,9 @@ export class JuegoPreguntados {
 
     setTimeout(() => {
 
-      this.ronda++;
-
-      if(this.ronda <= this.maxRondas)  {
+      
+      if(this.ronda < this.maxRondas)  {
+        this.ronda++;
         this.nuevaRonda();
         this.resetColores();
       }

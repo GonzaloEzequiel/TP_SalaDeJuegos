@@ -1,15 +1,14 @@
 <app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
 
 <div id="container">
-	<h1 class="title">Bomba Oculta 💣</h1>
+	<h1 class="title">Puerta Final 💣</h1>
 	
 	@if(!comenzar) {
 		<div id="reglas-container">
 			<p class="text">
-				Reglas<br><br>
-				Hay 16 puertas. Detrás de una se esconde una bomba.<br>
-				Cada puerta segura vale <b>10 puntos</b>.<br>
-				Si encontrás la bomba… ¡perdés!
+				Rescatá a todos los perritos del edificio!<br>
+				Son dos pisos con 16 puertas. Detrás de una se esconde una bomba.<br>
+				Cada perro salvado vale diez (10) puntos.
 			</p>
 		</div>
 
@@ -26,7 +25,7 @@
 							[class.disabled]="puerta.abierta" 
 							[disabled]="puerta.abierta || juegoTerminado"
 							(click)="abrirPuerta(puerta)">
-							{{ puerta.abierta ? (puerta.bomba ? "💥" : "") : "🚪" }}
+							{{ puerta.abierta ? (puerta.bomba ? "💣" : "🐕") : "🚪" }}
 						</button>
 					}
 				</div>
@@ -43,3 +42,5 @@
 		</div>			
 	}
 </div>
+
+
