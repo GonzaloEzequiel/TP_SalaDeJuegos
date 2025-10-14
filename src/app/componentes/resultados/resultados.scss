@@ -1,0 +1,50 @@
+#main-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#login-title {
+  font-weight: bolder;
+  font-size: 40px;
+  text-align: center;
+  color: var(--color-textos);
+}
+
+#cuadro-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#respuestas-container {
+  width: 80vw;
+  border: 3px solid white;
+  border-radius: 20px;
+  background-color: rgba(96, 150, 186, 0.8);
+  box-shadow: 3px 3px 10px -3px grey;
+  margin: 2vh auto;
+  padding: 1vw;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+#tabla-respuestas {
+  width: 90%;
+  margin: 1vw;
+}
+
+th {
+  font-size: 22px;
+  text-align: center;
+  padding: 10px;
+  border-bottom: 2px solid white;
+}
+
+.text {
+  font-size: 20px;
+  text-align: center;
+}

@@ -56,7 +56,7 @@
               <label><input type="checkbox" (change)="onCheckboxChange($event)" value="Ahorcado" > Ahorcado</label>
               <label><input type="checkbox" (change)="onCheckboxChange($event)" value="Mayor o Menor" > Mayor o Menor</label>
               <label><input type="checkbox" (change)="onCheckboxChange($event)" value="Preguntados" > Preguntados</label>
-              <label><input type="checkbox" (change)="onCheckboxChange($event)" value="MiJuegoUNDEFINED" > Mi Juego Propio</label>
+              <label><input type="checkbox" (change)="onCheckboxChange($event)" value="MiJuegoUNDEFINED" > Puerta Final</label>
           </div>
           <small class="text-danger" *ngIf="juegos?.hasError('required') && (juegos?.touched || juegos?.dirty)">Campo obligatorio</small>
         </div>

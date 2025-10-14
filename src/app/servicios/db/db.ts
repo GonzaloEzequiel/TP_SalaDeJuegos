@@ -43,28 +43,37 @@ export class DbService {
   async obtenerTopPuntajes(idJuego :number) {
 
     await this.client.from('RESULTADOS').select('USUARIO, PUNTAJE, FECHA_CREACION')
-    .eq('ID_JUEGO', idJuego)
-    .order('PUNTAJE', { ascending: false })
-    .limit(3)
-    .then(({data, error}) => {
-      if(error)
-        console.error(`Error: ${error.message}`);
-    
-      return data;
-    });
+      .eq('ID_JUEGO', idJuego)
+      .order('PUNTAJE', { ascending: false })
+      .limit(3)
+      .then(({data, error}) => {
+        if(error)
+          console.error(`Error: ${error.message}`);
+      
+        return data;
+      });
   }
 
   /**
    * 
    */
   async obternerRespuestas() {
-    await this.client.from('RESPUESTAS').select()
-    .then(({data, error}) => {
-      if(error)
-        console.error(`Error: ${error.message}`);
-    
-      return data;
-    });
-  }
 
+    try {
+      const { data, error }  = await this.client.from('RESPUESTAS').select('*')
+        
+      if(error) {
+        console.error(`Error: ${error.message}`);
+        return [];
+      }
+      
+      return data || [];
+
+    }
+    catch(error) {
+      console.error('Error obteniendo respuestas: ', error);
+      return [];
+    }
+
+  }
 }

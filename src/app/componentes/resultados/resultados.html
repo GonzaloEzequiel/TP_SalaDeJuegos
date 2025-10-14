@@ -1,2 +1,54 @@
 <app-menu (usuarioLogeo)="onUsuarioLogeado($event)"></app-menu>
 
+<div id="main-container">
+  <div id="cuadro-container">
+
+    @if(respuestas.length === 0) {
+      <h3 class="title" id="login-title">No hay respuestas para mostrar...</h3>
+    }
+    @else {
+
+      <h3 class="title" id="login-title">Resultados Encuesta</h3>
+
+
+      <div id="respuestas-container">
+
+        <table id="tabla-respuestas">
+          <thead>
+            <tr>
+              <th class="text">Nombre</th>
+              <th class="text">Apellido</th>
+              <th class="text">Edad</th>
+              <th class="text">Teléfono</th>
+              <th class="text">Volvería</th>
+              <th class="text">Juegos Favoritos</th>
+              <th class="text">Sugerencias</th>
+            </tr>
+          </thead>
+          <tbody>
+          @for(respuesta of respuestas; track respuesta) {
+            <tr>
+              <td class="text">{{respuesta.NOMBRE_USUARIO}}</td>
+              <td class="text">{{respuesta.APELLIDO_USUARIO}}</td>
+              <td class="text">{{respuesta.EDAD_USUARIO}}</td>
+              <td class="text">{{respuesta.TELEFONO_USUARIO}}</td>
+              <td class="text">{{respuesta.RESPUESTA_VISITA}}</td>
+              <td class="text">
+                <ul>
+                  @for(juego of respuesta.RESPUESTA_JUEGO; track juego) {
+                    <li>{{juego}}</li>
+                  }
+                </ul>
+              </td>
+              <td class="text"><button (click)="mostrarSugerencia(respuesta)"> VER </button></td>
+
+            </tr>
+          }
+          </tbody>
+        </table>
+
+      </div>
+    }
+
+  </div>
+</div>

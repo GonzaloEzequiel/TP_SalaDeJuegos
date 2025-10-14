@@ -89,5 +89,5 @@ Se agregó la opción del login rápido para usuario y para admin de forma separ
 Se corrigió un error por el cual la totalidad de los componentes del formulario Encuesta mostraba sus campos como invalid y sus respectivos mensajes de error.
 
 ### V1.5.0  Srpint 6
-//Se implementó el componente Respuestas (resultados de la encuesta) para que puedan ser leídas por los usuarios de perfil administrador.  
+Se implementó el componente Respuestas (resultados de la encuesta) para que puedan ser leídas por los usuarios de perfil administrador.  
 Se securizaron las rutas mediante el uso de distintos Guards, según usuario logeado (o no), administrador e incompletitud de formulario.

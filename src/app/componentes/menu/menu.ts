@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { DbService } from '../../servicios/db/db';
 import { UserData } from '../../models/user-data';
+import { AuthService } from '../../servicios/auth/auth';
 import { NgIf } from '@angular/common';
 
 
@@ -18,11 +19,12 @@ export class Menu {
   tituloApp = 'Sala de Juegos';
   isMenuOpen = false;
   isLoggedUser = false;
+  isAdminLogged = false;
   isLoading = true;
 
   @Output() usuarioLogeo = new EventEmitter<UserData>();
 
-  constructor(private router :Router, public db :DbService) {}
+  constructor(private router :Router, public auth :AuthService, public db :DbService) {}
   
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
@@ -38,6 +40,7 @@ export class Menu {
    * Lectura de la información del usuario logeado
    */ 
   async consultarUsuario() { 
+
     try { 
 
       const { data: { user }, error: userError } = await this.db.client.auth.getUser(); 
@@ -56,6 +59,7 @@ export class Menu {
       }
 
       this.userdata = data;
+      this.isAdminLogged = await this.auth.isAdmin();
 
       if(this.userdata) {
 

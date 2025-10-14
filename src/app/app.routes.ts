@@ -19,24 +19,24 @@ export const routes: Routes = [
     path: 'juegos',
     loadChildren: () => import('./modulos/juegos/juegos-module').then(m => m.JuegosModule),
     canActivate: [loggedGuard]
+  },  
+  {
+    path : 'home',
+    loadComponent: () => import('./componentes/home/home').then(c => c.Home)
   },
   {
     path : 'chat',
     loadComponent: () => import('./componentes/chat/chat').then(c => c.Chat)
-  },
-  {
-    path : 'resultados',
-    loadComponent: () => import('./componentes/resultados/resultados').then(c => c.Resultados),
-    canActivate: [adminGuard]
-  },
+  },  
   {
     path : 'encuesta',
     loadComponent: () => import('./componentes/encuesta/encuesta').then(c => c.Encuesta),
     canDeactivate: [incFormGuard]
   },
   {
-    path : 'home',
-    loadComponent: () => import('./componentes/home/home').then(c => c.Home)
+    path : 'resultados',
+    loadComponent: () => import('./componentes/resultados/resultados').then(c => c.Resultados),
+    canActivate: [adminGuard]
   },  
   {
     path : 'quiensoy',
